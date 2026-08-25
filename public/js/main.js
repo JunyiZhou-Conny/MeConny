@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initLogoLoop();
     initHeroParticles();
+    initOrbTriangle();
     initSkillUniverse();
     initBorderGlow();
     initTokenMonitorWidget();
@@ -184,6 +185,11 @@ function initLogoLoop() {
 function initHeroParticles() {
     if (!window.HeroParticles || typeof window.HeroParticles.initHeroParticleCanvas !== 'function') return;
     window.HeroParticles.initHeroParticleCanvas();
+}
+
+function initOrbTriangle() {
+    if (!window.OrbTriangle || typeof window.OrbTriangle.init !== 'function') return;
+    window.OrbTriangle.init();
 }
 
 /* ── 9. Skill Universe ─────────────────── */

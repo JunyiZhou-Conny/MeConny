@@ -226,6 +226,22 @@ h3{font-size:clamp(1.3rem,2.5vw,1.7rem);font-weight:600}
     min-height:100vh;display:flex;align-items:center;
     padding-top:100px;padding-bottom:3rem;position:relative;overflow:hidden;
 }
+.hero-orb-field{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .9s var(--ease);
+}
+.hero-orb-field.is-orb-ready{
+    opacity:1;
+}
+.hero-orb-canvas{
+    display:block;
+    width:100%;
+    height:100%;
+}
 .hero-content{
     width:min(calc(100% - clamp(12rem,18vw,15rem)),1120px);
     max-width:none;
