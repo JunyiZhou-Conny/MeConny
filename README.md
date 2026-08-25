@@ -11,11 +11,17 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`. [`proxy.ts`](proxy.ts) serves [`public/index.html`](public/index.html).
+Open `http://localhost:3000`. [`proxy.ts`](proxy.ts) and [`next.config.ts`](next.config.ts) rewrite `/` to [`public/index.html`](public/index.html).
 
 ```bash
 npm run verify
 ```
+
+## Go live
+
+The host is Vercel (Hobby, $0). This checkout cannot log into your account.
+
+Exact clicks: [`docs/go-live.md`](docs/go-live.md). Short version: [vercel.com/new](https://vercel.com/new) → Import **MeConny** → Deploy → open the `*.vercel.app` URL.
 
 ## Edit copy
 
