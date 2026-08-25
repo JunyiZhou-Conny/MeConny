@@ -109,11 +109,12 @@ void main() {
             const count = row + 1;
             const y = cy - rise * 1.5 + row * rise;
             for (let col = 0; col < count; col += 1) {
+                const x = cx + (col - (count - 1) / 2) * spacing;
                 orbs.push({
-                    restX: cx + (col - (count - 1) / 2) * spacing,
+                    restX: x,
                     restY: y,
-                    x: 0,
-                    y: 0,
+                    x,
+                    y,
                     phase: (row * 1.7 + col * 0.9) % (Math.PI * 2),
                     pulse: 0.5 + ((row + col) % 5) * 0.09,
                     gain: 1,
@@ -255,7 +256,7 @@ void main() {
     function initOrbTriangle() {
         if (typeof document === "undefined") return null;
         const host = document.querySelector("[data-orb-triangle]");
-        const canvas = host ? host.querySelector("canvas") : null;
+        let canvas = host ? host.querySelector("canvas") : null;
         if (!host || !canvas) return null;
 
         const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -264,6 +265,9 @@ void main() {
             if (webgl) return webgl;
         } catch (error) {
             console.warn("Orb triangle WebGL failed, using 2D.", error);
+            const fresh = canvas.cloneNode(false);
+            canvas.replaceWith(fresh);
+            canvas = fresh;
         }
 
         const ctx = canvas.getContext("2d", { alpha: true });
