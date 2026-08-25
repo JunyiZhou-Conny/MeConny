@@ -14,7 +14,7 @@ This is the public hub for Junyi (Conny) Zhou. It is a person page, not a produc
 
 The **look** is Javis Ng’s published GitHub Pages chrome (`public/css/style.css`, `public/js/*`), from [javis603.github.io](https://github.com/Javis603/javis603.github.io). The **words** are Conny’s. Do not put Javis’s name, Token Monitor, Discord-AIBot, or `javis-ai.com` back on this hub. Do not poll his Token Monitor worker.
 
-`proxy.ts` serves `public/index.html` at `/`. Do not rebuild the hub as a React page unless asked.
+`proxy.ts` and `next.config.ts` rewrite `/` to `public/index.html` (static file, no disk read). Do not rebuild the hub as a React page unless asked. Go-live steps live in [`docs/go-live.md`](docs/go-live.md).
 
 ## Commands
 
