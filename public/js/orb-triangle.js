@@ -83,6 +83,8 @@
             spacing = Math.min(width, height) * (width < 720 ? 0.118 : 0.092);
             orbs = buildTetractys(width * 0.72, height * 0.38, spacing);
             host.classList.add("is-orb-ready");
+            window.cancelAnimationFrame(frameId);
+            paint(performance.now());
         }
 
         function paint(now) {
@@ -139,7 +141,6 @@
         }
 
         resize();
-        paint(performance.now());
         window.addEventListener("resize", resize, { passive: true });
         window.addEventListener("pointermove", onPointerMove, { passive: true });
         window.addEventListener("pointerleave", onPointerLeave, { passive: true });
