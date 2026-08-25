@@ -47,7 +47,7 @@ To add a featured project:
 
 ## Visual system
 
-Do not restyle `public/css/style.css` unless the user asks. Outfit, cream-on-near-black, particle monogram, floating nav, skill universe — that is the point. The monogram letters are `CZ` in `public/js/hero-particles.js`. The hero also has a tetractys of glowing orbs in `public/js/orb-triangle.js` (Vercel-style bloom, not a restyle of Javis’s CSS).
+Do not restyle `public/css/style.css` unless the user asks. Outfit, cream-on-near-black, floating nav, skill universe — that is the point. The hero mark is a WebGL tetractys of orbs in `public/js/orb-triangle.js` (Vercel-style bloom). Do not put the old CZ particle monogram back unless asked.
 
 ## GitHub front door
 
