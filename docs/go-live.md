@@ -1,8 +1,10 @@
 # Put MeConny on the internet
 
-The hub is ready to host. Vercel is the host. You still have to click import once — this machine cannot log into your Vercel account.
+The hub is ready to host. Vercel is the host. Anonymous previews from this machine last **60 minutes**. A URL you keep requires one GitHub login on your side.
 
-Ignore the homepage that says **Agentic Infrastructure**. That is marketing. You only need **Add New → Project**.
+Ignore the homepage that says **Agentic Infrastructure**. That is marketing. You only need **Claim** or **Add New → Project**.
+
+If an agent already gave you a **Claim** link, use that first. It keeps the preview that is already live. Then do the import below so later pushes to GitHub update the site.
 
 ## 1. Open the import page
 

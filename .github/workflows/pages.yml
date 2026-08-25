@@ -1,0 +1,52 @@
+name: github-pages
+
+on:
+  push:
+    branches: [main, cursor/go-live-vercel-3e53]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stage the static hub
+        run: |
+          mkdir -p _site
+          cp -a public/. _site/
+          python3 - <<'PY'
+          from pathlib import Path
+
+          page = Path("_site/index.html")
+          html = page.read_text()
+          if "<base " not in html:
+              html = html.replace(
+                  "<head>",
+                  '<head>\n    <base href="/MeConny/">',
+                  1,
+              )
+          page.write_text(html)
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
