@@ -1,10 +1,16 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+const zhouFont = await readFile(
+  join(process.cwd(), "app/fonts/noto-serif-sc-zhou.ttf"),
+);
+
+export default async function OpenGraphImage() {
   return new ImageResponse(
     (
       <div
@@ -20,7 +26,9 @@ export default function OpenGraphImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "baseline", gap: 16 }}>
-          <span style={{ fontSize: 48, color: "#5ec8b8" }}>{site.identity.seal}</span>
+          <span style={{ fontSize: 48, color: "#5ec8b8", fontFamily: "Noto Serif SC" }}>
+            {site.identity.seal}
+          </span>
           <span style={{ fontSize: 22, letterSpacing: "0.18em", color: "#8a9ea3" }}>
             MECONNY
           </span>
@@ -35,6 +43,16 @@ export default function OpenGraphImage() {
         </div>
       </div>
     ),
-    size,
+    {
+      ...size,
+      fonts: [
+        {
+          name: "Noto Serif SC",
+          data: zhouFont,
+          style: "normal",
+          weight: 400,
+        },
+      ],
+    },
   );
 }

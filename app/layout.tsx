@@ -21,10 +21,10 @@ const mono = IBM_Plex_Mono({
   weight: ["400", "500"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   title: `${site.identity.name} — MeConny`,
   description: site.identity.oneLiner,
   applicationName: "MeConny",
