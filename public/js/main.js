@@ -284,14 +284,16 @@ function initBorderGlow() {
 
 /* ── 11. Smooth Scroll ─────────────────── */
 function initSmoothScroll() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const behavior = reduceMotion ? 'auto' : 'smooth';
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', function (e) {
             e.preventDefault();
             const id = this.getAttribute('href');
-            if (id === '#') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+            if (id === '#') { window.scrollTo({ top: 0, behavior }); return; }
             const el = document.querySelector(id);
             if (el) {
-                window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+                window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior });
             }
         });
     });
