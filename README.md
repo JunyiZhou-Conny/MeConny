@@ -2,7 +2,7 @@
 
 Public hub for [Junyi (Conny) Zhou](https://github.com/JunyiZhou-Conny).
 
-The site shows three systems — a shipped clinical simulator, a cross-species transport CLI, and an autonomous cluster research loop — instead of every GitHub repository.
+The live page is Javis Ng’s published portfolio chrome — vanilla HTML / CSS / JS from [javis603.github.io](https://github.com/Javis603/javis603.github.io) — with Conny’s name, projects, and links in the same slots.
 
 ## Run
 
@@ -11,12 +11,14 @@ npm install
 npm run dev
 ```
 
+Open `http://localhost:3000`. [`proxy.ts`](proxy.ts) serves [`public/index.html`](public/index.html).
+
 ```bash
 npm run verify
 ```
 
-Copy lives in [`content/site.ts`](content/site.ts). Agent rules live in [`AGENTS.md`](AGENTS.md).
+## Edit copy
 
-## GitHub profile
+Change [`public/index.html`](public/index.html). Keep the existing class names (`hero-name`, `project-case`, `skill-universe`, …) so [Javis’s stylesheet](public/css/style.css) still applies.
 
-[`profile/README.md`](profile/README.md) can be copied into a `JunyiZhou-Conny/JunyiZhou-Conny` profile repository. See [`docs/github-hygiene.md`](docs/github-hygiene.md) for the three featured repos.
+The inventory of what the hub is allowed to say lives in [`content/site.ts`](content/site.ts). Agent rules live in [`AGENTS.md`](AGENTS.md).

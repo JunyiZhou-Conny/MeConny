@@ -12,7 +12,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 This is the public hub for Junyi (Conny) Zhou. It is a person page, not a product dump and not a CV.
 
-Javis Ng’s site and Token Monitor are **references for information architecture only**. Do not copy their HTML, CSS, JS, copy, or product pages. Do not feature Token Monitor as Conny’s work.
+The **look** is Javis Ng’s published GitHub Pages chrome (`public/css/style.css`, `public/js/*`), from [javis603.github.io](https://github.com/Javis603/javis603.github.io). The **words** are Conny’s. Do not put Javis’s name, Token Monitor, Discord-AIBot, or `javis-ai.com` back on this hub. Do not poll his Token Monitor worker.
+
+`proxy.ts` serves `public/index.html` at `/`. Do not rebuild the hub as a React page unless asked.
 
 ## Commands
 
@@ -25,14 +27,14 @@ npm run verify    # lint + build
 
 ## Content contract
 
-All public copy lives in [`content/site.ts`](content/site.ts). Layout in `app/` only renders that packet.
+Visible copy lives in [`public/index.html`](public/index.html). Keep the existing class names so Javis’s CSS still applies.
 
-To change who Conny is, what is featured, or how a card reads: edit the packet. Do not hardcode new biography in a component.
+[`content/site.ts`](content/site.ts) is the inventory of facts the hub is allowed to claim. If you change a project, update both files.
 
 To add a featured project:
 
 1. Confirm it earned a hub card (one sentence why a stranger should see it).
-2. Append an object to `site.work.featured`. Keep the list at **three**. Move the displaced card to `supporting` or off the page.
+2. Keep **three** `article.project-case` blocks. Reuse the Token Monitor widget, window, or infra-map visuals already in the CSS.
 3. Use only facts that are already public. Do not invent unpublished science results.
 4. Run `npm run verify`.
 
@@ -40,14 +42,12 @@ To add a featured project:
 
 - Three featured systems. Four pillars. No 12-card grid.
 - Coursework, forks, empty repos, and personal-application repos stay off the hub.
-- Proof over adjectives. Static counts from public READMEs are allowed. Fake LIVE counters are not.
-- Product landing pages come after a product exists. Do not invent `/work/...` marketing routes in v1 unless asked.
+- Proof over adjectives. Static counts from public READMEs are allowed. Do not fake a LIVE token counter.
+- Product landing pages come after a product exists.
 
 ## Visual system
 
-Dark editorial. Cool teal (`--tide` on `--canvas`). Fraunces + IBM Plex. Mark is `周` / `CZ`. This is not cream-on-black Outfit, and it is not a particle monogram.
-
-Respect `prefers-reduced-motion`. Keep the skip link.
+Do not restyle `public/css/style.css` unless the user asks. Outfit, cream-on-near-black, particle monogram, floating nav, skill universe — that is the point. The monogram letters are `CZ` in `public/js/hero-particles.js`.
 
 ## GitHub front door
 

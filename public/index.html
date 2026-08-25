@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junyi (Conny) Zhou — Developer Portfolio</title>
+    <meta name="description" content="Portfolio of Junyi (Conny) Zhou — health data science at Harvard / Wyss. Clinical training tools, single-cell transport, and agentic research loops.">
+    <meta property="og:title" content="Junyi (Conny) Zhou — Developer Portfolio">
+    <meta property="og:description" content="Health data science systems: clinical training, single-cell transport, and agentic research loops.">
+    <meta property="og:url" content="https://github.com/JunyiZhou-Conny/MeConny">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Junyi (Conny) Zhou — Developer Portfolio">
+    <meta name="twitter:description" content="Health data science systems: clinical training, single-cell transport, and agentic research loops.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="icon" href="favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <meta name="theme-color" content="#0b0b11">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background layers -->
+    <div class="bg-mesh"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-noise"></div>
+
+    <!-- Navigation — Floating Pill -->
+    <nav class="nav">
+        <a href="#" class="nav-logo">CZ<span>.</span></a>
+        <div class="nav-center">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#stack">Skills</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-right">
+            <a href="https://github.com/JunyiZhou-Conny" target="_blank" class="nav-gh" data-magnetic aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <!-- Mobile dropdown card -->
+        <div class="nav-dropdown">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#stack">Skills</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section id="hero" class="section-hero">
+        <div class="container hero-content">
+            <div class="hero-copy">
+                <div class="hero-badge" data-reveal>
+                    <span>Portfolio</span>
+                </div>
+                <h1 data-reveal data-delay="80">
+                    <span class="hero-name" data-decrypt>Junyi (Conny) Zhou</span>
+                </h1>
+                <p class="hero-title shiny-text" data-reveal data-delay="160">Health Data Scientist <span class="hero-sep">&</span> Builder</p>
+                <p class="hero-desc" data-reveal data-delay="240">
+                    I build systems that move cells, proteins, and clinical training from experiment to something another person can run.
+                </p>
+                <div class="hero-cta" data-reveal data-delay="320">
+                    <a href="#projects" class="btn btn-primary" data-magnetic>
+                        <span>View Projects</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <a href="https://github.com/JunyiZhou-Conny" target="_blank" class="btn btn-ghost" data-magnetic>
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-mark hero-particle-mark" data-hero-particles aria-hidden="true">
+                <canvas class="hero-particle-canvas"></canvas>
+                <span class="hero-mark-fallback">CZ</span>
+            </div>
+
+            <div class="logo-loop-wrap hero-loop" data-speed="46" data-reveal data-delay="380" aria-label="Tools and platforms">
+                <div class="logo-loop-row">
+                    <div class="logo-track">
+                        <div class="logo-item"><i class="devicon-python-plain"></i><span>Python</span></div>
+                        <div class="logo-item"><img class="si-icon" src="https://cdn.simpleicons.org/pytorch/ffffff" alt=""><span>PyTorch</span></div>
+                        <div class="logo-item"><i class="devicon-react-original"></i><span>React</span></div>
+                        <div class="logo-item"><i class="devicon-amazonwebservices-plain-wordmark"></i><span>AWS</span></div>
+                        <div class="logo-item"><img class="si-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt=""><span>OpenAI</span></div>
+                        <div class="logo-item"><i class="devicon-github-original"></i><span>GitHub</span></div>
+                        <div class="logo-item"><img class="si-icon" src="https://cdn.simpleicons.org/cursor/ffffff" alt=""><span>Cursor</span></div>
+                        <div class="logo-item"><i class="devicon-javascript-plain"></i><span>JavaScript</span></div>
+                        <div class="logo-item"><img class="si-icon" src="https://cdn.simpleicons.org/flask/ffffff" alt=""><span>Flask</span></div>
+                        <div class="logo-item"><img class="si-icon" src="https://cdn.simpleicons.org/mongodb/ffffff" alt=""><span>MongoDB</span></div>
+                        <div class="logo-item"><i class="devicon-python-plain"></i><span>Python</span></div>
+                        <div class="logo-item"><img class="si-icon" src="https://cdn.simpleicons.org/pytorch/ffffff" alt=""><span>PyTorch</span></div>
+                        <div class="logo-item"><i class="devicon-react-original"></i><span>React</span></div>
+                        <div class="logo-item"><i class="devicon-amazonwebservices-plain-wordmark"></i><span>AWS</span></div>
+                        <div class="logo-item"><img class="si-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt=""><span>OpenAI</span></div>
+                        <div class="logo-item"><i class="devicon-github-original"></i><span>GitHub</span></div>
+                        <div class="logo-item"><img class="si-icon" src="https://cdn.simpleicons.org/cursor/ffffff" alt=""><span>Cursor</span></div>
+                        <div class="logo-item"><i class="devicon-javascript-plain"></i><span>JavaScript</span></div>
+                        <div class="logo-item"><img class="si-icon" src="https://cdn.simpleicons.org/flask/ffffff" alt=""><span>Flask</span></div>
+                        <div class="logo-item"><img class="si-icon" src="https://cdn.simpleicons.org/mongodb/ffffff" alt=""><span>MongoDB</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-label" data-reveal>01</div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2 data-reveal data-delay="80">Building at the intersection of <span class="text-gradient">AI and Medicine</span></h2>
+                    <p data-reveal data-delay="160">Focused on health data science, computational biology, and tools other people can run. I learn by shipping — a simulator, a CLI, a cluster loop.</p>
+                </div>
+                <div class="about-focuses" data-reveal data-delay="100">
+                    <div class="focus-item">
+                        <strong>Clinical AI</strong>
+                        <span>Training tools next to physicians</span>
+                    </div>
+                    <div class="focus-item">
+                        <strong>Comp Bio</strong>
+                        <span>Transport, structure, single-cell</span>
+                    </div>
+                    <div class="focus-item">
+                        <strong>Agent loops</strong>
+                        <span>Submit, watch, reflect, decide</span>
+                    </div>
+                    <div class="focus-item">
+                        <strong>Open methods</strong>
+                        <span>CLIs, runbooks, agent files</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROJECTS ==================== -->
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-label" data-reveal>02</div>
+
+            <!-- Pediatric Savior -->
+            <article class="project-case" data-reveal>
+                <div class="project-info">
+                    <div class="project-meta">
+                        <span>Latest Release</span>
+                        <span>2024 — Present</span>
+                        <span>Shipped</span>
+                    </div>
+                    <h3>Pediatric Savior</h3>
+                    <p>A GPT-based rapid-cycle simulator for pediatric airway training, built with Emory Pediatrics and Children's Healthcare of Atlanta. Residents run cases. Admins edit instructions.</p>
+                    <div class="project-outcomes" aria-label="Pediatric Savior highlights">
+                        <span><strong>Who</strong> Emory · Morehouse residents</span>
+                        <span><strong>Shape</strong> Chat · cases · history</span>
+                        <span><strong>Host</strong> Auth0 · AWS</span>
+                    </div>
+                    <div class="project-tech">
+                        <span>React</span><span>Flask</span><span>MongoDB</span><span>Auth0</span><span>AWS</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/JunyiZhou-Conny/Airway-Management-Assistant" target="_blank" rel="noopener" class="project-link" data-magnetic>
+                            View on GitHub <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-visual">
+                    <div class="tm-widget" aria-label="Pediatric Savior">
+                        <div class="tm-widget-bar">
+                            <span class="tm-dot" aria-hidden="true"></span>
+                            <strong>pediatric-savior</strong>
+                            <span class="tm-status">SHIPPED</span>
+                        </div>
+                        <div class="tm-widget-body">
+                            <div class="tm-row">
+                                <span class="tm-label">Who</span>
+                                <span class="tm-value">Residents</span>
+                            </div>
+                            <div class="tm-row">
+                                <span class="tm-label">Access</span>
+                                <span class="tm-value">emory.edu</span>
+                            </div>
+                            <div class="tm-foot">
+                                <span class="tm-foot-item">Auth0 roles</span>
+                                <span class="tm-foot-tag">React · Flask · AWS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- speciesOT -->
+            <article class="project-case" data-reveal>
+                <div class="project-info">
+                    <div class="project-meta">
+                        <span>Featured System</span>
+                        <span>2026 — Present</span>
+                        <span>In Progress</span>
+                    </div>
+                    <h3>speciesOT</h3>
+                    <p>Predict human cells from mouse cells with optimal transport in a shared autoencoder latent space. One CLI lists models, prints a scorecard, and shows the sbatch chain a human still submits.</p>
+                    <div class="project-outcomes" aria-label="speciesOT highlights">
+                        <span><strong>Question</strong> Mouse → human gap</span>
+                        <span><strong>Models</strong> CellOT · scGen</span>
+                        <span><strong>Interface</strong> ./hub CLI</span>
+                    </div>
+                    <div class="project-tech">
+                        <span>Python</span><span>PyTorch</span><span>scanpy</span><span>CellOT</span><span>SLURM</span>
+                    </div>
+                    <a href="https://github.com/JunyiZhou-Conny/speciesOT" target="_blank" class="project-link" data-magnetic>
+                        View on GitHub <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="project-image-wrap" data-tilt>
+                        <div class="project-window-bar">
+                            <span></span><span></span><span></span>
+                            <strong>species-ot</strong>
+                        </div>
+                        <pre class="project-terminal">$ ./hub list
+atlas_full / impact_cellot
+atlas_full / scgen
+
+$ ./hub scorecard
+frac_gap_closed_decoded
+guardrails: means · JS
+
+$ ./hub show &lt;run_id&gt;
+sbatch chain ready</pre>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Autoresearch -->
+            <article class="project-case project-case-secondary" data-reveal>
+                <div class="project-info">
+                    <div class="project-meta">
+                        <span>Agentic System</span>
+                        <span>2026 — Present</span>
+                        <span>Always On</span>
+                    </div>
+                    <h3>scGen / CellOT Autoresearch</h3>
+                    <p>Fairshare-aware ablation search on FASRC Cannon: submit, watch, reflect, decide. A brain proposes the next agenda. A substrate keeps executing if the laptop sleeps.</p>
+                    <div class="project-outcomes" aria-label="Autoresearch highlights">
+                        <span><strong>Loop</strong> 338 experiments</span>
+                        <span><strong>Compute</strong> 79.3 cluster hours</span>
+                        <span><strong>Split</strong> Brain · substrate</span>
+                    </div>
+                    <div class="project-tech">
+                        <span>Python</span><span>SLURM</span><span>FASRC</span><span>YAML policy</span>
+                    </div>
+                    <a href="https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch" target="_blank" class="project-link" data-magnetic>
+                        View on GitHub <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="infra-map" aria-hidden="true">
+                        <span class="infra-node node-edge">Brain</span>
+                        <span class="infra-node node-proxy">Agenda</span>
+                        <span class="infra-node node-core">SLURM</span>
+                        <span class="infra-node node-ai">Cluster</span>
+                        <span class="infra-line line-a"></span>
+                        <span class="infra-line line-b"></span>
+                        <span class="infra-line line-c"></span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ==================== STACK ==================== -->
+    <section id="stack" class="section section-stack">
+        <div class="container">
+            <div class="section-label" data-reveal>03</div>
+            <div class="stack-hero">
+                <div class="stack-copy" data-reveal data-delay="60">
+                    <p class="eyebrow">Health Data Stack</p>
+                    <h2>Skill <span class="text-gradient">Universe</span></h2>
+                    <p class="stack-desc">
+                        A focused map of the tools behind the simulator, the transport CLI, and the cluster loop — shaped by systems I actually build and run.
+                    </p>
+                    <div class="stack-stats" aria-label="Stack focus areas">
+                        <span><strong>4</strong> domains</span>
+                        <span><strong>20+</strong> tools</span>
+                        <span><strong>FASRC</strong> cluster</span>
+                    </div>
+                    <aside class="skill-detail" aria-live="polite">
+                        <span class="skill-detail-domain">Computation</span>
+                        <strong class="skill-detail-name">Python</strong>
+                        <p class="skill-detail-use">speciesOT hub, CellOT training, and the autoresearch loop.</p>
+                    </aside>
+                </div>
+
+                <div class="skill-universe" data-reveal data-delay="120" aria-label="Interactive skill universe">
+                    <div class="orbit orbit-1"></div>
+                    <div class="orbit orbit-2"></div>
+                    <div class="orbit orbit-3"></div>
+                    <div class="orbit orbit-4"></div>
+
+                    <div class="universe-core">
+                        <span>CONNY</span>
+                        <strong>SKILL</strong>
+                    </div>
+
+                    <button class="skill-planet" style="--r:calc(var(--size) * .33);--a:36deg" data-skill="Python" data-domain="Computation" data-use="speciesOT hub, CellOT training, and the autoresearch loop." aria-label="Python">
+                        <i class="devicon-python-plain"></i>
+                    </button>
+                    <button class="skill-planet" style="--r:calc(var(--size) * .33);--a:96deg" data-skill="PyTorch" data-domain="Computation" data-use="Transport maps, VAEs, and model training on the cluster." aria-label="PyTorch">
+                        <img src="https://cdn.simpleicons.org/pytorch/ffffff" alt="">
+                    </button>
+                    <button class="skill-planet" style="--r:calc(var(--size) * .33);--a:156deg" data-skill="scanpy" data-domain="Comp Bio" data-use="Single-cell prep, labeling, and evaluation around speciesOT." aria-label="scanpy">
+                        <i class="devicon-python-plain"></i>
+                    </button>
+                    <button class="skill-planet" style="--r:calc(var(--size) * .33);--a:215deg" data-skill="React" data-domain="Full-stack" data-use="Pediatric Savior chat, case editor, and history UI." aria-label="React">
+                        <i class="devicon-react-original"></i>
+                    </button>
+                    <button class="skill-planet" style="--r:calc(var(--size) * .33);--a:274deg" data-skill="AWS" data-domain="Full-stack" data-use="S3, CloudFront, and Elastic Beanstalk for the airway simulator." aria-label="AWS">
+                        <i class="devicon-amazonwebservices-plain-wordmark"></i>
+                    </button>
+                    <button class="skill-planet" style="--r:calc(var(--size) * .33);--a:339deg" data-skill="SLURM" data-domain="Cluster" data-use="FASRC Cannon jobs, fairshare backoff, and requeue." aria-label="SLURM">
+                        <i class="devicon-linux-plain"></i>
+                    </button>
+                    <button class="skill-planet" style="--r:calc(var(--size) * .43);--a:9deg" data-skill="Flask" data-domain="Backend" data-use="Pediatric Savior API, Auth0, and MongoDB conversations." aria-label="Flask">
+                        <img src="https://cdn.simpleicons.org/flask/ffffff" alt="">
+                    </button>
+                    <button class="skill-planet" style="--r:calc(var(--size) * .43);--a:64deg" data-skill="OpenAI" data-domain="Agents" data-use="Airway simulation assistant and optional research directors." aria-label="OpenAI">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="">
+                    </button>
+                    <button class="skill-planet" style="--r:calc(var(--size) * .43);--a:126deg" data-skill="Cursor" data-domain="Agents" data-use="Building and maintaining this hub and the research repos." aria-label="Cursor">
+                        <img src="https://cdn.simpleicons.org/cursor/ffffff" alt="">
+                    </button>
+                    <button class="skill-planet" style="--r:calc(var(--size) * .43);--a:184deg" data-skill="AlphaFold" data-domain="Comp Bio" data-use="Lab pipelines for protein and nucleic-acid structure prediction." aria-label="AlphaFold">
+                        <i class="devicon-python-plain"></i>
+                    </button>
+                    <button class="skill-planet" style="--r:calc(var(--size) * .43);--a:248deg" data-skill="GitHub" data-domain="Open Source" data-use="Project hosting and the MeConny public hub." aria-label="GitHub">
+                        <i class="devicon-github-original"></i>
+                    </button>
+                    <button class="skill-planet" style="--r:calc(var(--size) * .43);--a:307deg" data-skill="MongoDB" data-domain="Backend" data-use="Cases, conversations, and instruction text for Pediatric Savior." aria-label="MongoDB">
+                        <img src="https://cdn.simpleicons.org/mongodb/ffffff" alt="">
+                    </button>
+                </div>
+            </div>
+
+            <div class="stack-categories" data-reveal data-delay="160">
+                <div class="stack-category border-glow-card">
+                    <span class="edge-light"></span>
+                    <div class="border-glow-inner">
+                        <span>Computation</span>
+                        <p>Python · PyTorch · scanpy · CellOT · AlphaFold · R</p>
+                    </div>
+                </div>
+                <div class="stack-category border-glow-card">
+                    <span class="edge-light"></span>
+                    <div class="border-glow-inner">
+                        <span>Full-stack</span>
+                        <p>React · Flask · MongoDB · Auth0 · AWS</p>
+                    </div>
+                </div>
+                <div class="stack-category border-glow-card">
+                    <span class="edge-light"></span>
+                    <div class="border-glow-inner">
+                        <span>Agents</span>
+                        <p>OpenAI · Cursor · LLM directors · autonomous search loops</p>
+                    </div>
+                </div>
+                <div class="stack-category border-glow-card">
+                    <span class="edge-light"></span>
+                    <div class="border-glow-inner">
+                        <span>Cluster</span>
+                        <p>SLURM · FASRC Cannon · fairshare · HPC</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact" class="section">
+        <div class="container contact-wrap">
+            <div class="section-label" data-reveal>04</div>
+            <h2 data-reveal data-delay="80">Get in <span class="text-gradient">Touch</span></h2>
+            <p class="contact-desc" data-reveal data-delay="160">Write if the work is useful — a collaboration, a question about a repo, or a pointer to something I should see.</p>
+            <a href="mailto:junyizhou@hsph.harvard.edu" class="contact-email" data-reveal data-delay="240" data-magnetic>
+                junyizhou@hsph.harvard.edu <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-links">
+                <a href="https://github.com/JunyiZhou-Conny" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:junyizhou@hsph.harvard.edu" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="footer-meta">
+                <span class="footer-copy" data-name="Conny Zhou" data-start-year="2026">Conny Zhou &copy; 2026</span>
+                <span class="footer-dot">·</span>
+                <span class="footer-visitors" id="busuanzi_container_site_pv" style="display:none">
+                    <span id="busuanzi_value_site_pv">--</span> views
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="js/hero-particles.js" defer></script>
+    <script src="js/main.js" defer></script>
+</body>
+</html>
