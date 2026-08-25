@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFooterYear();
     initSmoothScroll();
     initLogoLoop();
-    initHeroParticles();
+    initOrbTriangle();
     initSkillUniverse();
     initBorderGlow();
     initTokenMonitorWidget();
@@ -180,10 +180,10 @@ function initLogoLoop() {
     });
 }
 
-/* ── 8. Hero Particle Monogram ─────────── */
-function initHeroParticles() {
-    if (!window.HeroParticles || typeof window.HeroParticles.initHeroParticleCanvas !== 'function') return;
-    window.HeroParticles.initHeroParticleCanvas();
+/* ── 8. Hero orb shader ────────────────── */
+function initOrbTriangle() {
+    if (!window.OrbTriangle || typeof window.OrbTriangle.init !== 'function') return;
+    window.OrbTriangle.init();
 }
 
 /* ── 9. Skill Universe ─────────────────── */

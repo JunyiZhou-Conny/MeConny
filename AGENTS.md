@@ -14,7 +14,7 @@ This is the public hub for Junyi (Conny) Zhou. It is a person page, not a produc
 
 The **look** is Javis Ng’s published GitHub Pages chrome (`public/css/style.css`, `public/js/*`), from [javis603.github.io](https://github.com/Javis603/javis603.github.io). The **words** are Conny’s. Do not put Javis’s name, Token Monitor, Discord-AIBot, or `javis-ai.com` back on this hub. Do not poll his Token Monitor worker.
 
-`proxy.ts` serves `public/index.html` at `/`. Do not rebuild the hub as a React page unless asked.
+`proxy.ts` and `next.config.ts` rewrite `/` to `public/index.html` (static file, no disk read). Do not rebuild the hub as a React page unless asked. Go-live steps live in [`docs/go-live.md`](docs/go-live.md).
 
 ## Commands
 
@@ -47,7 +47,7 @@ To add a featured project:
 
 ## Visual system
 
-Do not restyle `public/css/style.css` unless the user asks. Outfit, cream-on-near-black, particle monogram, floating nav, skill universe — that is the point. The monogram letters are `CZ` in `public/js/hero-particles.js`.
+Do not restyle `public/css/style.css` unless the user asks. Outfit, cream-on-near-black, floating nav, skill universe — that is the point. The hero mark is a WebGL tetractys of orbs in `public/js/orb-triangle.js` (Vercel-style bloom). Do not put the old CZ particle monogram back unless asked.
 
 ## GitHub front door
 
