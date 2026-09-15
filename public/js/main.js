@@ -1,5 +1,5 @@
 /* ========================================
-   Javis Ng — Portfolio v2 Interactions
+   MeConny hub interactions
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,9 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initFooterYear();
     initSmoothScroll();
-    initLogoLoop();
-    initHeroParticles();
-    initSkillUniverse();
     initBorderGlow();
     initTokenMonitorWidget();
 });
@@ -120,7 +117,7 @@ function initFooterYear() {
     if (!el) return;
 
     const startYear = parseInt(el.dataset.startYear || '', 10);
-    const name = el.dataset.name || 'Javis Ng';
+    const name = el.dataset.name || 'Conny Zhou';
     if (!startYear) return;
 
     const currentYear = new Date().getFullYear();
@@ -128,105 +125,7 @@ function initFooterYear() {
     el.textContent = `${name} © ${yearText}`;
 }
 
-/* ── 7. Logo Loop — RAF + exponential velocity smoothing ── */
-function initLogoLoop() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const TAU = 0.25; // velocity smoothing constant (~250ms to settle)
-
-    document.querySelectorAll('.logo-loop-wrap').forEach(wrap => {
-        let isHovered = false;
-        wrap.addEventListener('mouseenter', () => { isHovered = true; });
-        wrap.addEventListener('mouseleave', () => { isHovered = false; });
-
-        wrap.querySelectorAll('.logo-track').forEach(track => {
-            const isReverse = track.classList.contains('logo-track--rev');
-            const speed = parseFloat(wrap.dataset.speed || '80');
-            const BASE = isReverse ? -speed : speed; // px/s normal
-            const SLOW = BASE * 0.25; // px/s on hover
-
-            let seqWidth = 0;
-            let offset   = 0;
-            let vel      = BASE;
-            let prevTs   = null;
-
-            const tick = ts => {
-                // Measure exact float width by diffing the first item of each copy
-                if (seqWidth === 0) {
-                    const items = track.querySelectorAll('.logo-item');
-                    const half  = items.length / 2;
-                    if (items[0] && items[half]) {
-                        const r1 = items[0].getBoundingClientRect();
-                        const r2 = items[half].getBoundingClientRect();
-                        seqWidth = Math.abs(r2.left - r1.left);
-                    }
-                }
-
-                if (prevTs !== null && seqWidth > 0) {
-                    const dt     = Math.min((ts - prevTs) / 1000, 0.05); // cap at 50ms
-                    const target = isHovered ? SLOW : BASE;
-                    // Exponential ease toward target velocity (React Bits algorithm)
-                    vel += (target - vel) * (1 - Math.exp(-dt / TAU));
-                    offset = ((offset + vel * dt) % seqWidth + seqWidth) % seqWidth;
-                    track.style.transform = `translate3d(${-offset}px,0,0)`;
-                }
-
-                prevTs = ts;
-                requestAnimationFrame(tick);
-            };
-
-            document.fonts.ready.then(() => requestAnimationFrame(tick));
-        });
-    });
-}
-
-/* ── 8. Hero Particle Monogram ─────────── */
-function initHeroParticles() {
-    if (!window.HeroParticles || typeof window.HeroParticles.initHeroParticleCanvas !== 'function') return;
-    window.HeroParticles.initHeroParticleCanvas();
-}
-
-/* ── 9. Skill Universe ─────────────────── */
-function initSkillUniverse() {
-    const scope = document.querySelector('.section-stack');
-    const universe = document.querySelector('.skill-universe');
-    if (!scope || !universe) return;
-
-    const planets = universe.querySelectorAll('.skill-planet');
-    const name = scope.querySelector('.skill-detail-name');
-    const domain = scope.querySelector('.skill-detail-domain');
-    const use = scope.querySelector('.skill-detail-use');
-    if (!planets.length || !name || !domain || !use) return;
-
-    const setActive = planet => {
-        scope.classList.add('has-active');
-        planets.forEach(p => p.classList.toggle('active', p === planet));
-        name.textContent = planet.dataset.skill || '';
-        domain.textContent = planet.dataset.domain || '';
-        use.textContent = planet.dataset.use || '';
-    };
-
-    const clearActive = () => {
-        scope.classList.remove('has-active');
-        planets.forEach(p => p.classList.remove('active'));
-    };
-
-    planets.forEach(planet => {
-        planet.addEventListener('mouseenter', () => setActive(planet));
-        planet.addEventListener('focus', () => setActive(planet));
-        planet.addEventListener('click', e => {
-            e.stopPropagation();
-            setActive(planet);
-        });
-    });
-
-    universe.addEventListener('mouseleave', clearActive);
-    document.addEventListener('click', e => {
-        if (!scope.contains(e.target)) clearActive();
-    });
-}
-
-/* ── 10. Border Glow ───────────────────── */
+/* ── 7. Border Glow ────────────────────── */
 function initBorderGlow() {
     const cards = document.querySelectorAll('.border-glow-card');
     if (!cards.length) return;
@@ -282,7 +181,7 @@ function initBorderGlow() {
     });
 }
 
-/* ── 11. Smooth Scroll ─────────────────── */
+/* ── 8. Smooth Scroll ──────────────────── */
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', function (e) {
@@ -297,7 +196,7 @@ function initSmoothScroll() {
     });
 }
 
-/* ── 12. Token Monitor live widget ─────── */
+/* ── 9. Widget stats poll (no-op without data-tm-endpoint) ── */
 function initTokenMonitorWidget() {
     const widget = document.querySelector('.tm-widget');
     if (!widget) return;
