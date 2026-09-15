@@ -7,6 +7,9 @@
  *
  * Coordinates are model space. The bust is 1 unit tall, its lowest point sits
  * at y = 0, its footprint is centered on x and z, and the face looks down +z.
+ * Laptop cameras leave the right third of the frame for the card. Phone
+ * cameras center the bust and stand farther back, because the card sits at
+ * the bottom there.
  * Sticker positions and normals come from raycasts against public/3d/einstein.glb.
  * To place a new sticker, open /3d?place=1 and click the bust. The console
  * prints a ready-to-paste sticker entry.
@@ -33,6 +36,11 @@ export type TourStop = {
     target: Vec3;
     /** Vertical field of view in degrees. */
     fov: number;
+    /** Used instead of position and target when the viewport is taller than wide. */
+    phone: {
+      position: Vec3;
+      target: Vec3;
+    };
   };
   /** Page and canvas background while this stop is active. */
   tint: string;
@@ -111,9 +119,13 @@ export const tour = {
       body: "This bust is a 1930 bronze of Albert Einstein from a free museum scan. Conny's own figure replaces it soon. Scroll, or tap a tag, and the camera flies to the next stop.",
       links: [{ href: "/", label: "Back to the hub" }],
       camera: {
-        position: [0.95, 0.78, 1.75],
-        target: [0, 0.6, 0],
+        position: [1.05, 0.74, 1.9],
+        target: [0.16, 0.52, 0],
         fov: 32,
+        phone: {
+          position: [0.9, 0.72, 2.3],
+          target: [0, 0.62, 0],
+        },
       },
       tint: "#F2ECE2",
     },
@@ -130,9 +142,13 @@ export const tour = {
         },
       ],
       camera: {
-        position: [-0.62, 0.34, 0.98],
-        target: [-0.04, 0.3, 0.1],
+        position: [-0.6, 0.5, 1.05],
+        target: [-0.04, 0.36, 0.1],
         fov: 30,
+        phone: {
+          position: [-0.8, 0.62, 1.55],
+          target: [-0.04, 0.4, 0.1],
+        },
       },
       tint: "#F7DDC7",
     },
@@ -149,6 +165,10 @@ export const tour = {
         position: [-0.92, 0.9, 0.62],
         target: [-0.14, 0.7, 0.04],
         fov: 30,
+        phone: {
+          position: [-1.35, 1.02, 0.92],
+          target: [-0.14, 0.7, 0.04],
+        },
       },
       tint: "#DCEBE6",
     },
@@ -168,6 +188,10 @@ export const tour = {
         position: [0.78, 0.98, 0.86],
         target: [0.08, 0.74, 0.08],
         fov: 30,
+        phone: {
+          position: [1.12, 1.16, 1.24],
+          target: [0.08, 0.76, 0.08],
+        },
       },
       tint: "#DBDAEA",
     },
@@ -192,6 +216,10 @@ export const tour = {
         position: [1.05, 0.5, 0.72],
         target: [0.14, 0.36, 0.1],
         fov: 32,
+        phone: {
+          position: [1.5, 0.6, 1.02],
+          target: [0.14, 0.4, 0.1],
+        },
       },
       tint: "#F2ECE2",
     },
