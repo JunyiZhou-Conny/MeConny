@@ -325,8 +325,8 @@ export function Tour() {
 
       group.rotation.y = placing ? 0 : Math.sin(time * 0.35) * 0.04;
 
-      // Fully present at its own stop, gone one stop either side of it.
-      const near = clamp((1.15 - Math.abs(tSmooth - workstationStop)) / 0.85, 0, 1);
+      // Fully present at its own stop, gone by the time the next one arrives.
+      const near = clamp((1 - Math.abs(tSmooth - workstationStop)) / 0.72, 0, 1);
       workstation.update(near * near * (3 - 2 * near), time, camera);
 
       const index = Math.round(tSmooth);
