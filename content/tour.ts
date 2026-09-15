@@ -1,17 +1,16 @@
 /**
- * Data for the /3d tour. One typed table drives both the DOM (tag buttons,
- * stop cards, poster alt text, credit line) and the scene (camera path,
- * decals). The scroll position maps to one number t in [0, stops.length - 1].
- * Everything else is derived from t, so there is no second source of truth
- * for "which stop is active".
+ * Data for the homepage tour. One typed table drives both the DOM (tag
+ * buttons, stop cards, poster alt text, credit line) and the scene (camera
+ * path, decals, workstation). The scroll position maps to one number t in
+ * [0, stops.length - 1]. Everything else is derived from t, so there is no
+ * second source of truth for "which stop is active".
  *
  * Coordinates are model space. The bust is 1 unit tall, its lowest point sits
  * at y = 0, its footprint is centered on x and z, and the face looks down +z.
  * Laptop cameras leave the right third of the frame for the card. Phone
- * cameras center the bust and stand farther back, because the card sits at
- * the bottom there.
+ * cameras stand farther back, because the card sits at the bottom there.
  * Sticker positions and normals come from raycasts against public/3d/einstein.glb.
- * To place a new sticker, open /3d?place=1 and click the bust. The console
+ * To place a new sticker, open /?place=1 and click the bust. The console
  * prints a ready-to-paste sticker entry.
  */
 
@@ -65,6 +64,51 @@ export type Sticker = {
   rotation: number;
 };
 
+/** One floating card in the Job Search workstation. */
+export type WorkstationTile = {
+  id: string;
+  /** What the tile draws. The wordmark is baked into the image. */
+  label: string;
+  /** Square image with a transparent background, served from public/. */
+  image: string;
+  /** Center of the tile, in workstation-local units. */
+  position: Vec3;
+  /** Edge length in workstation-local units. */
+  size: number;
+  /** Tilt in the tile plane, in degrees. */
+  rotation: number;
+  /** Offset on the shared bob cycle, in seconds. */
+  phase: number;
+};
+
+/**
+ * The Job Search stop is a scene, not a card on its own. A mini desk, a lit
+ * screen, four tool tiles, and dots running a closed loop between them.
+ * The rig has its own local frame: the desk sits on y = 0, centered on x,
+ * facing +z before `rotation` is applied. It is placed in model space by
+ * `position`, `rotation`, and `scale`, and it fades in near its stop.
+ */
+export type Workstation = {
+  /** Id of the stop this rig belongs to. */
+  stopId: string;
+  /** Where the rig stands in model space. */
+  position: Vec3;
+  /** Yaw in degrees. Zero faces +z, like the bust. */
+  rotation: number;
+  scale: number;
+  /** Texture for the laptop screen. */
+  screen: string;
+  tiles: readonly WorkstationTile[];
+  /** Closed path the agent dots run, in workstation-local units. */
+  loop: {
+    points: readonly Vec3[];
+    /** One dot per color, spaced evenly around the loop. */
+    colors: readonly string[];
+    /** Loops per second. */
+    speed: number;
+  };
+};
+
 export type TourModel = {
   /** GLB with EXT_meshopt_compression and KHR_mesh_quantization. */
   src: string;
@@ -89,17 +133,18 @@ export type Tour = {
   model: TourModel;
   stops: readonly TourStop[];
   stickers: readonly Sticker[];
+  workstation: Workstation;
 };
 
 export const tour = {
-  title: "Meet Conny in 3D",
+  title: "Junyi (Conny) Zhou",
   description:
-    "A scroll tour around a bust with stickers for work and hobbies. Einstein is the stand-in until Conny's own figure arrives.",
+    "A scroll tour through clinical AI, cross-species cell transport, a job-search operating system, and the agent loops behind them. Einstein is a stand-in until Conny's own figure arrives.",
   model: {
     src: "/3d/einstein.glb",
     poster: "/3d/poster.jpg",
     posterAlt:
-      "A clay-colored bust of Albert Einstein on a block, with round stickers on the forehead, cheeks, hair, and base.",
+      "A clay-colored bust of Albert Einstein on a block, with round stickers on the forehead, hair, and base.",
     material: {
       color: "#e2cdb4",
       roughness: 0.62,
@@ -117,7 +162,7 @@ export const tour = {
       eyebrow: "Meet Conny, stand-in edition",
       title: "Hi. I am holding this spot.",
       body: "This bust is a 1930 bronze of Albert Einstein from a free museum scan. Conny's own figure replaces it soon. Scroll, or tap a tag, and the camera flies to the next stop.",
-      links: [{ href: "/", label: "Back to the hub" }],
+      links: [{ href: "/hub", label: "The written hub" }],
       camera: {
         position: [1.05, 0.74, 1.9],
         target: [0.16, 0.52, 0],
@@ -173,6 +218,29 @@ export const tour = {
       tint: "#DCEBE6",
     },
     {
+      id: "jobs",
+      tag: "Job search",
+      eyebrow: "Job Search OS, running since July 2026",
+      title: "A browser agent applies. A policy file says when.",
+      body: "Cursor writes the policy and compiles it into one runtime file. A Polar Browser agent reads that file and works the queue. GitHub holds the audit. A Google Sheet holds the run state. Submit stays gated per plane.",
+      links: [
+        {
+          href: "https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter",
+          label: "GitHub",
+        },
+      ],
+      camera: {
+        position: [0.92, 0.88, 1.98],
+        target: [0.04, 0.5, 0.14],
+        fov: 36,
+        phone: {
+          position: [-1.66, 0.92, 1.84],
+          target: [-0.3, 0.4, 0.34],
+        },
+      },
+      tint: "#DCE6F0",
+    },
+    {
       id: "loops",
       tag: "Loops",
       eyebrow: "scGen / CellOT autoresearch",
@@ -200,7 +268,7 @@ export const tour = {
       tag: "Off hours",
       eyebrow: "Hobbies, placeholders for now",
       title: "Stickers first. Stories later.",
-      body: "The coffee, camera, bike, and headphones are stand-ins until Conny picks the real ones. Write if the work is useful.",
+      body: "The bike and the headphones are stand-ins until Conny picks the real ones. Write if the work is useful.",
       links: [
         { href: "https://github.com/JunyiZhou-Conny", label: "GitHub" },
         {
@@ -224,6 +292,10 @@ export const tour = {
       tint: "#F2ECE2",
     },
   ] satisfies readonly TourStop[],
+  /**
+   * Story cues, not scatter. Three on the head and three on the base. The Job
+   * Search stop carries no sticker on purpose: its cue is the workstation.
+   */
   stickers: [
     {
       id: "hub",
@@ -234,26 +306,6 @@ export const tour = {
       normal: [-0.08, -0.003, 0.997],
       size: 0.085,
       rotation: -6,
-    },
-    {
-      id: "coffee",
-      kind: "hobby",
-      label: "Coffee cup sticker",
-      image: "/3d/stickers/coffee.svg",
-      position: [-0.133, 0.563, 0.116],
-      normal: [-0.953, -0.237, 0.188],
-      size: 0.07,
-      rotation: 8,
-    },
-    {
-      id: "camera",
-      kind: "hobby",
-      label: "Camera sticker",
-      image: "/3d/stickers/camera.svg",
-      position: [0.15, 0.564, 0.142],
-      normal: [0.868, -0.174, 0.465],
-      size: 0.07,
-      rotation: -10,
     },
     {
       id: "dna",
@@ -306,4 +358,63 @@ export const tour = {
       rotation: 7,
     },
   ] satisfies readonly Sticker[],
+  workstation: {
+    stopId: "jobs",
+    position: [-0.42, 0, 0.46],
+    rotation: 12,
+    scale: 0.82,
+    screen: "/3d/workstation/screen.svg",
+    tiles: [
+      {
+        id: "cursor",
+        label: "Cursor, the thinking desk",
+        image: "/3d/workstation/cursor.svg",
+        position: [-0.245, 0.435, 0.02],
+        size: 0.125,
+        rotation: -7,
+        phase: 0,
+      },
+      {
+        id: "polar",
+        label: "Polar Browser, the action layer",
+        image: "/3d/workstation/polar.svg",
+        position: [-0.085, 0.52, 0.03],
+        size: 0.125,
+        rotation: 4,
+        phase: 1.3,
+      },
+      {
+        id: "github",
+        label: "GitHub, the system state",
+        image: "/3d/workstation/github.svg",
+        position: [0.085, 0.52, 0.03],
+        size: 0.125,
+        rotation: -4,
+        phase: 2.5,
+      },
+      {
+        id: "sheets",
+        label: "Google Sheets, the tracker",
+        image: "/3d/workstation/sheets.svg",
+        position: [0.245, 0.435, 0.02],
+        size: 0.125,
+        rotation: 7,
+        phase: 3.8,
+      },
+    ],
+    loop: {
+      points: [
+        [-0.32, 0.41, -0.01],
+        [-0.17, 0.56, -0.02],
+        [0.02, 0.59, -0.01],
+        [0.21, 0.53, -0.02],
+        [0.32, 0.38, -0.02],
+        [0.19, 0.27, 0.04],
+        [0, 0.245, 0.08],
+        [-0.19, 0.28, 0.05],
+      ],
+      colors: ["#E8492A", "#F2A93B", "#1FB7A6"],
+      speed: 0.085,
+    },
+  } satisfies Workstation,
 } as const satisfies Tour;

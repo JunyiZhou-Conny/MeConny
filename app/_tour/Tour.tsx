@@ -8,6 +8,8 @@ import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { tour, type Sticker, type TourStop, type Vec3 } from "@/content/tour";
+import { groundShadow } from "./clay";
+import { buildWorkstation } from "./workstation";
 
 type Mode = "static" | "loading" | "live";
 
@@ -25,7 +27,7 @@ const round3 = (v: THREE.Vector3): Vec3 => [
   Number(v.z.toFixed(3)),
 ];
 
-function stickerTexture(url: string, renderer: THREE.WebGLRenderer) {
+function flatTexture(url: string, renderer: THREE.WebGLRenderer) {
   const map = new THREE.TextureLoader().load(url);
   map.colorSpace = THREE.SRGBColorSpace;
   map.anisotropy = renderer.capabilities.getMaxAnisotropy();
@@ -56,31 +58,6 @@ function makeDecal(mesh: THREE.Mesh, placement: Placement, map: THREE.Texture) {
   );
   decal.renderOrder = 1;
   return decal;
-}
-
-function groundShadow() {
-  const canvas = document.createElement("canvas");
-  canvas.width = 256;
-  canvas.height = 256;
-  const ctx = canvas.getContext("2d");
-  if (ctx) {
-    const gradient = ctx.createRadialGradient(128, 128, 10, 128, 128, 128);
-    gradient.addColorStop(0, "rgba(26, 22, 19, 0.24)");
-    gradient.addColorStop(1, "rgba(26, 22, 19, 0)");
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 256, 256);
-  }
-  const shadow = new THREE.Mesh(
-    new THREE.CircleGeometry(0.42, 48),
-    new THREE.MeshBasicMaterial({
-      map: new THREE.CanvasTexture(canvas),
-      transparent: true,
-      depthWrite: false,
-    }),
-  );
-  shadow.rotation.x = -Math.PI / 2;
-  shadow.position.y = 0.002;
-  return shadow;
 }
 
 function stickerEntry(position: Vec3, normal: Vec3) {
@@ -155,8 +132,14 @@ export function Tour() {
     scene.add(key, new THREE.HemisphereLight("#fff8f0", "#b9a893", 0.35));
 
     const group = new THREE.Group();
-    group.add(groundShadow());
+    group.add(groundShadow(0.42, 0.24));
     scene.add(group);
+
+    // The workstation sits outside the swaying group. Only the bust breathes.
+    const texture = (url: string) => flatTexture(url, renderer);
+    const workstation = buildWorkstation(tour.workstation, texture);
+    const workstationStop = stops.findIndex((stop) => stop.id === tour.workstation.stopId);
+    scene.add(workstation.group);
 
     const camera = new THREE.PerspectiveCamera(stops[0].camera.fov, 1, 0.05, 20);
     const curve = (points: Vec3[]) => new THREE.CatmullRomCurve3(points.map(vec), false, "centripetal");
@@ -240,7 +223,7 @@ export function Tour() {
         size: 0.08,
         rotation: 0,
       };
-      group.add(makeDecal(model, placement, stickerTexture("/3d/stickers/coffee.svg", renderer)));
+      group.add(makeDecal(model, placement, texture("/3d/stickers/coffee.svg")));
       const entry = stickerEntry(placement.position, placement.normal);
       console.log(entry);
       setPlaced(entry);
@@ -286,7 +269,7 @@ export function Tour() {
         group.add(gltf.scene);
         group.updateMatrixWorld(true);
         for (const sticker of tour.stickers) {
-          group.add(makeDecal(mesh, sticker, stickerTexture(sticker.image, renderer)));
+          group.add(makeDecal(mesh, sticker, texture(sticker.image)));
         }
         settled = true;
         setMode("live");
@@ -342,6 +325,10 @@ export function Tour() {
 
       group.rotation.y = placing ? 0 : Math.sin(time * 0.35) * 0.04;
 
+      // Fully present at its own stop, gone one stop either side of it.
+      const near = clamp((1.15 - Math.abs(tSmooth - workstationStop)) / 0.85, 0, 1);
+      workstation.update(near * near * (3 - 2 * near), time, camera);
+
       const index = Math.round(tSmooth);
       if (index !== activeIndex) {
         activeIndex = index;
@@ -377,8 +364,7 @@ export function Tour() {
   return (
     <div className="tour" data-mode={mode} ref={rootRef}>
       <header className="tour-bar">
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- proxy.ts serves "/" from public/index.html, so the hub needs a full document request, not a client-side route change */}
-        <a className="tour-home" href="/">
+        <a className="tour-home" href={`#${stops[0].id}`}>
           Conny Zhou
         </a>
         <nav className="tour-tags" aria-label="Tour stops">
