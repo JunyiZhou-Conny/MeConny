@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import * as THREE from "three";
 import { DecalGeometry } from "three/examples/jsm/geometries/DecalGeometry.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
@@ -174,33 +175,9 @@ export function Tour() {
     loader.setMeshoptDecoder(MeshoptDecoder);
     let model: THREE.Mesh | null = null;
     let cancelled = false;
-    loader.load(
-      tour.model.src,
-      (gltf) => {
-        if (cancelled) return;
-        gltf.scene.traverse((object) => {
-          if (object instanceof THREE.Mesh && !model) model = object;
-        });
-        if (!model) return;
-        const mesh: THREE.Mesh = model;
-        mesh.material = new THREE.MeshStandardMaterial({
-          color: tour.model.material.color,
-          roughness: tour.model.material.roughness,
-          metalness: 0,
-        });
-        group.rotation.y = 0;
-        group.add(gltf.scene);
-        group.updateMatrixWorld(true);
-        for (const sticker of tour.stickers) {
-          group.add(makeDecal(mesh, sticker, stickerTexture(sticker.image, renderer)));
-        }
-        setMode("live");
-      },
-      undefined,
-      () => {
-        if (!cancelled) setMode("static");
-      },
-    );
+    let settled = false;
+    let disposed = false;
+    let frame = 0;
 
     let width = 1;
     let height = 1;
@@ -271,16 +248,59 @@ export function Tour() {
     renderer.domElement.addEventListener("pointerdown", onPointerDown);
     renderer.domElement.addEventListener("pointerup", onPointerUp);
 
+    const dispose = () => {
+      if (disposed) return;
+      disposed = true;
+      cancelled = true;
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", readScroll);
+      window.removeEventListener("resize", readScroll);
+      window.removeEventListener("pointermove", onPointerMove);
+      renderer.domElement.removeEventListener("pointerdown", onPointerDown);
+      renderer.domElement.removeEventListener("pointerup", onPointerUp);
+      disposeScene(scene);
+      environment.dispose();
+      pmrem.dispose();
+      renderer.dispose();
+      renderer.domElement.remove();
+      root.style.backgroundColor = "";
+      setMode("static");
+    };
+
+    loader.load(
+      tour.model.src,
+      (gltf) => {
+        if (cancelled) return;
+        gltf.scene.traverse((object) => {
+          if (object instanceof THREE.Mesh && !model) model = object;
+        });
+        if (!model) return;
+        const mesh: THREE.Mesh = model;
+        mesh.material = new THREE.MeshStandardMaterial({
+          color: tour.model.material.color,
+          roughness: tour.model.material.roughness,
+          metalness: 0,
+        });
+        group.rotation.y = 0;
+        group.add(gltf.scene);
+        group.updateMatrixWorld(true);
+        for (const sticker of tour.stickers) {
+          group.add(makeDecal(mesh, sticker, stickerTexture(sticker.image, renderer)));
+        }
+        settled = true;
+        setMode("live");
+      },
+      undefined,
+      () => {
+        if (cancelled) return;
+        settled = true;
+        dispose();
+      },
+    );
+
     const hash = window.location.hash.slice(1);
     const startIndex = stops.findIndex((stop) => stop.id === hash);
-    if (startIndex > 0) {
-      const spacer = document.getElementById(stops[startIndex].id);
-      if (spacer) {
-        window.scrollTo({ top: spacer.getBoundingClientRect().top + window.scrollY, behavior: "instant" });
-        readScroll();
-        tSmooth = tTarget;
-      }
-    }
 
     const clock = new THREE.Clock();
     const cameraTarget = new THREE.Vector3();
@@ -288,9 +308,9 @@ export function Tour() {
     const up = new THREE.Vector3();
     let activeIndex = -1;
     let currentTint = "";
-    let frame = 0;
 
     const loop = () => {
+      if (disposed) return;
       frame = requestAnimationFrame(loop);
       const dt = Math.min(clock.getDelta(), 0.05);
       const time = clock.elapsedTime;
@@ -333,28 +353,23 @@ export function Tour() {
       renderer.render(scene, camera);
     };
     frame = requestAnimationFrame(() => {
-      setMode("loading");
+      if (disposed) return;
+      flushSync(() => {
+        setMode(settled ? "live" : "loading");
+      });
+      if (startIndex > 0) {
+        const spacer = document.getElementById(stops[startIndex].id);
+        if (spacer?.classList.contains("tour-spacer")) {
+          window.scrollTo({ top: spacer.getBoundingClientRect().top + window.scrollY, behavior: "instant" });
+          readScroll();
+          tSmooth = tTarget;
+        }
+      }
       if (placing) setPlaced("Click the bust to place a sticker.");
       loop();
     });
 
-    return () => {
-      cancelled = true;
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      window.removeEventListener("scroll", readScroll);
-      window.removeEventListener("resize", readScroll);
-      window.removeEventListener("pointermove", onPointerMove);
-      renderer.domElement.removeEventListener("pointerdown", onPointerDown);
-      renderer.domElement.removeEventListener("pointerup", onPointerUp);
-      disposeScene(scene);
-      environment.dispose();
-      pmrem.dispose();
-      renderer.dispose();
-      renderer.domElement.remove();
-      root.style.backgroundColor = "";
-      setMode("static");
-    };
+    return dispose;
   }, []);
 
   const isStatic = mode === "static";
