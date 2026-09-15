@@ -234,6 +234,10 @@ body:has(.tour) .site-grain {
   color: inherit;
 }
 
+.tour-credit-short {
+  display: none;
+}
+
 .tour-place {
   position: absolute;
   left: 20px;
@@ -297,6 +301,10 @@ body:has(.tour) .site-grain {
 
   .tour:not([data-mode="static"]) .tour-credit-full {
     display: none;
+  }
+
+  .tour:not([data-mode="static"]) .tour-credit-short {
+    display: inline;
   }
 
   .tour-card {

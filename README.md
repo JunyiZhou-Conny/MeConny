@@ -2,7 +2,7 @@
 
 Public page for [Junyi (Conny) Zhou](https://github.com/JunyiZhou-Conny).
 
-`/` is a 3D scroll tour: six stops around a bust, one card at a time, native document scroll. Einstein is a stand-in until Conny's own figure lands.
+`/` is a 3D scroll tour: six stops around a clay bust of Conny, one card at a time, native document scroll.
 
 `/hub` is the written hub — Javis Ng’s published portfolio chrome, vanilla HTML / CSS / JS from [javis603.github.io](https://github.com/Javis603/javis603.github.io), with Conny’s name, projects, and links in the same slots.
 

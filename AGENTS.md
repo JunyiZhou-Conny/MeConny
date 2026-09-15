@@ -43,8 +43,8 @@ Rules that outlive any one change:
 - **Job Search is a scene, not a card.** The mini desk, the screen, the tool tiles, and the loop are the point. Its card copy may only use facts already public in [`job-search-2026-2027-starter`](https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter). No jobs, offers, sponsorships, or submitted-application counts.
 - **Keep native document scroll.** One card at a time, stop tags, hash per stop, tint per stop. Do not hijack the wheel.
 - **Keep the fallbacks.** `prefers-reduced-motion`, no JavaScript, and a failed WebGL context all fall back to the poster plus stacked cards.
-- **Stickers are story cues.** Eight or fewer, and no more than three on the face.
-- Einstein is a stand-in. `model.src` in `content/tour.ts` is the single swap point.
+- **Stickers are story cues.** Eight or fewer, and none on the face. They sit on the sweater like enamel pins; a sticker on a cheek reads as a rash.
+- **The bust is Conny.** `public/3d/conny-bust.glb`, built from one portrait in Blender. `model.src` in `content/tour.ts` is the single swap point, and the loader fits whatever arrives to one unit tall with its base on the floor. The loader decodes Meshopt, not Draco.
 
 ## The hub at `/hub`
 

@@ -1,6 +1,6 @@
 # How to run and change the homepage tour
 
-`/` is a scroll tour around a bust with stickers for work and hobbies and a workstation scene for the Job Search stop. It is the front door. The written hub moved to `/hub` and keeps its own chrome.
+`/` is a scroll tour around a clay bust of Conny, with stickers on the sweater and a workstation scene for the Job Search stop. It is the front door. The written hub moved to `/hub` and keeps its own chrome.
 
 ## Open the tour
 
@@ -19,8 +19,8 @@ With `prefers-reduced-motion: reduce`, with JavaScript off, or when WebGL fails,
 - `app/_tour/workstation.ts` builds the Job Search rig. `app/_tour/clay.ts` holds the two shapes everything is made of: a soft ground blob and a rounded, bevelled slab.
 - `app/_tour/tour.css` is the light warm page chrome. It overrides the dark root layout with `html:has(.tour)` and `body:has(.tour)` selectors and never touches `public/css/style.css`.
 - `proxy.ts` serves `public/index.html` at `/hub`. `next.config.ts` redirects `/3d` to `/`.
-- `public/3d/einstein.glb` is the stand-in bust. `public/3d/stickers/*.svg` are the stickers, `public/3d/workstation/*.svg` the workstation textures, `public/3d/poster.jpg` the still.
-- `scripts/3d/stl_to_glb.py` builds a GLB from a scan STL. `scripts/3d/make-stickers.mjs` and `scripts/3d/make-workstation.mjs` write the SVGs.
+- `public/3d/conny-bust.glb` is the bust, 15,000 triangles with one baked 1024 texture. `public/3d/stickers/*.svg` are the stickers, `public/3d/workstation/*.svg` the workstation textures, `public/3d/poster.jpg` the still.
+- `scripts/3d/make-stickers.mjs` and `scripts/3d/make-workstation.mjs` write the SVGs.
 
 ## The six stops
 
@@ -37,18 +37,31 @@ Two rules for this stop:
 - Tile art is a generic drawing plus a wordmark, not a vendor logo. Edit `scripts/3d/make-workstation.mjs` and rerun it.
 - Card copy may only use facts already public in [`job-search-2026-2027-starter`](https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter). No jobs, offers, sponsorships, or submitted-application counts.
 
+## The bust
+
+`public/3d/conny-bust.glb` is a clay model of Conny, shaped from one portrait with Hunyuan3D-2 and finished in Blender. Free tools only. It is 15,000 triangles with one baked 1024 base color, Meshopt geometry and a WebP texture, 231 KB in total.
+
+Two things about it are worth knowing before you touch it:
+
+- **The loader decodes Meshopt, not Draco.** `Tour.tsx` installs `MeshoptDecoder` and nothing else. A Draco GLB will fail to load and the page will fall back to the poster. Re-encode instead of adding a second decoder.
+- **The loader fits whatever arrives.** It measures the bounding box, scales the mesh to one unit tall, drops its base on the floor, and centers the footprint on x and z. The source file is 2 units tall and centered on the origin; nothing in the repo depends on that. `model.yaw` is the correction if a mesh was authored facing somewhere other than +z.
+
+Known limits, carried over from the build notes: the ear reads soft in profile, the back of the head is flat color, and the eyes are painted rather than modeled. The cameras stay in three-quarter and front angles, where all three are clean.
+
 ## Swap the bust for your own figure
 
-1. Export your figure as glTF binary. Keep it under 2 MB after compression. Y up, face toward +z, feet or base at y = 0. Any scale works, but the stop cameras below assume a height of about 1 unit.
-2. Compress it and put it in place:
+1. Export as glTF binary, Y up, face toward +z. Any scale and any origin work, because the loader fits it.
+2. Compress it to Meshopt and put it in place:
 
 ```bash
-npx @gltf-transform/cli optimize me.glb public/3d/me.glb --compress meshopt --simplify false --texture-compress false
+npx @gltf-transform/cli optimize me.glb public/3d/me.glb --compress meshopt --simplify false --texture-compress webp --texture-size 1024
 ```
 
-3. In `content/tour.ts`, set `model.src` to `/3d/me.glb`, update `model.posterAlt`, `model.credit`, and `model.material.color`. If the GLB carries its own textures and you want them, delete the material replacement in `Tour.tsx` where every mesh gets a `MeshStandardMaterial`.
-4. Run `npm run dev`, open `/`, and move each stop's `camera.position` and `camera.target` until the framing reads. Laptop cameras leave the right third of the frame for the card. Phone cameras stand farther back, because the card sits at the bottom there. Check `workstation.position` too: the Job Search framing assumes the desk sits just off the bust's front left.
-5. Place stickers again. Old positions are surface points on Einstein and will float or sink on a new mesh. Keep the count at eight or fewer, and no more than three on the face.
+Drop `--texture-compress webp` if the mesh has no texture worth keeping.
+
+3. In `content/tour.ts`, set `model.src` to `/3d/me.glb` and update `model.posterAlt` and `model.credit`. If the GLB has no texture, add a `model.material` block and the loader will paint the whole mesh one flat clay color instead. `model.finish` is forced onto whichever material wins, so clay stays matte.
+4. Run `npm run dev`, open `/`, and move each stop's `camera.position`, `camera.target`, and `camera.fov` until the framing reads. Laptop cameras leave the right third of the frame for the card. Phone cameras carry their own `fov`, because a portrait crop is narrow and a wide subject needs a wider angle there. Check `workstation.position` too: the Job Search framing assumes the desk sits just off the bust's front left.
+5. Place stickers again. Old positions are surface points on the old mesh and will float or sink on a new one. Keep the count at eight or fewer and keep them off the face.
 6. Render a new poster (see below).
 7. Run `npm run verify`.
 
@@ -58,21 +71,10 @@ Open `http://localhost:3000/?place=1` and click the figure. The page prints a re
 
 To add a sticker image, add an entry to `stickers` in `scripts/3d/make-stickers.mjs` and run `node scripts/3d/make-stickers.mjs`. Stickers are 512 by 512 SVGs with a cream die-cut border. Any square PNG works too.
 
+They go on the sweater, never on the face. The face is the identity; a sticker on a cheek reads as a rash rather than a badge.
+
 ## Render the poster
 
 The poster is a still of the first stop under the current lighting and the current sticker set. It goes stale the moment either changes.
 
 Open `/?place=1` at 1600 by 1000 so the idle sway holds at zero, wait for `data-mode="live"`, hide `.tour-bar`, `.tour-cards`, `.tour-credit`, `.tour-place`, and `.tour-poster`, then save the frame as `public/3d/poster.jpg` at quality 82.
-
-## Rebuild the Einstein bust from the scan
-
-The source is the 1930 Artur Loewenthal bronze, scanned by Oliver Laric for Lincoln 3D Scans and published without copyright restrictions.
-
-```bash
-curl -L -o /tmp/einstein.stl https://s3-eu-west-1.amazonaws.com/lincoln-3d-project/einstein.stl
-python3 -m pip install --user trimesh fast-simplification numpy scipy
-python3 scripts/3d/stl_to_glb.py /tmp/einstein.stl /tmp/einstein-raw.glb --faces 40000 --height 1.0 --rotate-x 180
-npx @gltf-transform/cli optimize /tmp/einstein-raw.glb public/3d/einstein.glb --compress meshopt --simplify false --texture-compress false
-```
-
-The scan is upside down, so `--rotate-x 180` puts the head up and the face toward +z. The result is 40,000 triangles and 172 KB.
