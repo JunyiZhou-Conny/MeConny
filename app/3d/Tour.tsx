@@ -134,7 +134,7 @@ export function Tour() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1;
+    renderer.toneMappingExposure = 0.85;
     renderer.domElement.setAttribute("aria-hidden", "true");
     stage.appendChild(renderer.domElement);
 
@@ -148,7 +148,7 @@ export function Tour() {
     const pmrem = new THREE.PMREMGenerator(renderer);
     const environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     scene.environment = environment;
-    scene.environmentIntensity = 0.55;
+    scene.environmentIntensity = 0.4;
 
     const key = new THREE.DirectionalLight("#fff1e0", 1.6);
     key.position.set(2, 3, 2.5);
