@@ -7,13 +7,17 @@ import { DecalGeometry } from "three/examples/jsm/geometries/DecalGeometry.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { tour, type Sticker, type TourStop, type Vec3 } from "@/content/tour";
+import { tour, type Sticker, type TourModel, type TourStop, type Vec3 } from "@/content/tour";
+import { groundShadow } from "./clay";
+import { buildWorkstation } from "./workstation";
 
 type Mode = "static" | "loading" | "live";
 
 type Placement = Pick<Sticker, "position" | "normal" | "size" | "rotation">;
 
 const stops: readonly TourStop[] = tour.stops;
+const stickers: readonly Sticker[] = tour.stickers;
+const model3d: TourModel = tour.model;
 const last = stops.length - 1;
 const { clamp, lerp, degToRad } = THREE.MathUtils;
 
@@ -25,7 +29,7 @@ const round3 = (v: THREE.Vector3): Vec3 => [
   Number(v.z.toFixed(3)),
 ];
 
-function stickerTexture(url: string, renderer: THREE.WebGLRenderer) {
+function flatTexture(url: string, renderer: THREE.WebGLRenderer) {
   const map = new THREE.TextureLoader().load(url);
   map.colorSpace = THREE.SRGBColorSpace;
   map.anisotropy = renderer.capabilities.getMaxAnisotropy();
@@ -56,31 +60,6 @@ function makeDecal(mesh: THREE.Mesh, placement: Placement, map: THREE.Texture) {
   );
   decal.renderOrder = 1;
   return decal;
-}
-
-function groundShadow() {
-  const canvas = document.createElement("canvas");
-  canvas.width = 256;
-  canvas.height = 256;
-  const ctx = canvas.getContext("2d");
-  if (ctx) {
-    const gradient = ctx.createRadialGradient(128, 128, 10, 128, 128, 128);
-    gradient.addColorStop(0, "rgba(26, 22, 19, 0.24)");
-    gradient.addColorStop(1, "rgba(26, 22, 19, 0)");
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 256, 256);
-  }
-  const shadow = new THREE.Mesh(
-    new THREE.CircleGeometry(0.42, 48),
-    new THREE.MeshBasicMaterial({
-      map: new THREE.CanvasTexture(canvas),
-      transparent: true,
-      depthWrite: false,
-    }),
-  );
-  shadow.rotation.x = -Math.PI / 2;
-  shadow.position.y = 0.002;
-  return shadow;
 }
 
 function stickerEntry(position: Vec3, normal: Vec3) {
@@ -155,8 +134,13 @@ export function Tour() {
     scene.add(key, new THREE.HemisphereLight("#fff8f0", "#b9a893", 0.35));
 
     const group = new THREE.Group();
-    group.add(groundShadow());
     scene.add(group);
+
+    // The workstation sits outside the swaying group. Only the bust breathes.
+    const texture = (url: string) => flatTexture(url, renderer);
+    const workstation = buildWorkstation(tour.workstation, texture);
+    const workstationStop = stops.findIndex((stop) => stop.id === tour.workstation.stopId);
+    scene.add(workstation.group);
 
     const camera = new THREE.PerspectiveCamera(stops[0].camera.fov, 1, 0.05, 20);
     const curve = (points: Vec3[]) => new THREE.CatmullRomCurve3(points.map(vec), false, "centripetal");
@@ -240,7 +224,7 @@ export function Tour() {
         size: 0.08,
         rotation: 0,
       };
-      group.add(makeDecal(model, placement, stickerTexture("/3d/stickers/coffee.svg", renderer)));
+      group.add(makeDecal(model, placement, texture("/3d/stickers/coffee.svg")));
       const entry = stickerEntry(placement.position, placement.normal);
       console.log(entry);
       setPlaced(entry);
@@ -269,7 +253,7 @@ export function Tour() {
     };
 
     loader.load(
-      tour.model.src,
+      model3d.src,
       (gltf) => {
         if (cancelled) return;
         gltf.scene.traverse((object) => {
@@ -277,16 +261,42 @@ export function Tour() {
         });
         if (!model) return;
         const mesh: THREE.Mesh = model;
-        mesh.material = new THREE.MeshStandardMaterial({
-          color: tour.model.material.color,
-          roughness: tour.model.material.roughness,
-          metalness: 0,
-        });
+        if (model3d.material) {
+          mesh.material = new THREE.MeshStandardMaterial({
+            color: model3d.material.color,
+            roughness: model3d.material.roughness,
+            metalness: 0,
+          });
+        }
+        for (const material of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) {
+          if ("roughness" in material) material.roughness = model3d.finish.roughness;
+          if ("metalness" in material) material.metalness = model3d.finish.metalness;
+        }
+
+        // Fit whatever mesh arrives to the frame the cameras assume: one unit
+        // tall, base on the floor, footprint centered on x and z. The yaw sits
+        // on an outer group so it spins around that centered base, not around
+        // wherever the exporter happened to leave the origin.
+        const bounds = new THREE.Box3().setFromObject(gltf.scene);
+        const size = bounds.getSize(new THREE.Vector3());
+        const center = bounds.getCenter(new THREE.Vector3());
+        const fit = 1 / Math.max(size.y, 1e-6);
+        const fitted = new THREE.Group();
+        fitted.scale.setScalar(fit);
+        fitted.position.set(-center.x * fit, -bounds.min.y * fit, -center.z * fit);
+        fitted.add(gltf.scene);
+        const rig = new THREE.Group();
+        rig.rotation.y = degToRad(model3d.yaw);
+        rig.add(fitted);
+
+        const shadow = groundShadow(0.5, 0.22);
+        shadow.scale.set(size.x * fit * 1.06, size.z * fit * 1.25, 1);
+
         group.rotation.y = 0;
-        group.add(gltf.scene);
+        group.add(shadow, rig);
         group.updateMatrixWorld(true);
-        for (const sticker of tour.stickers) {
-          group.add(makeDecal(mesh, sticker, stickerTexture(sticker.image, renderer)));
+        for (const sticker of stickers) {
+          group.add(makeDecal(mesh, sticker, texture(sticker.image)));
         }
         settled = true;
         setMode("live");
@@ -321,7 +331,8 @@ export function Tour() {
       const i1 = Math.min(i0 + 1, last);
       const f = tSmooth - i0;
 
-      const path = camera.aspect < 1 ? paths.tall : paths.wide;
+      const tall = camera.aspect < 1;
+      const path = tall ? paths.tall : paths.wide;
       path.positions.getPoint(u, camera.position);
       path.targets.getPoint(u, cameraTarget);
       camera.lookAt(cameraTarget);
@@ -330,7 +341,8 @@ export function Tour() {
       up.setFromMatrixColumn(camera.matrix, 1);
       camera.position.addScaledVector(right, 0.05 * parallax.x).addScaledVector(up, 0.03 * parallax.y);
       camera.lookAt(cameraTarget);
-      camera.fov = lerp(stops[i0].camera.fov, stops[i1].camera.fov, f);
+      const fov = (stop: TourStop) => (tall ? stop.camera.phone.fov : stop.camera.fov);
+      camera.fov = lerp(fov(stops[i0]), fov(stops[i1]), f);
       camera.updateProjectionMatrix();
 
       tint.lerpColors(tints[i0], tints[i1], f);
@@ -341,6 +353,10 @@ export function Tour() {
       }
 
       group.rotation.y = placing ? 0 : Math.sin(time * 0.35) * 0.04;
+
+      // Fully present at its own stop, gone by the time the next one arrives.
+      const near = clamp((1 - Math.abs(tSmooth - workstationStop)) / 0.72, 0, 1);
+      workstation.update(near * near * (3 - 2 * near), time, camera);
 
       const index = Math.round(tSmooth);
       if (index !== activeIndex) {
@@ -377,8 +393,7 @@ export function Tour() {
   return (
     <div className="tour" data-mode={mode} ref={rootRef}>
       <header className="tour-bar">
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- proxy.ts serves "/" from public/index.html, so the hub needs a full document request, not a client-side route change */}
-        <a className="tour-home" href="/">
+        <a className="tour-home" href={`#${stops[0].id}`}>
           Conny Zhou
         </a>
         <nav className="tour-tags" aria-label="Tour stops">
@@ -398,7 +413,7 @@ export function Tour() {
       <div className="tour-scroller" ref={scrollerRef}>
         <div className="tour-stage" ref={stageRef}>
           {/* eslint-disable-next-line @next/next/no-img-element -- poster is a plain static file under public/ */}
-          <img className="tour-poster" src={tour.model.poster} alt={tour.model.posterAlt} />
+          <img className="tour-poster" src={model3d.poster} alt={model3d.posterAlt} />
           <div className="tour-cards">
             {stops.map((stop, i) => (
               <article
@@ -423,12 +438,8 @@ export function Tour() {
           </div>
           {placed ? <pre className="tour-place">{placed}</pre> : null}
           <p className="tour-credit">
-            <span className="tour-credit-full">{tour.model.credit.text} </span>
-            <a href={tour.model.credit.href} rel="noopener">
-              Lincoln 3D Scans
-            </a>
-            . <span className="tour-credit-full">{tour.model.credit.license} </span>
-            Einstein is a stand-in.
+            <span className="tour-credit-full">{model3d.credit.text}</span>
+            <span className="tour-credit-short">{model3d.credit.short}</span>
           </p>
         </div>
         {isStatic ? null : (

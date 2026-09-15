@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect x="30" y="30" width="452" height="452" rx="78" fill="#FAF6EF"/>
+  <rect x="38" y="38" width="436" height="436" rx="70" fill="none" stroke="#1A1613" stroke-opacity="0.16" stroke-width="7"/>
+  <rect x="120" y="104" width="272" height="216" rx="24" fill="none" stroke="#1A1613" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M120 162 H392 M120 226 H392 M210 104 V320 M302 104 V320" fill="none" stroke="#1A1613" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M320 254 l20 22 l38 -48" fill="none" stroke="#1FB7A6" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="256" y="408" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="62" font-weight="600" fill="#1A1613">Sheets</text>
+  <rect x="196" y="432" width="120" height="12" rx="6" fill="#1FB7A6"/>
+</svg>

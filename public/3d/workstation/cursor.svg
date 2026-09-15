@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect x="30" y="30" width="452" height="452" rx="78" fill="#FAF6EF"/>
+  <rect x="38" y="38" width="436" height="436" rx="70" fill="none" stroke="#1A1613" stroke-opacity="0.16" stroke-width="7"/>
+  <path d="M186 122 L186 318 L240 274 L272 342 L299 329 L270 262 L334 255 Z" fill="#1A1613"/>
+      <path d="M378 110 L390 138 L418 150 L390 162 L378 190 L366 162 L338 150 L366 138 Z" fill="#E8492A"/>
+  <text x="256" y="408" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="62" font-weight="600" fill="#1A1613">Cursor</text>
+  <rect x="196" y="432" width="120" height="12" rx="6" fill="#E8492A"/>
+</svg>
