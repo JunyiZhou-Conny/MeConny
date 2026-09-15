@@ -769,6 +769,10 @@ h3{font-size:clamp(1.3rem,2.5vw,1.7rem);font-weight:600}
 }
 
 /* ── Skills ─────────────────────────────── */
+.section-stack{
+    position:relative;
+    overflow:hidden;
+}
 .eyebrow{
     font-family:var(--font-mono);
     font-size:.72rem;
