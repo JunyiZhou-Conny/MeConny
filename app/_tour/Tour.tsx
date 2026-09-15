@@ -77,16 +77,45 @@ function stickerEntry(position: Vec3, normal: Vec3) {
   ].join("\n");
 }
 
-function disposeScene(scene: THREE.Scene) {
-  scene.traverse((object) => {
-    if (!(object instanceof THREE.Mesh)) return;
-    object.geometry.dispose();
-    const materials = Array.isArray(object.material) ? object.material : [object.material];
-    for (const material of materials) {
-      if ("map" in material && material.map instanceof THREE.Texture) material.map.dispose();
-      material.dispose();
+function disposeMaterials(materials: Iterable<THREE.Material>) {
+  const textures = new Set<THREE.Texture>();
+  for (const material of new Set(materials)) {
+    for (const value of Object.values(material)) {
+      if (value instanceof THREE.Texture) textures.add(value);
     }
+    material.dispose();
+  }
+  for (const texture of textures) texture.dispose();
+}
+
+function disposeObject(root: THREE.Object3D) {
+  const geometries = new Set<THREE.BufferGeometry>();
+  const materials = new Set<THREE.Material>();
+  const skeletons = new Set<THREE.Skeleton>();
+  root.traverse((object) => {
+    if (!(object instanceof THREE.Mesh)) return;
+    geometries.add(object.geometry);
+    for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+      materials.add(material);
+    }
+    if (object instanceof THREE.SkinnedMesh) skeletons.add(object.skeleton);
   });
+  for (const geometry of geometries) geometry.dispose();
+  for (const skeleton of skeletons) skeleton.dispose();
+  disposeMaterials(materials);
+}
+
+function stickerSurface(meshes: THREE.Mesh[]) {
+  const named = meshes.find((mesh) => mesh.name === "ConnyBust");
+  if (named) return named;
+  // Exporters can order separate eyes or hair before the body. Prefer the
+  // body's world-space extent rather than the first primitive in the file.
+  const size = new THREE.Vector3();
+  const bounds = new THREE.Box3();
+  return meshes.reduce((largest, mesh) => {
+    const extent = bounds.setFromObject(mesh).getSize(size).lengthSq();
+    return extent > largest.extent ? { mesh, extent } : largest;
+  }, { mesh: meshes[0], extent: -1 }).mesh;
 }
 
 export function Tour() {
@@ -96,6 +125,17 @@ export function Tour() {
   const [mode, setMode] = useState<Mode>("static");
   const [active, setActive] = useState(0);
   const [placed, setPlaced] = useState<string | null>(null);
+
+  useEffect(() => {
+    const selected = rootRef.current?.querySelector<HTMLElement>('.tour-tag[aria-current="true"]');
+    const nav = selected?.parentElement;
+    if (!selected || !nav) return;
+    const item = selected.getBoundingClientRect();
+    const frame = nav.getBoundingClientRect();
+    const delta = item.left < frame.left ? item.left - frame.left
+      : item.right > frame.right ? item.right - frame.right : 0;
+    if (delta) nav.scrollBy({ left: delta, behavior: "instant" });
+  }, [active, mode]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -158,6 +198,7 @@ export function Tour() {
     const loader = new GLTFLoader();
     loader.setMeshoptDecoder(MeshoptDecoder);
     let model: THREE.Mesh | null = null;
+    let mixer: THREE.AnimationMixer | null = null;
     let cancelled = false;
     let settled = false;
     let disposed = false;
@@ -243,7 +284,10 @@ export function Tour() {
       window.removeEventListener("pointermove", onPointerMove);
       renderer.domElement.removeEventListener("pointerdown", onPointerDown);
       renderer.domElement.removeEventListener("pointerup", onPointerUp);
-      disposeScene(scene);
+      renderer.domElement.removeEventListener("webglcontextlost", onContextLost);
+      mixer?.stopAllAction();
+      if (mixer) mixer.uncacheRoot(mixer.getRoot());
+      disposeObject(scene);
       environment.dispose();
       pmrem.dispose();
       renderer.dispose();
@@ -252,35 +296,63 @@ export function Tour() {
       setMode("static");
     };
 
+    const onContextLost = (event: Event) => {
+      event.preventDefault();
+      // A context can fail after the first frame, including while the model
+      // is still loading. Keep the same readable fallback in either case.
+      dispose();
+    };
+    renderer.domElement.addEventListener("webglcontextlost", onContextLost);
+
     loader.load(
       model3d.src,
       (gltf) => {
-        if (cancelled) return;
+        if (cancelled) {
+          disposeObject(gltf.scene);
+          return;
+        }
+        const meshes: THREE.Mesh[] = [];
         gltf.scene.traverse((object) => {
-          if (object instanceof THREE.Mesh && !model) model = object;
+          if (object instanceof THREE.Mesh && object.geometry.getAttribute("position")?.count) {
+            meshes.push(object);
+          }
         });
-        if (!model) return;
-        const mesh: THREE.Mesh = model;
-        if (model3d.material) {
-          mesh.material = new THREE.MeshStandardMaterial({
-            color: model3d.material.color,
-            roughness: model3d.material.roughness,
-            metalness: 0,
-          });
-        }
-        for (const material of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) {
-          if ("roughness" in material) material.roughness = model3d.finish.roughness;
-          if ("metalness" in material) material.metalness = model3d.finish.metalness;
-        }
-
-        // Fit whatever mesh arrives to the frame the cameras assume: one unit
-        // tall, base on the floor, footprint centered on x and z. The yaw sits
-        // on an outer group so it spins around that centered base, not around
-        // wherever the exporter happened to leave the origin.
         const bounds = new THREE.Box3().setFromObject(gltf.scene);
         const size = bounds.getSize(new THREE.Vector3());
+        if (
+          !meshes.length || bounds.isEmpty() || size.y <= 1e-6 ||
+          ![...bounds.min.toArray(), ...bounds.max.toArray()].every(Number.isFinite)
+        ) {
+          disposeObject(gltf.scene);
+          dispose();
+          return;
+        }
+        const mesh = stickerSurface(meshes);
+        model = mesh;
+        const replacedMaterials = new Set<THREE.Material>();
+        for (const part of meshes) {
+          if (model3d.material) {
+            for (const material of Array.isArray(part.material) ? part.material : [part.material]) {
+              replacedMaterials.add(material);
+            }
+            part.material = new THREE.MeshStandardMaterial({
+              color: model3d.material.color,
+              roughness: model3d.material.roughness,
+              metalness: 0,
+            });
+          }
+          for (const material of Array.isArray(part.material) ? part.material : [part.material]) {
+            if ("roughness" in material) material.roughness = model3d.finish.roughness;
+            if ("metalness" in material) material.metalness = model3d.finish.metalness;
+          }
+        }
+        disposeMaterials(replacedMaterials);
+
+        // Fit the entire character, including separate eye and hair meshes,
+        // to one unit tall, with its base on the floor and centered footprint.
+        // The outer yaw turns around that base, independent of export origin.
         const center = bounds.getCenter(new THREE.Vector3());
-        const fit = 1 / Math.max(size.y, 1e-6);
+        const fit = 1 / size.y;
         const fitted = new THREE.Group();
         fitted.scale.setScalar(fit);
         fitted.position.set(-center.x * fit, -bounds.min.y * fit, -center.z * fit);
@@ -297,6 +369,12 @@ export function Tour() {
         group.updateMatrixWorld(true);
         for (const sticker of stickers) {
           group.add(makeDecal(mesh, sticker, texture(sticker.image)));
+        }
+        // Authored clips supply the actual deformation; painted eyes alone
+        // must never be animated as if they had an eyelid or gaze rig.
+        if (!placing && gltf.animations.length) {
+          mixer = new THREE.AnimationMixer(gltf.scene);
+          for (const clip of gltf.animations) mixer.clipAction(clip).play();
         }
         settled = true;
         setMode("live");
@@ -353,6 +431,7 @@ export function Tour() {
       }
 
       group.rotation.y = placing ? 0 : Math.sin(time * 0.35) * 0.04;
+      mixer?.update(dt);
 
       // Fully present at its own stop, gone by the time the next one arrives.
       const near = clamp((1 - Math.abs(tSmooth - workstationStop)) / 0.72, 0, 1);
@@ -424,7 +503,7 @@ export function Tour() {
                 aria-hidden={!isStatic && i !== active ? true : undefined}
               >
                 <p className="tour-eyebrow">{stop.eyebrow}</p>
-                <h2 className="tour-title">{stop.title}</h2>
+                {i === 0 ? <h1 className="tour-title">{stop.title}</h1> : <h2 className="tour-title">{stop.title}</h2>}
                 <p className="tour-body">{stop.body}</p>
                 <ul className="tour-links">
                   {stop.links.map((link) => (

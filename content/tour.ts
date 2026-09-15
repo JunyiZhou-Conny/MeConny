@@ -9,7 +9,7 @@
  * at y = 0, its footprint is centered on x and z, and the face looks down +z.
  * Laptop cameras leave the right third of the frame for the card. Phone
  * cameras stand farther back, because the card sits at the bottom there.
- * Sticker positions and normals come from raycasts against public/3d/einstein.glb.
+ * Sticker positions and normals come from raycasts against public/3d/conny-bust.glb.
  * To place a new sticker, open /?place=1 and click the bust. The console
  * prints a ready-to-paste sticker entry.
  */
@@ -154,7 +154,7 @@ export type Tour = {
 export const tour = {
   title: "Junyi (Conny) Zhou",
   description:
-    "A scroll tour through clinical AI, cross-species cell transport, a job-search operating system, and the agent loops behind them. Einstein is a stand-in until Conny's own figure arrives.",
+    "Meet Junyi (Conny) Zhou: clinical AI, computational biology, and agent systems. Explore the projects in an interactive 3D tour.",
   model: {
     src: "/3d/conny-bust.glb",
     yaw: 0,
@@ -166,18 +166,21 @@ export const tour = {
       metalness: 0,
     },
     credit: {
-      text: "Bust: a clay model of Conny, shaped from one portrait with Hunyuan3D-2 and finished in Blender. Free tools only.",
-      short: "Clay model of Conny, built in Blender.",
+      text: "Junyi (Conny) Zhou · Harvard / Wyss · Boston, MA",
+      short: "Conny Zhou · Boston, MA",
     },
   },
   stops: [
     {
       id: "start",
       tag: "Start",
-      eyebrow: "Junyi (Conny) Zhou, Boston",
-      title: "Hi. I am Conny, in clay.",
-      body: "A clay model shaped from one portrait and finished in Blender. Free tools, no scan. Scroll, or tap a tag, and the camera flies to the next stop.",
-      links: [{ href: "/hub", label: "The written hub" }],
+      eyebrow: "Health data science · Harvard / Wyss",
+      title: "Hi, I’m Conny.",
+      body: "I build AI tools for clinical training, computational biology, and research that keeps moving. Scroll to meet the projects, or choose a stop above.",
+      links: [
+        { href: "/hub", label: "More about me" },
+        { href: "https://github.com/JunyiZhou-Conny", label: "GitHub" },
+      ],
       camera: {
         position: [1.187, 0.978, 2.434],
         target: [0.288, 0.5, -0.14],
@@ -219,7 +222,7 @@ export const tour = {
       tag: "Cells",
       eyebrow: "speciesOT, in progress",
       title: "Mouse cells in. Human cells out.",
-      body: "Optimal transport in a shared autoencoder latent space. One CLI lists models, prints a scorecard, and shows the sbatch chain a human still submits. Results stay off git.",
+      body: "Exploring how optimal transport can map mouse cells to human cells in a shared autoencoder latent space. A command-line toolkit brings model comparison, scorecards, and cluster workflows together.",
       links: [
         { href: "https://github.com/JunyiZhou-Conny/speciesOT", label: "GitHub" },
       ],
@@ -239,8 +242,8 @@ export const tour = {
       id: "jobs",
       tag: "Job search",
       eyebrow: "Job Search OS, running since July 2026",
-      title: "A browser agent applies. A policy file says when.",
-      body: "Cursor writes the policy and compiles it into one runtime file. A Polar Browser agent reads that file and works the queue. GitHub holds the audit. A Google Sheet holds the run state. Submit stays gated per plane.",
+      title: "An application workflow with a memory.",
+      body: "Cursor defines the policy. Polar Browser carries out the workflow. GitHub records the changes, and Google Sheets tracks each run. Application submission follows explicit rules.",
       links: [
         {
           href: "https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter",
@@ -263,8 +266,8 @@ export const tour = {
       id: "loops",
       tag: "Loops",
       eyebrow: "scGen / CellOT autoresearch",
-      title: "A brain proposes. A substrate keeps running.",
-      body: "Fairshare-aware ablation search on FASRC Cannon. 338 experiments over 79.3 cluster hours, 318 completed, 20 handled failures. Public counts only. The science stays unpublished.",
+      title: "Research that keeps running.",
+      body: "A loop that submits experiments, watches results, and plans the next run on FASRC Cannon. 338 experiments over 79.3 cluster hours: 318 completed and 20 handled failures.",
       links: [
         {
           href: "https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch",
@@ -286,9 +289,9 @@ export const tour = {
     {
       id: "off-hours",
       tag: "Off hours",
-      eyebrow: "Hobbies, placeholders for now",
-      title: "Stickers first. Stories later.",
-      body: "The bike and the headphones are stand-ins until Conny picks the real ones. Write if the work is useful.",
+      eyebrow: "Beyond the projects",
+      title: "Let’s stay in touch.",
+      body: "Curious about the work, or building something related? Find me and the projects here.",
       links: [
         { href: "https://github.com/JunyiZhou-Conny", label: "GitHub" },
         {

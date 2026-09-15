@@ -57,6 +57,7 @@ body:has(.tour) .site-grain {
 }
 
 .tour-tags {
+  min-width: 0;
   display: flex;
   gap: 6px;
   margin-left: auto;
@@ -153,6 +154,8 @@ body:has(.tour) .site-grain {
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(26, 22, 19, 0.1);
   padding: 22px;
+  max-height: calc(100dvh - 120px);
+  overflow-y: auto;
   scroll-margin-top: 72px;
   transition:
     opacity 0.32s ease,
@@ -186,6 +189,12 @@ body:has(.tour) .site-grain {
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.tour-card:first-child .tour-title {
+  font-size: 38px;
+  letter-spacing: -0.035em;
 }
 
 .tour-body {
@@ -280,6 +289,11 @@ body:has(.tour) .site-grain {
   pointer-events: auto;
 }
 
+.tour[data-mode="static"] .tour-card {
+  max-height: none;
+  overflow: visible;
+}
+
 .tour[data-mode="static"] .tour-credit {
   position: static;
   max-width: none;
@@ -288,6 +302,23 @@ body:has(.tour) .site-grain {
 @media (max-width: 640px) {
   .tour-bar {
     padding: 8px 10px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tour-home {
+    font-size: 14px;
+  }
+
+  .tour-tags {
+    width: 100%;
+    margin-left: 0;
+    padding-bottom: 2px;
+  }
+
+  .tour-tag {
+    font-size: 12px;
+    padding: 6px 10px;
   }
 
   .tour-cards {
@@ -309,6 +340,8 @@ body:has(.tour) .site-grain {
 
   .tour-card {
     padding: 18px;
+    max-height: calc(100dvh - 150px);
+    scroll-margin-top: 100px;
   }
 
   .tour-title {
@@ -317,6 +350,14 @@ body:has(.tour) .site-grain {
 
   .tour-body {
     font-size: 15px;
+  }
+
+  .tour-card:first-child .tour-title {
+    font-size: 32px;
+  }
+
+  .tour[data-mode="static"] .tour-stage {
+    padding-top: 100px;
   }
 
   .tour-credit {
