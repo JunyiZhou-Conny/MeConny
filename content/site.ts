@@ -44,7 +44,7 @@ export const site = {
     shortName: "Conny Zhou",
     mark: "CZ",
     seal: "周",
-    role: "Health data science · Harvard / Wyss",
+    role: "Health data science at Harvard and Wyss",
     oneLiner:
       "I build systems that move cells, proteins, and clinical training from experiment to something another person can run.",
     location: "Boston, MA",
@@ -56,7 +56,6 @@ export const site = {
     { href: "#contact", label: "Contact" },
   ] satisfies readonly NavItem[],
   thesis: {
-    number: "01",
     kicker: "About",
     title: "Systems other people can run",
     body: "The public GitHub is a pile of course repos, lab notebooks, and forks. The work that matters is smaller: a resident-facing simulator, a cross-species transport CLI, and a cluster loop that keeps searching after the laptop sleeps. I sit in health data science. The habit is to leave a hub, a runbook, or a product.",
@@ -84,7 +83,6 @@ export const site = {
     ] satisfies readonly Pillar[],
   },
   work: {
-    number: "02",
     kicker: "Work",
     title: "Three systems, not twenty-two repos",
     body: "Everything else stays off this page on purpose. If a repo cannot explain why it is here in one sentence, it is not here.",
@@ -126,7 +124,7 @@ export const site = {
         facts: [
           {
             label: "Question",
-            value: "Does mouse→human transport close the gap?",
+            value: "Does mouse to human transport close the gap?",
           },
           {
             label: "Models",
@@ -134,7 +132,7 @@ export const site = {
           },
           {
             label: "Interface",
-            value: "./hub list · scorecard · show",
+            value: "./hub list, scorecard, show",
           },
         ],
         stack: ["Python", "PyTorch", "scanpy", "CellOT", "SLURM"],
@@ -152,15 +150,15 @@ export const site = {
         facts: [
           {
             label: "Loop",
-            value: "338 experiments · 79.3 cluster hours",
+            value: "338 experiments, 79.3 cluster hours",
           },
           {
             label: "Outcome",
-            value: "318 completed · 20 handled failures",
+            value: "318 completed, 20 handled failures",
           },
           {
             label: "Split",
-            value: "Brain proposes · substrate runs",
+            value: "Brain proposes, substrate runs",
           },
         ],
         stack: ["Python", "SLURM", "FASRC", "YAML policy", "LLM optional"],
@@ -184,31 +182,29 @@ export const site = {
     ] satisfies readonly LinkItem[],
   },
   skills: {
-    number: "03",
     kicker: "Skills",
     title: "Tools I actually run",
     body: "Four domains. No keyword soup. If it is here, it has been in a repo, a cluster job, or a shipped app.",
     domains: [
       {
         name: "Computation",
-        tools: "Python · PyTorch · scanpy · CellOT · AlphaFold · R",
+        tools: "Python, PyTorch, scanpy, CellOT, AlphaFold, R",
       },
       {
         name: "Full-stack",
-        tools: "React · Flask · MongoDB · Auth0 · AWS",
+        tools: "React, Flask, MongoDB, Auth0, AWS",
       },
       {
         name: "Cluster",
-        tools: "SLURM · FASRC Cannon · fairshare · HPC",
+        tools: "SLURM, FASRC Cannon, fairshare, HPC",
       },
       {
         name: "Agents",
-        tools: "Cursor · LLM directors · autonomous search loops",
+        tools: "Cursor, LLM directors, autonomous search loops",
       },
     ] satisfies readonly SkillDomain[],
   },
   contact: {
-    number: "04",
     kicker: "Contact",
     title: "Write if the work is useful",
     body: "Collaborations, questions about a repo, or a pointer to something I should see.",
