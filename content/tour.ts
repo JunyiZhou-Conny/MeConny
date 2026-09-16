@@ -30,6 +30,12 @@ export type TourStop = {
   title: string;
   body: string;
   links: readonly TourLink[];
+  still?: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
   camera: {
     position: Vec3;
     target: Vec3;
@@ -244,6 +250,12 @@ export const tour = {
       eyebrow: "Job Search OS, running since July 2026",
       title: "An application workflow with a memory.",
       body: "Cursor defines the policy. Polar Browser carries out the workflow. GitHub records the changes, and Google Sheets tracks each run. Application submission follows explicit rules.",
+      still: {
+        src: "/3d/job-search-still.webp",
+        alt: "The Job Search workstation beside Conny: a small desk with a lit laptop, floating Cursor, Polar Browser, GitHub, and Google Sheets tiles, and colored dots on a loop connecting the tools.",
+        width: 1100,
+        height: 700,
+      },
       links: [
         {
           href: "https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter",

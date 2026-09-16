@@ -142,7 +142,8 @@ export function Tour() {
     const stage = stageRef.current;
     const scroller = scrollerRef.current;
     if (!root || !stage || !scroller) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (motionPreference.matches) return;
 
     let renderer: THREE.WebGLRenderer;
     try {
@@ -285,6 +286,7 @@ export function Tour() {
       renderer.domElement.removeEventListener("pointerdown", onPointerDown);
       renderer.domElement.removeEventListener("pointerup", onPointerUp);
       renderer.domElement.removeEventListener("webglcontextlost", onContextLost);
+      motionPreference.removeEventListener("change", onMotionChange);
       mixer?.stopAllAction();
       if (mixer) mixer.uncacheRoot(mixer.getRoot());
       disposeObject(scene);
@@ -293,16 +295,29 @@ export function Tour() {
       renderer.dispose();
       renderer.domElement.remove();
       root.style.backgroundColor = "";
-      setMode("static");
+    };
+
+    const returnToStatic = () => {
+      if (disposed) return;
+      const stop = stops.find((entry) => `#${entry.id}` === window.location.hash)
+        ?? stops[Math.round(tSmooth)];
+      dispose();
+      flushSync(() => setMode("static"));
+      document.getElementById(stop.id)?.scrollIntoView({ behavior: "instant", block: "start" });
     };
 
     const onContextLost = (event: Event) => {
       event.preventDefault();
       // A context can fail after the first frame, including while the model
       // is still loading. Keep the same readable fallback in either case.
-      dispose();
+      returnToStatic();
     };
     renderer.domElement.addEventListener("webglcontextlost", onContextLost);
+
+    const onMotionChange = (event: MediaQueryListEvent) => {
+      if (event.matches) returnToStatic();
+    };
+    motionPreference.addEventListener("change", onMotionChange);
 
     loader.load(
       model3d.src,
@@ -324,7 +339,7 @@ export function Tour() {
           ![...bounds.min.toArray(), ...bounds.max.toArray()].every(Number.isFinite)
         ) {
           disposeObject(gltf.scene);
-          dispose();
+          returnToStatic();
           return;
         }
         const mesh = stickerSurface(meshes);
@@ -383,7 +398,7 @@ export function Tour() {
       () => {
         if (cancelled) return;
         settled = true;
-        dispose();
+        returnToStatic();
       },
     );
 
@@ -504,6 +519,16 @@ export function Tour() {
               >
                 <p className="tour-eyebrow">{stop.eyebrow}</p>
                 {i === 0 ? <h1 className="tour-title">{stop.title}</h1> : <h2 className="tour-title">{stop.title}</h2>}
+                {isStatic && stop.still ? (
+                  /* eslint-disable-next-line @next/next/no-img-element -- scene still is a plain static file under public/ */
+                  <img
+                    className="tour-still"
+                    src={stop.still.src}
+                    alt={stop.still.alt}
+                    width={stop.still.width}
+                    height={stop.still.height}
+                  />
+                ) : null}
                 <p className="tour-body">{stop.body}</p>
                 <ul className="tour-links">
                   {stop.links.map((link) => (
