@@ -1,17 +1,11 @@
 /**
- * Data for the homepage tour. One typed table drives both the DOM (tag
- * buttons, stop cards, poster alt text, credit line) and the scene (camera
- * path, decals, workstation). The scroll position maps to one number t in
- * [0, stops.length - 1]. Everything else is derived from t, so there is no
- * second source of truth for "which stop is active".
+ * Coordinates use the fitted model space. The bust is one unit tall, its base
+ * sits at y = 0, its footprint is centered on x and z, and its face looks
+ * down +z. Desktop cameras reserve the right side for copy. Phone cameras
+ * frame the scene above the copy.
  *
- * Coordinates are model space. The bust is 1 unit tall, its lowest point sits
- * at y = 0, its footprint is centered on x and z, and the face looks down +z.
- * Laptop cameras leave the right third of the frame for the card. Phone
- * cameras stand farther back, because the card sits at the bottom there.
- * Sticker positions and normals come from raycasts against public/3d/conny-bust.glb.
- * To place a new sticker, open /?place=1 and click the bust. The console
- * prints a ready-to-paste sticker entry.
+ * Sticker positions and normals come from raycasts against conny-bust.glb.
+ * Open /?place=1 and click the bust to print a calibrated placement entry.
  */
 
 export type Vec3 = readonly [number, number, number];
@@ -193,16 +187,16 @@ export const tour = {
         { href: "https://github.com/JunyiZhou-Conny", label: "GitHub" },
       ],
       camera: {
-        position: [0.59, 0.79, 1.41],
-        target: [0.27, 0.6, 0],
-        fov: 32,
+        position: [1.03, 0.82, 2.05],
+        target: [0.35, 0.5, 0],
+        fov: 34,
         focalPoint: [0, 0.68, 0.14],
         aperture: 0.01,
         maxblur: 0.009,
         phone: {
-          position: [0.35, 0.8, 1.88],
-          target: [0, 0.41, 0],
-          fov: 42,
+          position: [0.3, 0.8, 2.5],
+          target: [0, 0.46, 0],
+          fov: 40,
         },
       },
       tint: "#765343",
@@ -220,16 +214,16 @@ export const tour = {
         },
       ],
       camera: {
-        position: [-0.62, 0.72, 1.22],
-        target: [0.14, 0.43, 0.05],
-        fov: 32,
+        position: [-0.55, 0.68, 1.48],
+        target: [0.26, 0.48, 0.02],
+        fov: 33,
         focalPoint: [-0.12, 0.235, 0.086],
         aperture: 0.012,
         maxblur: 0.009,
         phone: {
-          position: [-0.36, 0.58, 1.4],
-          target: [-0.12, 0.12, 0.05],
-          fov: 37,
+          position: [-0.5, 0.72, 2.4],
+          target: [-0.05, 0.25, 0.02],
+          fov: 39,
         },
       },
       tint: "#7D443D",
@@ -244,16 +238,16 @@ export const tour = {
         { href: "https://github.com/JunyiZhou-Conny/speciesOT", label: "GitHub" },
       ],
       camera: {
-        position: [-0.62, 0.24, 0.7],
-        target: [0.20, 0.18, 0.04],
-        fov: 29,
+        position: [-0.68, 0.65, 1.02],
+        target: [0.22, 0.25, 0.04],
+        fov: 34,
         focalPoint: [-0.19, 0.12, 0.105],
         aperture: 0.018,
         maxblur: 0.009,
         phone: {
-          position: [-0.47, 0.38, 1.03],
-          target: [-0.15, 0.005, 0.07],
-          fov: 38,
+          position: [-0.6, 0.65, 1.45],
+          target: [-0.1, 0.14, 0.04],
+          fov: 40,
         },
       },
       tint: "#405D54",
@@ -277,16 +271,16 @@ export const tour = {
         },
       ],
       camera: {
-        position: [-0.08, 0.83, 1.91],
-        target: [-0.39, 0.32, 0.46],
-        fov: 34,
-        focalPoint: [-0.72, 0.3, 0.54],
+        position: [0.28, 0.88, 2.55],
+        target: [0.17, 0.45, 0.1],
+        fov: 36,
+        focalPoint: [-0.26, 0.4, 0.2],
         aperture: 0.012,
         maxblur: 0.009,
         phone: {
-          position: [-0.38, 1.14, 2.93],
-          target: [-0.72, 0.13, 0.5],
-          fov: 43,
+          position: [0.04, 1.03, 4.1],
+          target: [-0.22, 0.24, 0.14],
+          fov: 42,
         },
       },
       tint: "#3F5268",
@@ -304,16 +298,16 @@ export const tour = {
         },
       ],
       camera: {
-        position: [0.54, 0.64, 0.83],
-        target: [0.33, 0.22, 0.025],
-        fov: 30,
+        position: [0.5, 0.59, 0.88],
+        target: [0.28, 0.4, 0.04],
+        fov: 32,
         focalPoint: [0.16, 0.235, 0.075],
         aperture: 0.018,
         maxblur: 0.009,
         phone: {
-          position: [0.48, 0.56, 1.13],
-          target: [0.16, 0.05, 0.055],
-          fov: 38,
+          position: [0.52, 0.63, 1.35],
+          target: [0.1, 0.2, 0.05],
+          fov: 40,
         },
       },
       tint: "#594C65",
@@ -336,16 +330,16 @@ export const tour = {
         },
       ],
       camera: {
-        position: [-0.45, 0.78, 1.55],
-        target: [0.28, 0.53, 0],
-        fov: 32,
+        position: [0, 0.68, 2.1],
+        target: [0.34, 0.52, 0],
+        fov: 33,
         focalPoint: [0, 0.65, 0.12],
         aperture: 0.012,
         maxblur: 0.009,
         phone: {
-          position: [-0.35, 0.8, 2.03],
-          target: [0, 0.42, 0.02],
-          fov: 42,
+          position: [0, 0.68, 2.3],
+          target: [0, 0.43, 0],
+          fov: 40,
         },
       },
       tint: "#67503E",
@@ -429,9 +423,9 @@ export const tour = {
   ] satisfies readonly Sticker[],
   workstation: {
     stopId: "jobs",
-    position: [-0.72, 0, 0.5],
+    position: [-0.52, 0, 0.38],
     rotation: 14,
-    scale: 1.02,
+    scale: 0.82,
     screen: "/3d/workstation/screen.svg",
     tiles: [
       {

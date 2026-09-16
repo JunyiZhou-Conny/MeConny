@@ -1,5 +1,4 @@
 html:has(.tour) {
-  scroll-snap-type: y proximity;
   scroll-padding-top: 0;
   scrollbar-width: none;
   background: #765343;
@@ -12,7 +11,8 @@ body:has(.tour) {
   color: #f4f1ea;
 }
 body:has(.tour) .site-grain {
-  opacity: .09;
+  opacity: .035;
+  mix-blend-mode: normal;
 }
 .tour {
   --paper: #765343;
@@ -261,7 +261,6 @@ body:has(.tour) .site-grain {
 }
 .tour-spacer {
   height: 100dvh;
-  scroll-snap-align: start;
 }
 .tour[data-mode="static"] .tour-spacers {
   display: none;
@@ -598,9 +597,22 @@ body:has(.tour) .site-grain {
 @media (prefers-reduced-motion:reduce) {
   html:has(.tour) {
     scroll-behavior: auto;
-    scroll-snap-type: none;
   }
   .tour-card,.tour-poster,.tour-loading {
     transition: none;
   }
+}
+
+.tour-sticker-caption {
+  position: absolute;
+  z-index: 3;
+  margin: 0;
+  padding: 8px 12px;
+  color: var(--ink);
+  background: rgba(25,20,18,.8);
+  border: 1px solid var(--hair);
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: .04em;
+  pointer-events: none;
 }
