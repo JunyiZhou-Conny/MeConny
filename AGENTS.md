@@ -39,11 +39,11 @@ npm run verify    # lint + build
 
 Rules that outlive any one change:
 
-- **Six stops.** Start, Clinical AI, Cells, Job Search OS, Loops, Off hours. Never drop Job Search. If the page runs long, merge Clinical into Cells.
-- **Job Search is a scene, not a card.** The mini desk, the screen, the tool tiles, and the loop are the point. Its card copy may only use facts already public in [`job-search-2026-2027-starter`](https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter). No jobs, offers, sponsorships, or submitted-application counts.
-- **Keep native document scroll.** One card at a time, stop tags, hash per stop, tint per stop. Do not hijack the wheel.
+- **Six stops.** Start, Clinical AI, Cells, Job Search OS, Loops, Off hours. Keep all six.
+- **Job Search is a scene.** The mini desk, the screen, the tool tiles, and the loop occupy the frame while the bust fades out. Its annotation copy may only use facts already public in [`job-search-2026-2027-starter`](https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter). No jobs, offers, sponsorships, or submitted-application counts.
+- **Keep native document scroll.** One annotation at a time, stop tags, hash per stop, tint per stop. Do not hijack the wheel.
 - **Keep the fallbacks.** `prefers-reduced-motion`, no JavaScript, and a failed WebGL context all fall back to the poster plus stacked cards.
-- **Stickers are story cues.** Eight or fewer, and none on the face. They sit on the sweater like enamel pins; a sticker on a cheek reads as a rash.
+- **Stickers are story cues.** Keep eight or fewer illustrated stickers on the sweater and none on the face. Use transparent 512px WebP art with cream borders. Set an explicit `stopId` for each interactive sticker.
 - **The bust is Conny.** `public/3d/conny-bust.glb`, built from one portrait in Blender. `model.src` in `content/tour.ts` is the single swap point, and the loader fits whatever arrives to one unit tall with its base on the floor. The loader decodes Meshopt, not Draco.
 
 ## The hub at `/hub`
@@ -70,7 +70,9 @@ To add a featured project:
 
 Do not restyle `public/css/style.css` unless the user asks. Outfit, cream-on-near-black, particle monogram, floating nav, skill universe — that is the point. The monogram letters are `CZ` in `public/js/hero-particles.js`.
 
-The tour is the other half: Geist, cream-on-warm, clay bust, one card at a time, tint per stop. It lives in [`app/_tour/tour.css`](app/_tour/tour.css) and never touches `public/css/style.css`.
+The tour uses warm dark grounds, light text, Fraunces headings, and IBM Plex body copy and counters. Bare annotations sit beside thin rails over the scene. Illustrated sweater stickers lead into project close-ups, Job Search isolates the workstation, and Off hours returns to a portrait. It lives in [`app/_tour/tour.css`](app/_tour/tour.css) and never touches `public/css/style.css`.
+
+Keep `camera.focalPoint` on the subject and `camera.target` responsible for composition. The HDR environment and depth of field belong to the scene. [`docs/cinematic-tour.md`](docs/cinematic-tour.md) records asset provenance and the current model limits. The localized ear shader is calibrated to the existing GLB; disable or recalibrate it when replacing that asset.
 
 ## GitHub front door
 

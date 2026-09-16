@@ -1,80 +1,97 @@
-# How to run and change the homepage tour
+# Run and change the homepage tour
 
-`/` is a scroll tour around a clay bust of Conny, with stickers on the sweater and a workstation scene for the Job Search stop. It is the front door. The written hub moved to `/hub` and keeps its own chrome.
+Use this guide to edit the six-stop homepage at `/`. Read [the cinematic tour reference](cinematic-tour.md) for the visual direction, asset sources, and model constraints. The written hub remains at `/hub`.
 
 ## Open the tour
+
+Run the development server.
 
 ```bash
 npm run dev
 ```
 
-Open `http://localhost:3000`. Scroll, or click a tag in the top bar, and the camera flies to that stop. The URL hash follows the active stop, so `http://localhost:3000/#cells` opens on the speciesOT stop. `/3d` still works: it redirects to `/`, and the browser carries the fragment, so `/3d#cells` lands on the same stop.
+Open `http://localhost:3000`. Scroll, choose a stop in the top navigation, or click an illustrated sticker. Open `/#cells` to start at the Cells stop. `/3d` redirects to `/` and retains the fragment.
 
-With `prefers-reduced-motion: reduce`, with JavaScript off, or when WebGL fails, the page shows `public/3d/poster.jpg` and all six cards stacked. Nothing moves.
+To inspect the static presentation, enable reduced motion or disable JavaScript. Confirm that the poster and all six annotations remain readable, including the Job Search workstation still.
 
-## Where things live
+## Edit a stop
 
-- `content/tour.ts` is the one table the page reads. Stops carry the card copy, the laptop camera, the phone camera, and the background tint. Stickers carry a surface point, an outward normal, a size, and a rotation. `workstation` carries the Job Search rig.
-- `app/_tour/Tour.tsx` turns that table into the scene. Scroll position maps to one number `t` in stop units. Camera, tint, active card, and the workstation's reveal all derive from `t`.
-- `app/_tour/workstation.ts` builds the Job Search rig. `app/_tour/clay.ts` holds the two shapes everything is made of: a soft ground blob and a rounded, bevelled slab.
-- `app/_tour/tour.css` is the light warm page chrome. It overrides the dark root layout with `html:has(.tour)` and `body:has(.tour)` selectors and never touches `public/css/style.css`.
-- `proxy.ts` serves `public/index.html` at `/hub`. `next.config.ts` redirects `/3d` to `/`.
-- `public/3d/conny-bust.glb` is the bust, 15,000 triangles with one baked 1024 texture. `public/3d/stickers/*.svg` are the stickers, `public/3d/workstation/*.svg` the workstation textures, `public/3d/poster.jpg` the still.
-- `scripts/3d/make-stickers.mjs` and `scripts/3d/make-workstation.mjs` write the SVGs.
+1. Open `content/tour.ts` and edit the matching entry in `tour.stops`.
+2. Update the copy, links, and tint together with the scene composition.
+3. Set `camera.position`, `camera.target`, and `camera.fov` for desktop.
+4. Set `camera.phone` independently for portrait screens.
+5. Set `camera.focalPoint` on the actual subject. Keep it separate from the composition target when the latter leaves space for text.
+6. Adjust `camera.aperture` and `camera.maxblur` while inspecting the subject's legibility.
+7. Check the stop and both adjacent transitions on desktop and phone.
 
-## The six stops
+Keep all six stops. Start, Clinical AI, Cells, Job Search OS, Loops, and Off hours. Preserve native document scroll, per-stop hashes, and the static fallbacks.
 
-Start, Clinical AI, Cells, Job Search OS, Loops, Off hours. Never drop Job Search. If the page runs long, merge Clinical into Cells.
+Edit `app/_tour/tour.css` for the tour's dark grounds, Fraunces headings, bare annotation rails, and responsive spacing. Leave the hub's `public/css/style.css` unchanged.
 
-## The Job Search workstation
+## Edit the Job Search workstation
 
-Stop four is a scene, not a card: a mini desk, a laptop with a lit editor screen, four floating tool tiles, and three dots running a closed loop between them. It fades in as the scroll approaches its stop and is gone by the time the next stop arrives, so the other five stay clean.
+Edit `tour.workstation` in `content/tour.ts` to change the desk's position, scale, tiles, or running loop. `app/_tour/workstation.ts` builds the rig. Check the separate desktop and phone camera compositions after moving it.
 
-The rig has its own local frame — desk on `y = 0`, centered on `x`, facing `+z` — and `workstation.position`, `rotation`, and `scale` place it in model space next to the bust. Tiles face the camera on the Y axis, because the laptop camera looks at the desk from the front right and the phone camera from straight on.
+Keep the bust fade tied to the workstation's presence. The settled Job Search scene shows the workstation alone.
 
-Two rules for this stop:
+To change a tool tile or the screen, edit `scripts/3d/make-workstation.mjs` and run it. The tiles use generic drawings and wordmarks. Use only facts already public in [the Job Search repository](https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter) for the annotation. Do not add jobs, offers, sponsorships, or submitted-application counts.
 
-- Tile art is a generic drawing plus a wordmark, not a vendor logo. Edit `scripts/3d/make-workstation.mjs` and rerun it.
-- Card copy may only use facts already public in [`job-search-2026-2027-starter`](https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter). No jobs, offers, sponsorships, or submitted-application counts.
+## Place an illustrated sticker
 
-## The bust
+1. Open `http://localhost:3000/?place=1` and click the sweater. Placement mode disables idle rotation.
+2. Copy the emitted surface position and normal from the console or placement panel into `tour.stickers`.
+3. Set `id`, `kind`, `label`, `image`, `size`, `rotation`, and the destination `stopId`.
+4. Add a transparent 512 × 512 WebP texture under `public/3d/stickers/`.
+5. Inspect the full decal from every stop where it is visible. Move clipped placements inboard and re-raycast the new surface position.
+6. Check pointer navigation and the equivalent keyboard link.
 
-`public/3d/conny-bust.glb` is a clay model of Conny, shaped from one portrait with Hunyuan3D-2 and finished in Blender. Free tools only. It is 15,000 triangles with one baked 1024 base color, Meshopt geometry and a WebP texture, 231 KB in total.
+Keep eight or fewer stickers on the sweater. Use irregular illustrated silhouettes, varied sizes, and cream borders. The six active `*-illustrated.webp` files are generated artwork. `scripts/3d/make-stickers.mjs` regenerates only the older SVG icons and the placement marker.
 
-Two things about it are worth knowing before you touch it:
+## Swap the bust
 
-- **The loader decodes Meshopt, not Draco.** `Tour.tsx` installs `MeshoptDecoder` and nothing else. A Draco GLB will fail to load and the page will fall back to the poster. Re-encode instead of adding a second decoder.
-- **The loader fits whatever arrives.** It measures the bounding box, scales the mesh to one unit tall, drops its base on the floor, and centers the footprint on x and z. The source file is 2 units tall and centered on the origin; nothing in the repo depends on that. `model.yaw` is the correction if a mesh was authored facing somewhere other than +z.
-
-Known limits, carried over from the build notes: the ear reads soft in profile, the back of the head is flat color, and the eyes are painted rather than modeled. The cameras stay in three-quarter and front angles, where all three are clean.
-
-## Swap the bust for your own figure
-
-1. Export as glTF binary, Y up, face toward +z. Any scale and any origin work, because the loader fits it.
-2. Compress it to Meshopt and put it in place:
+1. Export a binary glTF with Y up and the face toward +z.
+2. Compress the model to Meshopt.
 
 ```bash
 npx @gltf-transform/cli optimize me.glb public/3d/me.glb --compress meshopt --simplify false --texture-compress webp --texture-size 1024
 ```
 
-Drop `--texture-compress webp` if the mesh has no texture worth keeping.
+3. Set `model.src`, `model.posterAlt`, and `model.credit` in `content/tour.ts`. Use `model.yaw` for an orientation correction.
+4. If the new model has no texture, add `model.material` to select a clay color. Keep `model.finish` matte.
+5. Disable or recalibrate the model-specific ear repair in `Tour.tsx` and `character-material.ts` if you replace `conny-bust.glb` in place.
+6. Re-author the desktop and phone cameras, focal points, and sticker placements against the fitted model.
+7. Refresh the stills and run the checks below.
 
-3. In `content/tour.ts`, set `model.src` to `/3d/me.glb` and update `model.posterAlt` and `model.credit`. If the GLB has no texture, add a `model.material` block and the loader will paint the whole mesh one flat clay color instead. `model.finish` is forced onto whichever material wins, so clay stays matte.
-4. Run `npm run dev`, open `/`, and move each stop's `camera.position`, `camera.target`, and `camera.fov` until the framing reads. Laptop cameras leave the right third of the frame for the card. Phone cameras carry their own `fov`, because a portrait crop is narrow and a wide subject needs a wider angle there. Check `workstation.position` too: the Job Search framing assumes the desk sits just off the bust's front left.
-5. Place stickers again. Old positions are surface points on the old mesh and will float or sink on a new one. Keep the count at eight or fewer and keep them off the face.
-6. Render a new poster (see below).
-7. Run `npm run verify`.
+The loader fits the complete model to one unit tall, places its base at y=0, and centers x and z. It decodes Meshopt. Convert a Draco asset before using it here.
 
-## Place a sticker
+## Refresh the stills
 
-Open `http://localhost:3000/?place=1` and click the figure. The page prints a ready-to-paste sticker entry to the console and to a box in the top left corner. Paste it into `tour.stickers` in `content/tour.ts`, then set `id`, `kind`, `label`, `image`, `size`, and `rotation`. Idle rotation is off in place mode so the printed coordinates are exact model space.
+The poster and workstation still must match the current textures, lighting, and composition. Regenerate both with the checked-in renderer script while the site runs.
 
-To add a sticker image, add an entry to `stickers` in `scripts/3d/make-stickers.mjs` and run `node scripts/3d/make-stickers.mjs`. Stickers are 512 by 512 SVGs with a cream die-cut border. Any square PNG works too.
+```bash
+TOUR_URL=http://localhost:3000 node scripts/3d/render-stills.mjs
+```
 
-They go on the sweater, never on the face. The face is the identity; a sticker on a cheek reads as a rash rather than a badge.
+Set `PLAYWRIGHT_MODULE` when Playwright is installed outside the project. For a manual capture, use these settings.
 
-## Render the poster
+1. Open `/?place=1#start` at 1600 × 1000 and wait for `.tour[data-mode="live"]` and the loading overlay's fade.
+2. Capture `.tour-stage canvas` directly, without the DOM annotations or viewfinder. Save `public/3d/poster.jpg` at JPEG quality 85.
+3. Open `/?place=1#jobs` at 1100 × 700 and wait for the camera and workstation fade to settle.
+4. Capture the canvas as `public/3d/job-search-still.webp` and keep the corresponding `still` dimensions and alt text accurate.
+5. Inspect both images in reduced-motion, no-JavaScript, and WebGL-failure presentations.
 
-The poster is a still of the first stop under the current lighting and the current sticker set. It goes stale the moment either changes.
+## Check the changes
 
-Open `/?place=1` at 1600 by 1000 so the idle sway holds at zero, wait for `data-mode="live"`, hide `.tour-bar`, `.tour-cards`, `.tour-credit`, `.tour-place`, and `.tour-poster`, then save the frame as `public/3d/poster.jpg` at quality 82.
+Run the repository checks.
+
+```bash
+npm run verify
+```
+
+With a server running and Playwright available, run the browser checks against its URL.
+
+```bash
+TOUR_URL=http://localhost:3000 node scripts/verify/tour.mjs
+```
+
+Set `PLAYWRIGHT_MODULE` to the installed Playwright module if it is outside the project. Inspect all six desktop and phone screenshots as well as the static presentations. A passing build does not establish that camera framing or decal placement is correct.
