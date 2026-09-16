@@ -79,3 +79,7 @@ The tour is the other half: Geist, cream-on-warm, clay bust, one card at a time,
 ## Commit messages
 
 `type(scope): subject` — `feat`, `fix`, `docs`, `chore`. Subject describes the change. No AI `Co-Authored-By` trailer.
+
+## pstack
+
+Initiate "poteto-mode" to work on my repository to achieve the handoff goal. The other pdf is super important in the sense that it contains every this idea of personal website originally comes from and some of the tech specs that are there.
