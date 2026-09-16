@@ -183,6 +183,152 @@ try {
       await page.context().close();
     });
   }
+  await record('small native scroll retains the requested position after the camera settles', async () => {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    page.on('pageerror', error => errors.push({ url: page.url(), message: error.message }));
+    await page.addInitScript(() => {
+      window.__THREE_DEVTOOLS__ = new EventTarget();
+      window.partialScrollFrames = 0;
+      window.__THREE_DEVTOOLS__.addEventListener('observe', ({ detail }) => {
+        if (!detail.isWebGLRenderer) return;
+        const render = detail.render;
+        detail.render = function (scene, camera) {
+          if (camera.isPerspectiveCamera && scene.background?.isColor) {
+            window.partialScrollCamera = camera.position.toArray();
+            window.partialScrollFrames++;
+          }
+          return render.call(this, scene, camera);
+        };
+      });
+    });
+    await page.goto(`${base}/#start`);
+    await live(page);
+    await settledStop(page, 'start');
+    await page.mouse.move(1200, 20);
+    await page.mouse.wheel(0, 90);
+    await page.waitForTimeout(1000);
+    const state = await page.evaluate(() => ({
+      scroll: scrollY,
+      hash: location.hash,
+      current: document.querySelector('.tour-tag[aria-current="true"]')?.getAttribute('href'),
+      transitioning: document.querySelector('.tour')?.dataset.transitioning,
+      camera: window.partialScrollCamera,
+      frames: window.partialScrollFrames,
+    }));
+    assert.ok(Math.abs(state.scroll - 90) <= 1, JSON.stringify(state));
+    assert.equal(state.hash, '#start');
+    assert.equal(state.current, '#start');
+    assert.equal(state.transitioning, 'false');
+    for (const [index, expected] of [0.872, 0.806, 1.993].entries()) assert.ok(Math.abs(state.camera[index] - expected) < 0.001, JSON.stringify(state));
+    await page.waitForTimeout(500);
+    assert.equal(await page.evaluate(() => window.partialScrollFrames), state.frames);
+    await page.context().close();
+  });
+  await record('rapid navigation keeps destination copy, navigation, counter and hash together', async () => {
+    const page = await open({}, '/#start');
+    await live(page);
+    await settledStop(page, 'start');
+    for (const [id, index, title] of [['jobs', 4, 'An application workflow with a memory.'], ['loops', 5, 'Research that keeps running.'], ['cells', 3, 'Mouse cells in. Human cells out.'], ['start', 1, 'Hi, I’m Conny.']]) {
+      await page.locator(`.tour-tag[href="#${id}"]`).click();
+      const snapshots = await page.evaluate(async () => {
+        const samples = [];
+        for (let frame = 0; frame < 4; frame++) {
+          await new Promise(requestAnimationFrame);
+          samples.push({
+            hash: location.hash,
+            nav: document.querySelector('.tour-tag[aria-current="true"]')?.getAttribute('href'),
+            cards: [...document.querySelectorAll('.tour-card[data-active="true"]')].map(card => card.querySelector('.tour-title')?.textContent),
+            counter: document.querySelector('.tour-index')?.textContent?.replace(/\s/g, ''),
+          });
+        }
+        return samples;
+      });
+      for (const sample of snapshots) {
+        assert.equal(sample.hash, `#${id}`);
+        assert.equal(sample.nav, `#${id}`);
+        assert.deepEqual(sample.cards, [title]);
+        assert.equal(sample.counter, `0${index}/06`);
+      }
+    }
+    await settledStop(page, 'start');
+    await page.context().close();
+  });
+  await record('navigation during GPU warm-up reveals the requested scene on its first live frame', async () => {
+    const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+    await context.addInitScript(() => {
+      window.__THREE_DEVTOOLS__ = new EventTarget();
+      window.warmRetarget = { injected: 0, choice: 'start', camera: null, revealed: null };
+      window.__THREE_DEVTOOLS__.addEventListener('observe', ({ detail }) => {
+        if (!detail.isWebGLRenderer) return;
+        const render = detail.render;
+        detail.render = function (scene, camera) {
+          const result = render.call(this, scene, camera);
+          if (camera.isPerspectiveCamera && scene.background?.isColor && !scene.overrideMaterial) window.warmRetarget.camera = camera.position.toArray();
+          return result;
+        };
+      });
+      const retarget = () => {
+        const state = window.warmRetarget;
+        if (state.revealed) return;
+        if (state.camera && document.querySelector('.tour')?.dataset.mode === 'loading') {
+          state.choice = state.choice === 'start' ? 'jobs' : 'start';
+          state.injected++;
+          document.querySelector(`.tour-tag[href="#${state.choice}"]`).click();
+        }
+        requestAnimationFrame(retarget);
+      };
+      requestAnimationFrame(retarget);
+      const observer = new MutationObserver(() => {
+        const state = window.warmRetarget;
+        if (!state.revealed && document.querySelector('.tour')?.dataset.mode === 'live') {
+          state.revealed = { camera: state.camera, hash: location.hash, nav: document.querySelector('.tour-tag[aria-current="true"]')?.getAttribute('href') };
+          observer.disconnect();
+        }
+      });
+      observer.observe(document, { subtree: true, childList: true, characterData: true, attributes: true });
+    });
+    const page = await context.newPage();
+    page.on('pageerror', error => errors.push({ url: page.url(), message: error.message }));
+    await page.goto(`${base}/#start`);
+    await live(page);
+    const observed = await page.evaluate(() => window.warmRetarget);
+    assert.ok(observed.injected > 0, 'Navigation occurred between GPU warm-up frames');
+    assert.equal(observed.revealed.hash, `#${observed.choice}`);
+    assert.equal(observed.revealed.nav, `#${observed.choice}`);
+    assert.deepEqual(observed.revealed.camera, observed.choice === 'jobs' ? [0.28, 0.88, 2.55] : [1.03, 0.82, 2.05]);
+    await settledStop(page, observed.choice);
+    await context.close();
+  });
+  await record('cold delayed JavaScript retains a readable static page before hydration', async () => {
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    let release;
+    const held = new Promise(resolve => { release = resolve; });
+    await context.route('**/_next/**/*.js*', async route => { await held; await route.continue(); });
+    const page = await context.newPage();
+    page.on('pageerror', error => errors.push({ url: page.url(), message: error.message }));
+    try {
+      await page.goto(`${base}/#start`, { waitUntil: 'commit' });
+      await page.locator('.tour-card h1').waitFor();
+      await page.waitForFunction(() => {
+        const poster = document.querySelector('.tour-poster');
+        return poster?.complete && poster.naturalWidth > 0;
+      });
+      assert.equal(await page.locator('.tour').getAttribute('data-mode'), 'static');
+      assert.equal(await page.evaluate(() => scrollY), 0, 'Cold Start keeps the complete poster above the introduction');
+      assert.equal(await page.locator('.tour-card').count(), 6);
+      const heading = await page.locator('.tour-card h1').boundingBox();
+      assert.ok(heading.width > 100 && heading.height > 30, JSON.stringify(heading));
+      await page.screenshot({ path: path.join(output, 'phone-before-hydration.png') });
+      release();
+      await live(page);
+      await settledStop(page, 'start');
+      await page.locator('.tour-loading').waitFor({ state: 'hidden' });
+      await page.screenshot({ path: path.join(output, 'phone-after-hydration.png') });
+    } finally {
+      release();
+      await context.close();
+    }
+  });
   await record('legacy deep link redirects to Cells', async () => {
     const page = await open({}, '/3d#cells');
     await live(page);
@@ -306,7 +452,10 @@ try {
       await context.route('**/3d/conny-bust.glb', route => kind === 'failed' ? route.abort() : route.fulfill({ status: 200, contentType: 'model/gltf-binary', body: 'invalid glb' }));
       const page = await context.newPage();
       page.on('pageerror', error => errors.push({ url: page.url(), message: error.message }));
+      const requested = page.waitForRequest('**/3d/conny-bust.glb');
       await page.goto(`${base}/#jobs`);
+      await requested;
+      await page.locator('.tour-stage canvas').waitFor({ state: 'detached' });
       await staticJobs(page, `${kind}-glb`);
       await context.close();
     });

@@ -16,7 +16,11 @@ import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
 import { tour, type Sticker, type TourModel, type TourStop, type Vec3 } from "@/content/tour";
 import { groundShadow } from "./clay";
 import { buildWorkstation } from "./workstation";
-import { repairConnyEar } from "./character-material";
+import { repairConnyEar, tuneConnyHair } from "./character-material";
+import { createDecalInteraction } from "./decal-interaction";
+import { createConnyAttention } from "./character-attention";
+import { createAttentionMotion } from "./attention-motion";
+import { resolvePose, sampleMotion, type PoseMotion } from "./tour-motion";
 
 type Mode = "static" | "loading" | "live";
 
@@ -26,7 +30,7 @@ const stops: readonly TourStop[] = tour.stops;
 const stickers: readonly Sticker[] = tour.stickers;
 const model3d: TourModel = tour.model;
 const last = stops.length - 1;
-const { clamp, lerp, degToRad } = THREE.MathUtils;
+const { clamp, degToRad } = THREE.MathUtils;
 
 const vec = (v: Vec3) => new THREE.Vector3(v[0], v[1], v[2]);
 
@@ -133,6 +137,7 @@ export function Tour() {
   const [active, setActive] = useState(0);
   const [placed, setPlaced] = useState<string | null>(null);
   const [loadProgress, setLoadProgress] = useState(0);
+  const [hovered, setHovered] = useState<{ sticker: Sticker; position?: { x: number; y: number } } | null>(null);
 
   useEffect(() => {
     const selected = rootRef.current?.querySelector<HTMLElement>('.tour-tag[aria-current="true"]');
@@ -156,7 +161,6 @@ export function Tour() {
     const incomingHash = window.location.hash;
     const restoration = window.history.scrollRestoration;
     window.history.scrollRestoration = "manual";
-
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
@@ -169,68 +173,62 @@ export function Tour() {
       window.history.scrollRestoration = restoration;
       return;
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.95;
+    renderer.toneMappingExposure = 0.9;
     renderer.domElement.setAttribute("aria-hidden", "true");
     stage.appendChild(renderer.domElement);
 
     const placing = new URLSearchParams(window.location.search).has("place");
-    let cancelled = false;
+    const startIndex = Math.max(0, stops.findIndex((stop) => `#${stop.id}` === incomingHash));
+    const workstationStop = stops.findIndex((stop) => stop.id === tour.workstation.stopId);
+    let phase: "loading" | "warming" | "live" | "disposed" = "loading";
     let assetsReady = false;
-    let revealed = false;
-    let disposed = false;
+    let layoutReady = false;
     let frame = 0;
-    let navigationFrame = 0;
-    let navigating = true;
-    const timer = new THREE.Timer();
-    const manager = new THREE.LoadingManager();
-    manager.onProgress = (_url, loaded, total) => {
-      if (!cancelled) setLoadProgress((previous) => Math.max(previous, Math.round(loaded / total * 99)));
-    };
-    manager.onLoad = () => {
-      if (!cancelled) assetsReady = true;
-    };
+    let layoutFrame = 0;
+    let warmFrame = 0;
+    let lastRenderAt = 0;
+    let workstationTime = 0;
+    let intent = { progress: startIndex, stop: startIndex };
+    let view = resolvePose(stops, startIndex, window.innerWidth < window.innerHeight, workstationStop);
+    let motion: PoseMotion | null = null;
+    let model: THREE.Mesh | null = null;
+    let attention: ReturnType<typeof createAttentionMotion> | null = null;
 
     const scene = new THREE.Scene();
-    const tint = new THREE.Color(stops[0].tint);
-    const tints = stops.map((stop) => new THREE.Color(stop.tint));
-    scene.background = tint;
+    scene.background = view.tint.clone();
+    const group = new THREE.Group();
+    scene.add(group);
+    const manager = new THREE.LoadingManager();
+    manager.onProgress = (_url, loaded, total) => {
+      if (phase !== "disposed") setLoadProgress((previous) => Math.max(previous, Math.round(loaded / total * 92)));
+    };
+    manager.onLoad = () => {
+      if (phase === "disposed") return;
+      assetsReady = true;
+      if (phase === "loading") void warmScene();
+      else invalidate();
+    };
 
     const pmrem = new THREE.PMREMGenerator(renderer);
     const room = new RoomEnvironment();
     let environment = pmrem.fromScene(room, 0.04);
     room.dispose();
     scene.environment = environment.texture;
-    scene.environmentIntensity = 0.55;
-    new HDRLoader(manager).load("/3d/studio-environment.hdr", (hdr) => {
-      if (cancelled) {
-        hdr.dispose();
-        return;
-      }
-      const next = pmrem.fromEquirectangular(hdr);
-      hdr.dispose();
-      environment.dispose();
-      environment = next;
-      scene.environment = environment.texture;
-    }, undefined, () => {});
-
-    const key = new THREE.DirectionalLight("#fff1e0", 1.15);
+    scene.environmentIntensity = 0.6;
+    const key = new THREE.DirectionalLight("#fff1e0", 1.05);
     key.position.set(-2, 3, 3);
-    scene.add(key);
+    const fill = new THREE.DirectionalLight("#d8e8ff", 1.4);
+    fill.position.set(2, 1.5, 2);
+    const rim = new THREE.DirectionalLight("#f5e3c8", 3.4);
+    rim.position.set(-1, 2, -2);
+    scene.add(key, fill, rim, new THREE.HemisphereLight("#dae5f2", "#4c3223", 0.15));
 
-    const group = new THREE.Group();
-    scene.add(group);
-    const characterMaterials = new Map<THREE.Material, number>();
-
-    // The workstation sits outside the swaying group. Only the bust breathes.
     const texture = (url: string) => flatTexture(url, renderer, manager);
     const workstation = buildWorkstation(tour.workstation, texture);
-    const workstationStop = stops.findIndex((stop) => stop.id === tour.workstation.stopId);
     scene.add(workstation.group);
-
-    const camera = new THREE.PerspectiveCamera(stops[0].camera.fov, 1, 0.05, 20);
+    const camera = new THREE.PerspectiveCamera(view.fov, 1, 0.05, 20);
     const composer = new EffectComposer(renderer);
     const bokeh = new BokehPass(scene, camera, { focus: 2, aperture: 0.012, maxblur: 0.009 });
     const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.13, 0.45, 1.05);
@@ -239,72 +237,104 @@ export function Tour() {
     composer.addPass(bokeh);
     composer.addPass(bloom);
     composer.addPass(output);
-    const curve = (points: Vec3[]) => new THREE.CatmullRomCurve3(points.map(vec), false, "centripetal");
-    const paths = {
-      wide: {
-        positions: curve(stops.map((stop) => stop.camera.position)),
-        targets: curve(stops.map((stop) => stop.camera.target)),
-        focalPoints: curve(stops.map((stop) => stop.camera.focalPoint ?? stop.camera.target)),
-      },
-      tall: {
-        positions: curve(stops.map((stop) => stop.camera.phone.position)),
-        targets: curve(stops.map((stop) => stop.camera.phone.target)),
-        focalPoints: curve(stops.map((stop) => stop.camera.focalPoint ?? stop.camera.phone.target)),
-      },
-    };
+    const cameraForward = new THREE.Vector3();
+    const focusOffset = new THREE.Vector3();
 
-    const loader = new GLTFLoader(manager);
-    loader.setMeshoptDecoder(MeshoptDecoder);
-    let model: THREE.Mesh | null = null;
-    let mixer: THREE.AnimationMixer | null = null;
+    function invalidate() {
+      if (phase === "live" && !frame) frame = requestAnimationFrame(renderFrame);
+    }
 
-    let width = 1;
-    let height = 1;
-    const resize = () => {
-      width = Math.max(1, stage.clientWidth);
-      height = Math.max(1, stage.clientHeight);
-      renderer.setSize(width, height, false);
-      composer.setSize(width, height);
-      camera.aspect = width / height;
+    const decals = placing ? null : createDecalInteraction({
+      canvas: renderer.domElement,
+      camera,
+      occluders: () => model ? [model] : [],
+      onHover: (sticker, position) => setHovered(sticker ? { sticker, position } : null),
+      onActivate: (sticker) => navigateTo(stops.findIndex((stop) => stop.id === sticker.stopId), true),
+      invalidate,
+    });
+
+    function applyView() {
+      camera.position.copy(view.position);
+      camera.lookAt(view.target);
+      camera.fov = view.fov;
       camera.updateProjectionMatrix();
-    };
-    const observer = new ResizeObserver(resize);
-    observer.observe(stage);
-    resize();
+      camera.updateMatrixWorld(true);
+      camera.getWorldDirection(cameraForward);
+      const focus = Math.max(camera.near, focusOffset.copy(view.focalPoint).sub(view.position).dot(cameraForward));
+      bokeh.materialBokeh.uniforms.focus.value = focus;
+      bokeh.materialBokeh.uniforms.aperture.value = view.aperture;
+      bokeh.materialBokeh.uniforms.maxblur.value = view.maxblur;
+      (scene.background as THREE.Color).copy(view.tint);
+      root!.style.backgroundColor = `#${view.tint.getHexString()}`;
+      workstation.update(view.workstation, workstationTime, camera);
+    }
 
-    let tTarget = 0;
-    let tSmooth = 0;
-    let navigationTarget = 0;
-    const readScroll = () => {
-      const range = scroller.offsetHeight - window.innerHeight;
-      const scrolled = -scroller.getBoundingClientRect().top;
-      tTarget = range > 0 ? clamp(scrolled / range, 0, 1) * last : 0;
-      if (navigating && !navigationFrame && Math.abs(tTarget - navigationTarget) > 0.02) navigating = false;
-    };
-    readScroll();
-    tSmooth = tTarget;
-    window.addEventListener("scroll", readScroll, { passive: true });
-    window.addEventListener("resize", readScroll);
-
-    const navigateTo = (index: number, push: boolean, immediate = false) => {
-      if (disposed || index < 0) return;
-      navigating = true;
-      navigationTarget = index;
-      const hash = `#${stops[index].id}`;
-      if (push && window.location.hash !== hash) {
-        window.history.pushState(window.history.state, "", hash);
+    function renderFrame() {
+      frame = 0;
+      if (phase !== "live") return;
+      const now = performance.now();
+      const dt = Math.min(Math.max((now - lastRenderAt) / 1000, 0), 0.05);
+      lastRenderAt = now;
+      if (motion) {
+        view = sampleMotion(motion, now);
+        workstationTime += dt;
+        if (now >= motion.startedAt + motion.duration) {
+          view = motion.to;
+          motion = null;
+        }
       }
-      cancelAnimationFrame(navigationFrame);
-      navigationFrame = requestAnimationFrame(() => {
-        navigationFrame = 0;
-        if (disposed) return;
-        const spacer = document.getElementById(stops[index].id);
-        if (!spacer?.classList.contains("tour-spacer")) return;
+      applyView();
+      const hovering = decals?.update(dt) ?? false;
+      const attending = attention?.update(now) ?? false;
+      root!.dataset.transitioning = String(Boolean(motion));
+      try {
+        composer.render(dt);
+      } catch {
+        returnToStatic();
+        return;
+      }
+      if (motion || hovering || attending) invalidate();
+    }
+
+    function requestPose(progress: number, push = false, immediate = false, force = false) {
+      if (phase === "disposed") return;
+      progress = clamp(progress, 0, last);
+      const index = Math.round(progress);
+      const hash = `#${stops[index].id}`;
+      if (window.location.hash !== hash) {
+        window.history[push ? "pushState" : "replaceState"](window.history.state, "", hash);
+      }
+      if (index !== intent.stop) flushSync(() => setActive(index));
+      const changed = Math.abs(progress - intent.progress) > 0.00001;
+      intent = { progress, stop: index };
+      if (!changed && !force && !immediate) return;
+      const destination = resolvePose(stops, progress, camera.aspect < 1, workstationStop);
+      decals?.clear();
+      if (immediate || phase !== "live") {
+        view = destination;
+        motion = null;
+      } else {
+        motion = { from: view, to: destination, startedAt: performance.now(), duration: 520 };
+      }
+      root!.dataset.transitioning = String(Boolean(motion));
+      invalidate();
+    }
+
+    function readScroll() {
+      if (!layoutReady || phase === "disposed") return;
+      const range = scroller!.offsetHeight - window.innerHeight;
+      const scrolled = -scroller!.getBoundingClientRect().top;
+      requestPose(range > 0 ? clamp(scrolled / range, 0, 1) * last : 0);
+    }
+
+    function navigateTo(index: number, push: boolean, immediate = false) {
+      if (phase === "disposed" || index < 0) return;
+      const spacer = document.getElementById(stops[index].id);
+      if (spacer?.classList.contains("tour-spacer")) {
         window.scrollTo({ top: spacer.getBoundingClientRect().top + window.scrollY, behavior: "instant" });
-        readScroll();
-        if (immediate) tSmooth = tTarget;
-      });
-    };
+      }
+      requestPose(index, push, immediate);
+    }
     const indexFromHash = () => stops.findIndex((stop) => `#${stop.id}` === window.location.hash);
     const onHashNavigation = () => navigateTo(indexFromHash(), false);
     const onPageShow = (event: PageTransitionEvent) => {
@@ -320,103 +350,78 @@ export function Tour() {
       event.preventDefault();
       navigateTo(index, true);
     };
-    const cancelNavigation = () => { navigating = false; };
     root.addEventListener("click", onNavigationClick);
+    window.addEventListener("scroll", readScroll, { passive: true });
     window.addEventListener("hashchange", onHashNavigation);
     window.addEventListener("popstate", onHashNavigation);
     window.addEventListener("pageshow", onPageShow);
-    window.addEventListener("wheel", cancelNavigation, { passive: true });
-    window.addEventListener("touchstart", cancelNavigation, { passive: true });
 
-    const pointer = new THREE.Vector2();
-    const parallax = new THREE.Vector2();
-    const decalStories = new Map<THREE.Object3D, Sticker>();
+    let width = 0;
+    let height = 0;
+    function resize() {
+      if (root!.dataset.mode === "static" || phase === "disposed") return;
+      const nextWidth = Math.max(1, stage!.clientWidth);
+      const nextHeight = Math.max(1, stage!.clientHeight);
+      if (width === nextWidth && height === nextHeight) return;
+      width = nextWidth;
+      height = nextHeight;
+      const ratio = Math.min(window.devicePixelRatio, 1.5, Math.sqrt(2_000_000 / (width * height)));
+      renderer.setPixelRatio(ratio);
+      renderer.setSize(width, height, false);
+      composer.setPixelRatio(ratio);
+      composer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      requestPose(intent.progress, false, true, true);
+    }
+    const observer = new ResizeObserver(resize);
+    observer.observe(stage);
+    window.addEventListener("resize", readScroll);
+
+    const pressed = new THREE.Vector2();
     const raycaster = new THREE.Raycaster();
-    const decalAt = (event: PointerEvent) => {
-      if (!group.visible) return;
+    const onPointerDown = (event: PointerEvent) => pressed.set(event.clientX, event.clientY);
+    const onPointerUp = (event: PointerEvent) => {
+      if (!placing || !model || pressed.distanceTo(new THREE.Vector2(event.clientX, event.clientY)) > 6) return;
       const rect = renderer.domElement.getBoundingClientRect();
       raycaster.setFromCamera(new THREE.Vector2(
         ((event.clientX - rect.left) / rect.width) * 2 - 1,
         1 - ((event.clientY - rect.top) / rect.height) * 2,
       ), camera);
-      const hit = raycaster.intersectObjects([...decalStories.keys()], false)[0];
-      if (!hit) return;
-      const bodyHit = model ? raycaster.intersectObject(model, false)[0] : undefined;
-      if (bodyHit && bodyHit.distance < hit.distance - 0.012) return;
-      return decalStories.get(hit.object);
-    };
-    const onPointerMove = (event: PointerEvent) => {
-      pointer.set(
-        (event.clientX / window.innerWidth) * 2 - 1,
-        1 - (event.clientY / window.innerHeight) * 2,
-      );
-      if (placing || event.target !== renderer.domElement) return;
-      const sticker = decalAt(event);
-      renderer.domElement.style.cursor = sticker?.stopId ? "pointer" : "";
-      renderer.domElement.title = sticker?.stopId ? `Explore ${stops.find((stop) => stop.id === sticker.stopId)?.tag}` : "";
-    };
-    window.addEventListener("pointermove", onPointerMove, { passive: true });
-
-    const pressed = new THREE.Vector2();
-    const onPointerDown = (event: PointerEvent) => pressed.set(event.clientX, event.clientY);
-    const onPointerUp = (event: PointerEvent) => {
-      if (!model) return;
-      if (pressed.distanceTo(new THREE.Vector2(event.clientX, event.clientY)) > 6) return;
-      if (!placing) {
-        const sticker = decalAt(event);
-        if (sticker?.stopId) navigateTo(stops.findIndex((stop) => stop.id === sticker.stopId), true);
-        return;
-      }
-      const rect = renderer.domElement.getBoundingClientRect();
-      raycaster.setFromCamera(
-        new THREE.Vector2(
-          ((event.clientX - rect.left) / rect.width) * 2 - 1,
-          1 - ((event.clientY - rect.top) / rect.height) * 2,
-        ),
-        camera,
-      );
       const hit = raycaster.intersectObject(model, false)[0];
       if (!hit?.face) return;
-      const normal = hit.face.normal
-        .clone()
-        .applyMatrix3(new THREE.Matrix3().getNormalMatrix(model.matrixWorld))
-        .normalize();
-      const placement: Placement = {
-        position: round3(hit.point),
-        normal: round3(normal),
-        size: 0.08,
-        rotation: 0,
-      };
+      const normal = hit.face.normal.clone().applyMatrix3(new THREE.Matrix3().getNormalMatrix(model.matrixWorld)).normalize();
+      const placement: Placement = { position: round3(hit.point), normal: round3(normal), size: 0.08, rotation: 0 };
       group.add(makeDecal(model, placement, texture("/3d/stickers/coffee.svg")));
       const entry = stickerEntry(placement.position, placement.normal);
       console.log(entry);
       setPlaced(entry);
+      invalidate();
     };
-    renderer.domElement.addEventListener("pointerdown", onPointerDown);
-    renderer.domElement.addEventListener("pointerup", onPointerUp);
+    if (placing) {
+      renderer.domElement.addEventListener("pointerdown", onPointerDown);
+      renderer.domElement.addEventListener("pointerup", onPointerUp);
+    }
 
-    const dispose = () => {
-      if (disposed) return;
-      disposed = true;
-      cancelled = true;
+    function dispose() {
+      if (phase === "disposed") return;
+      phase = "disposed";
       cancelAnimationFrame(frame);
-      cancelAnimationFrame(navigationFrame);
+      cancelAnimationFrame(layoutFrame);
+      cancelAnimationFrame(warmFrame);
       observer.disconnect();
+      root!.removeEventListener("click", onNavigationClick);
       window.removeEventListener("scroll", readScroll);
       window.removeEventListener("resize", readScroll);
-      window.removeEventListener("pointermove", onPointerMove);
-      root.removeEventListener("click", onNavigationClick);
       window.removeEventListener("hashchange", onHashNavigation);
       window.removeEventListener("popstate", onHashNavigation);
       window.removeEventListener("pageshow", onPageShow);
-      window.removeEventListener("wheel", cancelNavigation);
-      window.removeEventListener("touchstart", cancelNavigation);
       renderer.domElement.removeEventListener("pointerdown", onPointerDown);
       renderer.domElement.removeEventListener("pointerup", onPointerUp);
       renderer.domElement.removeEventListener("webglcontextlost", onContextLost);
       motionPreference.removeEventListener("change", onMotionChange);
-      mixer?.stopAllAction();
-      if (mixer) mixer.uncacheRoot(mixer.getRoot());
+      decals?.dispose();
+      attention?.dispose();
       disposeObject(scene);
       environment.dispose();
       pmrem.dispose();
@@ -424,221 +429,151 @@ export function Tour() {
       bloom.dispose();
       output.dispose();
       composer.dispose();
-      timer.dispose();
       renderer.dispose();
       renderer.domElement.remove();
-      root.style.backgroundColor = "";
+      root!.style.backgroundColor = "";
+      delete root!.dataset.transitioning;
       window.history.scrollRestoration = restoration;
-    };
+    }
 
-    const returnToStatic = () => {
-      if (disposed) return;
-      const stop = stops.find((entry) => `#${entry.id}` === window.location.hash)
-        ?? stops[Math.round(tSmooth)];
+    function returnToStatic() {
+      if (phase === "disposed") return;
+      const stop = stops[intent.stop];
       dispose();
-      flushSync(() => setMode("static"));
+      flushSync(() => { setMode("static"); setHovered(null); });
       document.getElementById(stop.id)?.scrollIntoView({ behavior: "instant", block: "start" });
-    };
-
-    const onContextLost = (event: Event) => {
-      event.preventDefault();
-      // A context can fail after the first frame, including while the model
-      // is still loading. Keep the same readable fallback in either case.
-      returnToStatic();
-    };
+    }
+    const onContextLost = (event: Event) => { event.preventDefault(); returnToStatic(); };
+    const onMotionChange = (event: MediaQueryListEvent) => { if (event.matches) returnToStatic(); };
     renderer.domElement.addEventListener("webglcontextlost", onContextLost);
-
-    const onMotionChange = (event: MediaQueryListEvent) => {
-      if (event.matches) returnToStatic();
-    };
     motionPreference.addEventListener("change", onMotionChange);
 
-    loader.load(
-      model3d.src,
-      (gltf) => {
-        if (cancelled) {
-          disposeObject(gltf.scene);
-          return;
-        }
-        const meshes: THREE.Mesh[] = [];
-        gltf.scene.traverse((object) => {
-          if (object instanceof THREE.Mesh && object.geometry.getAttribute("position")?.count) {
-            meshes.push(object);
-          }
-        });
-        const bounds = new THREE.Box3().setFromObject(gltf.scene);
-        const size = bounds.getSize(new THREE.Vector3());
-        if (
-          !meshes.length || bounds.isEmpty() || size.y <= 1e-6 ||
-          ![...bounds.min.toArray(), ...bounds.max.toArray()].every(Number.isFinite)
-        ) {
-          disposeObject(gltf.scene);
-          returnToStatic();
-          return;
-        }
-        const mesh = stickerSurface(meshes);
-        model = mesh;
-        const replacedMaterials = new Set<THREE.Material>();
-        for (const part of meshes) {
-          if (model3d.material) {
-            for (const material of Array.isArray(part.material) ? part.material : [part.material]) {
-              replacedMaterials.add(material);
-            }
-            part.material = new THREE.MeshStandardMaterial({
-              color: model3d.material.color,
-              roughness: model3d.material.roughness,
-              metalness: 0,
-            });
-          }
-          for (const material of Array.isArray(part.material) ? part.material : [part.material]) {
-            if (model3d.src === "/3d/conny-bust.glb" && !model3d.material && material instanceof THREE.MeshStandardMaterial) repairConnyEar(material);
-            if ("roughness" in material) material.roughness = model3d.finish.roughness;
-            if ("metalness" in material) material.metalness = model3d.finish.metalness;
-          }
-        }
-        disposeMaterials(replacedMaterials);
-
-        // Fit the entire character, including separate eye and hair meshes,
-        // to one unit tall, with its base on the floor and centered footprint.
-        // The outer yaw turns around that base, independent of export origin.
-        const center = bounds.getCenter(new THREE.Vector3());
-        const fit = 1 / size.y;
-        const fitted = new THREE.Group();
-        fitted.scale.setScalar(fit);
-        fitted.position.set(-center.x * fit, -bounds.min.y * fit, -center.z * fit);
-        fitted.add(gltf.scene);
-        const rig = new THREE.Group();
-        rig.rotation.y = degToRad(model3d.yaw);
-        rig.add(fitted);
-
-        const shadow = groundShadow(0.5, 0.22);
-        shadow.scale.set(size.x * fit * 1.06, size.z * fit * 1.25, 1);
-
-        group.rotation.y = 0;
-        group.add(shadow, rig);
-        group.updateMatrixWorld(true);
-        for (const sticker of stickers) {
-          const decal = makeDecal(mesh, sticker, texture(sticker.image));
-          group.add(decal);
-          if (sticker.stopId) decalStories.set(decal, sticker);
-        }
-        group.traverse((part) => {
-          if (!(part instanceof THREE.Mesh)) return;
-          for (const material of Array.isArray(part.material) ? part.material : [part.material]) {
-            characterMaterials.set(material, material.opacity);
-            material.transparent = true;
-          }
-        });
-        // Authored clips supply the actual deformation; painted eyes alone
-        // must never be animated as if they had an eyelid or gaze rig.
-        if (!placing && gltf.animations.length) {
-          mixer = new THREE.AnimationMixer(gltf.scene);
-          for (const clip of gltf.animations) mixer.clipAction(clip).play();
-        }
-      },
-      undefined,
-      () => {
-        if (cancelled) return;
-        returnToStatic();
-      },
-    );
-
-    const startIndex = stops.findIndex((stop) => `#${stop.id}` === incomingHash);
-
-    const cameraTarget = new THREE.Vector3();
-    const focalPoint = new THREE.Vector3();
-    const cameraForward = new THREE.Vector3();
-    const right = new THREE.Vector3();
-    const up = new THREE.Vector3();
-    let activeIndex = -1;
-    let currentTint = "";
-
-    const loop = () => {
-      if (disposed) return;
-      frame = requestAnimationFrame(loop);
-      timer.update();
-      const dt = Math.min(timer.getDelta(), 0.05);
-      const time = timer.getElapsed();
-      const ease = 1 - Math.exp(-dt * 6);
-      tSmooth += (tTarget - tSmooth) * ease;
-      if (navigating && !navigationFrame && Math.abs(tSmooth - navigationTarget) < 0.008) navigating = false;
-      const u = last > 0 ? tSmooth / last : 0;
-      const i0 = Math.min(Math.floor(tSmooth), last);
-      const i1 = Math.min(i0 + 1, last);
-      const f = tSmooth - i0;
-
-      const tall = camera.aspect < 1;
-      const path = tall ? paths.tall : paths.wide;
-      path.positions.getPoint(u, camera.position);
-      path.targets.getPoint(u, cameraTarget);
-      camera.lookAt(cameraTarget);
-      parallax.lerp(pointer, 1 - Math.exp(-dt * 4));
-      right.setFromMatrixColumn(camera.matrix, 0);
-      up.setFromMatrixColumn(camera.matrix, 1);
-      camera.position.addScaledVector(right, 0.05 * parallax.x).addScaledVector(up, 0.03 * parallax.y);
-      camera.lookAt(cameraTarget);
-      const fov = (stop: TourStop) => (tall ? stop.camera.phone.fov : stop.camera.fov);
-      camera.fov = lerp(fov(stops[i0]), fov(stops[i1]), f);
-      camera.updateProjectionMatrix();
-      path.focalPoints.getPoint(u, focalPoint);
-      camera.getWorldDirection(cameraForward);
-      const focus = Math.max(camera.near, focalPoint.sub(camera.position).dot(cameraForward));
-      bokeh.materialBokeh.uniforms.focus.value = lerp(stops[i0].camera.focus ?? focus, stops[i1].camera.focus ?? focus, f);
-      bokeh.materialBokeh.uniforms.aperture.value = lerp(stops[i0].camera.aperture ?? 0.012, stops[i1].camera.aperture ?? 0.012, f);
-      bokeh.materialBokeh.uniforms.maxblur.value = lerp(stops[i0].camera.maxblur ?? 0.009, stops[i1].camera.maxblur ?? 0.009, f);
-
-      tint.lerpColors(tints[i0], tints[i1], f);
-      const hex = `#${tint.getHexString()}`;
-      if (hex !== currentTint) {
-        currentTint = hex;
-        root.style.backgroundColor = hex;
-      }
-
-      group.rotation.y = placing ? 0 : Math.sin(time * 0.35) * 0.04;
-      mixer?.update(dt);
-
-      // Fully present at its own stop, gone by the time the next one arrives.
-      const near = clamp((1 - Math.abs(tSmooth - workstationStop)) / 0.72, 0, 1);
-      const workstationPresence = near * near * (3 - 2 * near);
-      workstation.update(workstationPresence, time, camera);
-      group.visible = workstationPresence < 0.999;
-      for (const [material, opacity] of characterMaterials) material.opacity = opacity * (1 - workstationPresence);
-
-      const index = Math.round(tSmooth);
-      if (index !== activeIndex) {
-        activeIndex = index;
-        setActive(index);
-      }
-      if (!navigating) {
-        const next = `#${stops[index].id}`;
-        if (window.location.hash !== next) window.history.replaceState(window.history.state, "", next);
-      }
-
+    const afterFrame = () => new Promise<void>((resolve) => { warmFrame = requestAnimationFrame(() => resolve()); });
+    async function warmScene() {
+      if (phase !== "loading" || !assetsReady || !layoutReady || !model) return;
+      phase = "warming";
+      const culling = new Map<THREE.Object3D, boolean>();
       try {
-        composer.render(dt);
+        applyView();
+        attention?.update(performance.now());
+        workstation.update(1, 0, camera);
+        const maps = new Set<THREE.Texture>();
+        scene.traverse((object) => {
+          culling.set(object, object.frustumCulled);
+          object.frustumCulled = false;
+          if (!(object instanceof THREE.Mesh)) return;
+          for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+            for (const value of Object.values(material)) if (value instanceof THREE.Texture) maps.add(value);
+          }
+        });
+        for (const map of maps) renderer.initTexture(map);
+        await renderer.compileAsync(scene, camera);
+        if (phase !== "warming") return;
+        composer.render(0);
+        for (const [object, frustumCulled] of culling) object.frustumCulled = frustumCulled;
+        setLoadProgress(98);
+        await afterFrame();
+        if (phase !== "warming") return;
+        view = resolvePose(stops, intent.progress, camera.aspect < 1, workstationStop);
+        applyView();
+        attention?.update(performance.now());
+        composer.render(0);
+        phase = "live";
+        attention?.start();
+        lastRenderAt = performance.now();
+        root!.dataset.transitioning = "false";
+        flushSync(() => { setLoadProgress(100); setMode("live"); });
       } catch {
+        returnToStatic();
+      }
+    }
+
+    new HDRLoader(manager).load("/3d/studio-environment.hdr", (hdr) => {
+      if (phase === "disposed") { hdr.dispose(); return; }
+      const next = pmrem.fromEquirectangular(hdr);
+      hdr.dispose();
+      environment.dispose();
+      environment = next;
+      scene.environment = environment.texture;
+    }, undefined, () => {});
+    const loader = new GLTFLoader(manager);
+    loader.setMeshoptDecoder(MeshoptDecoder);
+    loader.load(model3d.src, (gltf) => {
+      if (phase === "disposed") { disposeObject(gltf.scene); return; }
+      const meshes: THREE.Mesh[] = [];
+      gltf.scene.traverse((object) => {
+        if (object instanceof THREE.Mesh && object.geometry.getAttribute("position")?.count) meshes.push(object);
+      });
+      const bounds = new THREE.Box3().setFromObject(gltf.scene);
+      const size = bounds.getSize(new THREE.Vector3());
+      if (!meshes.length || bounds.isEmpty() || size.y <= 1e-6 || ![...bounds.min.toArray(), ...bounds.max.toArray()].every(Number.isFinite)) {
+        disposeObject(gltf.scene);
         returnToStatic();
         return;
       }
-      if (assetsReady && model && !revealed) {
-        revealed = true;
-        setLoadProgress(100);
-        setMode("live");
+      const mesh = stickerSurface(meshes);
+      model = mesh;
+      const replacedMaterials = new Set<THREE.Material>();
+      for (const part of meshes) {
+        if (model3d.material) {
+          for (const material of Array.isArray(part.material) ? part.material : [part.material]) replacedMaterials.add(material);
+          part.material = new THREE.MeshStandardMaterial({ color: model3d.material.color, roughness: model3d.material.roughness, metalness: 0 });
+        }
+        for (const material of Array.isArray(part.material) ? part.material : [part.material]) {
+          if (model3d.src === "/3d/conny-bust.glb" && !model3d.material && material instanceof THREE.MeshStandardMaterial) {
+            repairConnyEar(material);
+            tuneConnyHair(material);
+          }
+          if ("roughness" in material) material.roughness = model3d.finish.roughness;
+          if ("metalness" in material) material.metalness = model3d.finish.metalness;
+        }
       }
-    };
-    frame = requestAnimationFrame(() => {
-      if (disposed) return;
-      flushSync(() => {
-        setMode("loading");
-      });
+      disposeMaterials(replacedMaterials);
+      const center = bounds.getCenter(new THREE.Vector3());
+      const fit = 1 / size.y;
+      const fitted = new THREE.Group();
+      fitted.scale.setScalar(fit);
+      fitted.position.set(-center.x * fit, -bounds.min.y * fit, -center.z * fit);
+      fitted.add(gltf.scene);
+      const rig = new THREE.Group();
+      rig.rotation.y = degToRad(model3d.yaw);
+      rig.add(fitted);
+      const shadow = groundShadow(0.5, 0.22);
+      shadow.scale.set(size.x * fit * 1.06, size.z * fit * 1.25, 1);
+      group.add(shadow, rig);
+      group.updateMatrixWorld(true);
+      if (model3d.src === "/3d/conny-bust.glb" && !model3d.material) {
+        const face = createConnyAttention(mesh, renderer);
+        if (face) {
+          // Three r186 exposes _materialDepth; its declaration still names materialDepth.
+          const depthMaterial = (bokeh as BokehPass & { _materialDepth: THREE.MeshDepthMaterial })._materialDepth;
+          face.applyDepthMaterial(depthMaterial);
+          attention = createAttentionMotion({ face, camera, surface: renderer.domElement, pointerSurface: root, invalidate, interactive: !placing });
+        }
+      }
+      for (const sticker of stickers) {
+        const decal = makeDecal(mesh, sticker, texture(sticker.image));
+        group.add(decal);
+        decals?.add(decal, sticker);
+      }
+    }, undefined, () => { if (phase !== "disposed") returnToStatic(); });
+
+    layoutFrame = requestAnimationFrame(() => {
+      if (phase === "disposed") return;
+      flushSync(() => { setMode("loading"); setActive(intent.stop); });
       resize();
-      navigateTo(Math.max(0, startIndex), false, true);
-      if (placing) setPlaced("Click the bust to place a sticker.");
-      frame = requestAnimationFrame(loop);
+      layoutFrame = requestAnimationFrame(() => {
+        if (phase === "disposed") return;
+        navigateTo(intent.stop, false, true);
+        layoutReady = true;
+        if (placing) setPlaced("Click the bust to place a sticker.");
+        void warmScene();
+      });
     });
 
     return dispose;
   }, []);
+
 
   const isStatic = mode === "static";
 
@@ -663,7 +598,7 @@ export function Tour() {
         </nav>
       </header>
 
-      <div className="tour-scroller" ref={scrollerRef}>
+      <div className="tour-scroller" id={isStatic ? "start" : undefined} ref={scrollerRef}>
         <div className="tour-stage" ref={stageRef}>
           {/* eslint-disable-next-line @next/next/no-img-element -- poster is a plain static file under public/ */}
           <img className="tour-poster" src={model3d.poster} alt={model3d.posterAlt} />
@@ -679,7 +614,7 @@ export function Tour() {
               <article
                 key={stop.id}
                 className="tour-card"
-                id={isStatic ? stop.id : undefined}
+                id={isStatic && i > 0 ? stop.id : undefined}
                 data-active={!isStatic && i === active ? "true" : undefined}
                 aria-hidden={!isStatic && i !== active ? true : undefined}
               >
@@ -707,6 +642,11 @@ export function Tour() {
             ))}
           </div>
           {placed ? <pre className="tour-place">{placed}</pre> : null}
+          {hovered && mode === "live" ? (
+            <p className="tour-sticker-caption" style={{ left: hovered.position?.x, top: hovered.position?.y, bottom: "auto" }}>
+              {stops.find((stop) => stop.id === hovered.sticker.stopId)?.tag}
+            </p>
+          ) : null}
           {!isStatic ? (
             <>
               <nav className="tour-sticker-links" aria-label="Explore the stickers">

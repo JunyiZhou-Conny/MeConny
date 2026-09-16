@@ -40,3 +40,31 @@ export function repairConnyEar(material: MeshStandardMaterial) {
   material.customProgramCacheKey = () => "conny-ear-projection-v1";
   material.needsUpdate = true;
 }
+
+export function tuneConnyHair(material: MeshStandardMaterial) {
+  if (!material.map) return;
+  const previousCompile = material.onBeforeCompile;
+  const previousKey = material.customProgramCacheKey;
+  material.onBeforeCompile = (shader, renderer) => {
+    previousCompile.call(material, shader, renderer);
+    shader.vertexShader = shader.vertexShader
+      .replace("#include <common>", "#include <common>\nvarying vec3 vConnyHairSurface;")
+      .replace("#include <begin_vertex>", `#include <begin_vertex>
+        vConnyHairSurface = position * 0.5 + vec3(0.0, 0.5, 0.0);
+      `);
+    shader.fragmentShader = shader.fragmentShader
+      .replace("#include <common>", "#include <common>\nvarying vec3 vConnyHairSurface;")
+      .replace("#include <map_fragment>", `#include <map_fragment>
+        float connyHairMask = (1.0 - smoothstep(0.035, 0.10,
+          max(max(diffuseColor.r, diffuseColor.g), diffuseColor.b)))
+          * smoothstep(0.68, 0.74, vConnyHairSurface.y);
+        diffuseColor.rgb = mix(diffuseColor.rgb,
+          max(diffuseColor.rgb, vec3(0.060, 0.044, 0.035)), connyHairMask);
+      `)
+      .replace("#include <roughnessmap_fragment>", `#include <roughnessmap_fragment>
+        roughnessFactor = mix(roughnessFactor, 0.48, connyHairMask);
+      `);
+  };
+  material.customProgramCacheKey = () => `${previousKey.call(material)}-conny-hair-v1`;
+  material.needsUpdate = true;
+}

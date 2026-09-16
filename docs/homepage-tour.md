@@ -32,13 +32,13 @@ Edit `app/_tour/tour.css` for the tour's dark grounds, Fraunces headings, bare a
 
 Edit `tour.workstation` in `content/tour.ts` to change the desk's position, scale, tiles, or running loop. `app/_tour/workstation.ts` builds the rig. Check the separate desktop and phone camera compositions after moving it.
 
-Keep the bust fade tied to the workstation's presence. The settled Job Search scene shows the workstation alone.
+Keep Conny visible beside the workstation in the same scene. The desk appears during the approach, then its moving elements hold still when the camera settles.
 
 To change a tool tile or the screen, edit `scripts/3d/make-workstation.mjs` and run it. The tiles use generic drawings and wordmarks. Use only facts already public in [the Job Search repository](https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter) for the annotation. Do not add jobs, offers, sponsorships, or submitted-application counts.
 
 ## Place an illustrated sticker
 
-1. Open `http://localhost:3000/?place=1` and click the sweater. Placement mode disables idle rotation.
+1. Open `http://localhost:3000/?place=1` and click the sweater. Placement mode pauses pointer attention and scheduled blinks.
 2. Copy the emitted surface position and normal from the console or placement panel into `tour.stickers`.
 3. Set `id`, `kind`, `label`, `image`, `size`, `rotation`, and the destination `stopId`.
 4. Add a transparent 512 × 512 WebP texture under `public/3d/stickers/`.
@@ -58,7 +58,7 @@ npx @gltf-transform/cli optimize me.glb public/3d/me.glb --compress meshopt --si
 
 3. Set `model.src`, `model.posterAlt`, and `model.credit` in `content/tour.ts`. Use `model.yaw` for an orientation correction.
 4. If the new model has no texture, add `model.material` to select a clay color. Keep `model.finish` matte.
-5. Disable or recalibrate the model-specific ear repair in `Tour.tsx` and `character-material.ts` if you replace `conny-bust.glb` in place.
+5. Disable or recalibrate the model-specific ear, hair, and attention helpers in `Tour.tsx`, `character-material.ts`, and `character-attention.ts` if you replace `conny-bust.glb` in place.
 6. Re-author the desktop and phone cameras, focal points, and sticker placements against the fitted model.
 7. Refresh the stills and run the checks below.
 
@@ -95,3 +95,15 @@ TOUR_URL=http://localhost:3000 node scripts/verify/tour.mjs
 ```
 
 Set `PLAYWRIGHT_MODULE` to the installed Playwright module if it is outside the project. Inspect all six desktop and phone screenshots as well as the static presentations. A passing build does not establish that camera framing or decal placement is correct.
+
+## Verify attention and motion
+
+The separate browser scripts retain raw evidence and screenshots. They require Chrome and Playwright; set `PLAYWRIGHT_MODULE` if the provided runtime installs Playwright elsewhere.
+
+```bash
+TOUR_URL=http://localhost:3000 node scripts/verify/decals.mjs
+TOUR_URL=http://localhost:3000 node scripts/verify/portrait.mjs
+TOUR_URL=http://localhost:3000 node scripts/verify/motion.mjs
+```
+
+Run timing measurements after other browser captures finish. The default motion verifier runs three repetitions without canvas readback. It measures rendering submissions rather than physical display latency. Scheduled blinks count as short facial bursts; gaps during intentional rest are not dropped frames. `MOTION_PIXELS=1` adds explicit readback instrumentation and reports that overhead separately.
