@@ -10,6 +10,7 @@ const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const results = [];
 const errors = [];
 const stops = ['start', 'clinical', 'cells', 'jobs', 'loops', 'off-hours'];
+const selectedChecks = process.env.TOUR_CHECK ? new RegExp(process.env.TOUR_CHECK) : null;
 
 async function open(options = {}, route = '/') {
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, ...options });
@@ -41,6 +42,22 @@ async function stop(page, id) {
   assert.ok(Math.abs(state.y - stops.indexOf(id) * state.height) <= 2, JSON.stringify(state));
 }
 
+async function settledStop(page, id) {
+  await page.waitForFunction(({ id, index }) =>
+    location.hash === `#${id}` &&
+    document.querySelector(`.tour-tag[href="#${id}"]`)?.getAttribute('aria-current') === 'true' &&
+    Math.abs(scrollY - index * innerHeight) <= 2,
+  { id, index: stops.indexOf(id) });
+  const state = await page.evaluate(() => ({
+    hash: location.hash,
+    current: document.querySelector('.tour-tag[aria-current="true"]')?.getAttribute('href'),
+    visibleCards: [...document.querySelectorAll('.tour-card')].filter(card => getComputedStyle(card).visibility === 'visible').length,
+  }));
+  assert.equal(state.hash, `#${id}`);
+  assert.equal(state.current, `#${id}`);
+  assert.equal(state.visibleCards, 1);
+}
+
 async function staticJobs(page, name) {
   await page.locator('.tour[data-mode="static"]').waitFor();
   assert.equal(await page.locator('.tour-stage canvas').count(), 0);
@@ -61,6 +78,7 @@ async function staticJobs(page, name) {
 }
 
 async function record(name, run) {
+  if (selectedChecks && !selectedChecks.test(name)) return;
   await run();
   results.push({ check: name, result: 'PASS' });
   console.log(`PASS ${name}`);
@@ -68,6 +86,44 @@ async function record(name, run) {
 
 try {
   for (const [name, width, height] of [['desktop', 1440, 900], ['phone', 390, 844]]) {
+    await record(`${name}: direct Start link opens the introduction at zero scroll`, async () => {
+      const page = await open({ viewport: { width, height } }, '/#start');
+      await live(page);
+      await settledStop(page, 'start');
+      assert.equal(await page.evaluate(() => scrollY), 0);
+      assert.equal(await page.locator('.tour-card[data-active="true"] h1').innerText(), 'Hi, I’m Conny.');
+      await page.context().close();
+    });
+    await record(`${name}: Start reload defeats previous stop restoration`, async () => {
+      const page = await open({ viewport: { width, height } }, '/#jobs');
+      await live(page);
+      await settledStop(page, 'jobs');
+      await page.locator('.tour-tag[href="#start"]').click();
+      await settledStop(page, 'start');
+      await page.reload();
+      await live(page);
+      await settledStop(page, 'start');
+      assert.equal(await page.evaluate(() => scrollY), 0);
+      await page.context().close();
+    });
+    await record(`${name}: Back and Forward restore matching scene and hash`, async () => {
+      const page = await open({ viewport: { width, height } }, '/#start');
+      await live(page);
+      await settledStop(page, 'start');
+      await page.locator('.tour-tag[href="#jobs"]').click();
+      await settledStop(page, 'jobs');
+      await page.locator('.tour-tag[href="#off-hours"]').click();
+      await settledStop(page, 'off-hours');
+      await page.goBack();
+      await settledStop(page, 'jobs');
+      await page.goBack();
+      await settledStop(page, 'start');
+      await page.goForward();
+      await settledStop(page, 'jobs');
+      await page.goForward();
+      await settledStop(page, 'off-hours');
+      await page.context().close();
+    });
     await record(`${name}: six live stops, native scroll, scene and cards`, async () => {
       const page = await open({ viewport: { width, height } });
       await live(page);
@@ -140,6 +196,110 @@ try {
     assert.equal(await page.evaluate(() => scrollY), 2700);
     await page.context().close();
   });
+  for (const [asset, pattern] of [
+    ['model', '**/3d/conny-bust.glb'],
+    ['sticker texture', '**/3d/stickers/pulse-illustrated.webp'],
+  ]) {
+    await record(`delayed ${asset} keeps the loading screen until the scene is ready`, async () => {
+      const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+      let release;
+      const held = new Promise(resolve => { release = resolve; });
+      await context.route(pattern, async route => {
+        await held;
+        await route.continue();
+      });
+      const page = await context.newPage();
+      page.on('pageerror', error => errors.push({ url: page.url(), message: error.message }));
+      try {
+        const request = page.waitForRequest(pattern);
+        await page.goto(`${base}/#start`, { waitUntil: 'domcontentloaded' });
+        await request;
+        await page.locator('.tour[data-mode="loading"]').waitFor();
+        await page.waitForTimeout(350);
+        assert.equal(await page.locator('.tour').getAttribute('data-mode'), 'loading');
+        const overlay = page.locator('.tour-loading');
+        assert.equal(await overlay.getAttribute('data-ready'), 'false');
+        assert.equal(await overlay.evaluate(element => getComputedStyle(element).opacity), '1');
+        const progress = Number.parseInt(await page.locator('.tour-loading-count').innerText(), 10);
+        assert.ok(progress >= 0 && progress < 100, String(progress));
+        release();
+        await live(page);
+        await settledStop(page, 'start');
+        assert.equal(await overlay.getAttribute('data-ready'), 'true');
+        assert.equal(await page.locator('.tour-loading-count').innerText(), '100 / 100');
+        await overlay.waitFor({ state: 'hidden' });
+        await page.waitForFunction(() => getComputedStyle(document.querySelector('.tour-poster')).opacity === '0');
+      } finally {
+        release();
+        await context.close();
+      }
+    });
+  }
+  await record('failed HDR keeps a live scene with room lighting', async () => {
+    const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+    let failedRequests = 0;
+    await context.route('**/3d/studio-environment.hdr', route => {
+      failedRequests++;
+      return route.abort();
+    });
+    const page = await context.newPage();
+    page.on('pageerror', error => errors.push({ url: page.url(), message: error.message }));
+    await page.goto(`${base}/#start`);
+    await live(page);
+    await settledStop(page, 'start');
+    assert.ok(failedRequests > 0, 'HDR request was deliberately failed');
+    assert.equal(await page.locator('.tour-loading').getAttribute('data-ready'), 'true');
+    await stop(page, 'jobs');
+    assert.equal(await page.locator('.tour').getAttribute('data-mode'), 'live');
+    await context.close();
+  });
+  await record('sticker companion links support Tab and Enter navigation', async () => {
+    const page = await open({}, '/#start');
+    await live(page);
+    await settledStop(page, 'start');
+    const target = '.tour-sticker-link[href="#clinical"]';
+    let focused = false;
+    for (let presses = 0; presses < 30 && !focused; presses++) {
+      await page.keyboard.press('Tab');
+      focused = await page.evaluate(selector => document.activeElement?.matches(selector) === true, target);
+    }
+    assert.ok(focused, 'The clinical sticker link is reachable with Tab');
+    assert.equal(await page.locator('.tour-sticker-links').evaluate(element => getComputedStyle(element).opacity), '1');
+    await page.keyboard.press('Enter');
+    await settledStop(page, 'clinical');
+    assert.equal(await page.locator('.tour-card[data-active="true"] h2').innerText(), 'Residents run cases. Admins edit the prompts.');
+    await page.context().close();
+  });
+  await record('unsupported float render targets retain the poster and static Job Search', async () => {
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    await context.addInitScript(() => {
+      window.__deniedColorBufferRequests = [];
+      const getExtension = WebGL2RenderingContext.prototype.getExtension;
+      WebGL2RenderingContext.prototype.getExtension = function (name) {
+        if (name === 'EXT_color_buffer_float' || name === 'EXT_color_buffer_half_float') {
+          window.__deniedColorBufferRequests.push(name);
+          return null;
+        }
+        return getExtension.call(this, name);
+      };
+    });
+    const page = await context.newPage();
+    page.on('pageerror', error => errors.push({ url: page.url(), message: error.message }));
+    try {
+      await page.goto(`${base}/#jobs`);
+      await page.waitForFunction(() => window.__deniedColorBufferRequests.length > 0);
+      await staticJobs(page, 'unsupported-float-targets');
+      assert.equal(await page.locator('.tour[data-mode="live"]').count(), 0);
+      assert.equal(await page.locator('.tour-stage canvas').count(), 0);
+      await page.waitForFunction(() => {
+        const poster = document.querySelector('.tour-poster');
+        return poster?.complete && poster.naturalWidth > 0 && getComputedStyle(poster).opacity === '1';
+      });
+      assert.ok(await page.locator('.tour-poster').isVisible());
+    } finally {
+      await context.close();
+    }
+  });
   for (const kind of ['failed', 'invalid']) {
     await record(`${kind} GLB restores static Job Search`, async () => {
       const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
@@ -173,6 +333,7 @@ try {
     }
     await page.context().close();
   });
+  assert.ok(results.length > 0, `No checks matched ${process.env.TOUR_CHECK}`);
   assert.deepEqual(errors, []);
   results.push({ check: 'browser runtime errors', result: 'PASS', errors });
 } catch (error) {
