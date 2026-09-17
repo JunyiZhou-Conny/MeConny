@@ -3,11 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "verify": "npm run lint && npm run build"
+    "dev": "npm run dev --prefix web",
+    "build": "npm run build --prefix web",
+    "start": "npm run preview --prefix web",
+    "lint": "npm run lint --prefix web",
+    "verify": "npm run lint && npm run build && node web/scripts/verify-publication.mjs",
+    "dev:legacy": "next dev",
+    "build:legacy": "next build",
+    "start:legacy": "next start"
+  },
+  "engines": {
+    "node": "24.x"
   },
   "dependencies": {
     "next": "16.3.3",
