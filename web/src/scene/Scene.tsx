@@ -149,7 +149,7 @@ function Man2({
   const { scene, animations } = useGLTF(`${import.meta.env.BASE_URL}models/me.glb`)
 
   // 克隆模型；收集眼睛对象、聚焦锚点对象、glb 自带相机、各锚点景深开关
-  const { model, eyes, points, startPoint, glbCam, focusNode, dof } = useMemo(() => {
+  const { model, eyes, points, startPoint, glbCam, focusNode, dof, mobileFraming, mobileStickers } = useMemo(() => {
     const clone = scene.clone(true)
     const eyes: any[] = []
     const pmap: Record<string, any> = {}
@@ -191,6 +191,14 @@ function Man2({
     } else {
       eyes.forEach((e) => (e.sx = 0))
     }
+    const mobileFraming = clone.userData.mobileFocusFraming as {
+      centerX: number; marginPx: number; fill: number; stickers: string[]
+    } | undefined
+    const mobileStickers = (mobileFraming?.stickers ?? []).map((name) => {
+      const mesh = clone.getObjectByName(name) as THREE.Mesh | undefined
+      mesh?.geometry?.computeBoundingSphere()
+      return mesh?.geometry?.boundingSphere ? { mesh, sphere: mesh.geometry.boundingSphere } : null
+    })
     const pts = POINTS.map((n) => pmap[n] || null)
     // 作品区锚点：优先 focus-works（旧 glb）；缺省（intro3d 统一命名不导）则复用末时间轴节点 focus-M。
     const works = focusNode || pts[pts.length - 1] || null
@@ -204,6 +212,8 @@ function Man2({
     const effRange = (o: any): number => ud(o).dofFocusRange ?? 0
     return {
       model: clone,
+      mobileFraming,
+      mobileStickers,
       eyes,
       points: pts,
       startPoint: start,
@@ -285,6 +295,8 @@ function Man2({
   const tmpQuat = useRef(new THREE.Quaternion())
   const desiredQuat = useRef(new THREE.Quaternion())
   const tmpVec = useRef(new THREE.Vector3())
+  const mobileSphereA = useRef(new THREE.Sphere())
+  const mobileSphereB = useRef(new THREE.Sphere())
 
   // 拷贝 glb 相机世界变换用
   const camPos = useRef(new THREE.Vector3())
@@ -455,6 +467,40 @@ function Man2({
       if (camera.fov !== glbCam.fov) {
         camera.fov = glbCam.fov
         camera.updateProjectionMatrix()
+      }
+      if (isMobile.current && mobileFraming && mobileStickers.length === 4) {
+        const weight = THREE.MathUtils.smoothstep(s, -1, 0)
+          * (1 - THREE.MathUtils.smoothstep(s, 3, 4)) * (1 - smoothOff)
+        const index = THREE.MathUtils.clamp(s, 0, 3)
+        const iA = Math.floor(index), iB = Math.min(iA + 1, 3), blend = index - iA
+        const stickerA = mobileStickers[iA], stickerB = mobileStickers[iB]
+        const cardA = els?.[iA]?.querySelector('.tl-body') as HTMLElement | null
+        const cardB = els?.[iB]?.querySelector('.tl-body') as HTMLElement | null
+        if (weight > 0 && stickerA && stickerB && cardA && cardB) {
+          const height = window.innerHeight, margin = mobileFraming.marginPx
+          const top = NODE_LINE * height + THREE.MathUtils.lerp(cardA.offsetHeight, cardB.offsetHeight, blend) + margin
+          const bottom = Math.min(height - margin,
+            NODE_LINE * height + THREE.MathUtils.lerp(els[iA].offsetHeight, els[iB].offsetHeight, blend) - margin)
+          if (bottom > top && mobileFraming.fill > 0) {
+            stickerA.mesh.updateWorldMatrix(true, false)
+            stickerB.mesh.updateWorldMatrix(true, false)
+            const sphere = mobileSphereA.current.copy(stickerA.sphere).applyMatrix4(stickerA.mesh.matrixWorld)
+            mobileSphereB.current.copy(stickerB.sphere).applyMatrix4(stickerB.mesh.matrixWorld)
+            sphere.center.lerp(mobileSphereB.current.center, blend)
+            sphere.radius = THREE.MathUtils.lerp(sphere.radius, mobileSphereB.current.radius, blend)
+            const targetY = 1 - (top + bottom) / height
+            const tangent = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))
+            const halfGap = (bottom - top) * Math.min(1, mobileFraming.fill) / height
+            const minimumDepth = sphere.radius * (1 + (1 + Math.abs(targetY) * tangent) / (halfGap * tangent))
+            tmpQuat.current.copy(camera.quaternion).invert()
+            tmpVec.current.copy(sphere.center).sub(camera.position).applyQuaternion(tmpQuat.current)
+            camera.translateZ(Math.max(0, minimumDepth + tmpVec.current.z) * weight)
+            tmpVec.current.copy(sphere.center).sub(camera.position).applyQuaternion(tmpQuat.current)
+            const halfHeight = -tmpVec.current.z * tangent
+            camera.translateX((tmpVec.current.x - halfHeight * camera.aspect * mobileFraming.centerX) * weight)
+            camera.translateY((tmpVec.current.y - halfHeight * targetY) * weight)
+          }
+        }
       }
     }
 

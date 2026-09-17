@@ -25,7 +25,7 @@ const parseGlb = bytes => {
 }
 for (const [file, expected] of Object.entries(contract.files)) {
   const current = await readFile(path.join(repo, file))
-  check(`Unchanged ${file}`, sha256(current) === expected, { sha256: sha256(current) })
+  check(`${file} matches the recorded scene contract`, sha256(current) === expected, { sha256: sha256(current) })
 }
 const manifest = JSON.parse(await readFile(path.join(web, 'package.json'), 'utf8'))
 check('Original dependency configuration', JSON.stringify(manifest.dependencies) === JSON.stringify(contract.dependencies) && JSON.stringify(manifest.devDependencies) === JSON.stringify(contract.devDependencies))
@@ -48,11 +48,61 @@ const authorIdentity = /About Sen|Sen Zheng|郑越升|HOTSAR|坏打印机|Bad Pr
 const expectedRepositories = [
   'Airway-Management-Assistant', 'speciesOT', 'job-search-2026-2027-starter', 'scgen-cellot-autoresearch',
 ]
+const storyStickers = contract.model?.storyStickers ?? {}
+const maxFocusDistanceError = contract.model?.maxFocusDistanceError
+let stickerLineOfSight
+if (Object.keys(storyStickers).length) {
+  assert(Number.isFinite(maxFocusDistanceError) && maxFocusDistanceError >= 0, 'Candidate contract must specify maxFocusDistanceError')
+  const THREE = await import('three')
+  const { MeshoptDecoder } = await import('three/addons/libs/meshopt_decoder.module.js')
+  await MeshoptDecoder.ready
+  const bodyNode = model.nodes.find(node => node.name === 'ConnyBody')
+  const primitive = model.meshes[bodyNode.mesh].primitives[0]
+  const binary = modelBytes.subarray(28 + modelBytes.readUInt32LE(12))
+  const decode = (index, Type, size) => {
+    const accessor = model.accessors[index]
+    const extension = model.bufferViews[accessor.bufferView].extensions.EXT_meshopt_compression
+    assert.equal(accessor.componentType, Type === Float32Array ? 5126 : 5125)
+    assert.equal(accessor.type, size === 3 ? 'VEC3' : 'SCALAR')
+    assert.equal(accessor.byteOffset ?? 0, 0)
+    assert.equal(extension.byteStride, size * 4)
+    assert.equal(extension.count, accessor.count)
+    const decoded = new Uint8Array(accessor.count * size * 4)
+    MeshoptDecoder.decodeGltfBuffer(decoded, extension.count, extension.byteStride,
+      binary.subarray(extension.byteOffset, extension.byteOffset + extension.byteLength), extension.mode, extension.filter)
+    return new Type(decoded.buffer)
+  }
+  const geometry = new THREE.BufferGeometry()
+  geometry.setAttribute('position', new THREE.BufferAttribute(decode(primitive.attributes.POSITION, Float32Array, 3), 3))
+  geometry.setIndex(new THREE.BufferAttribute(decode(primitive.indices, Uint32Array, 1), 1))
+  const body = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ side: THREE.DoubleSide }))
+  const raycaster = new THREE.Raycaster()
+  stickerLineOfSight = (frame, sticker) => {
+    body.matrixWorld.fromArray(frame.bodyMatrixWorld)
+    const origin = new THREE.Vector3().fromArray(frame.cameraWorld)
+    const target = new THREE.Vector3().fromArray(sticker.surfaceSample.world)
+    const direction = target.clone().sub(origin)
+    const targetDistance = direction.length()
+    raycaster.set(origin, direction.normalize())
+    raycaster.far = targetDistance + 0.02
+    const hit = raycaster.intersectObject(body, false)[0]
+    return {
+      unobstructed: !hit || hit.distance >= targetDistance - 0.02,
+      targetDistance, hitDistance: hit?.distance ?? null,
+      foregroundDistance: hit ? targetDistance - hit.distance : null,
+      tolerance: 0.02, hitPoint: hit?.point.toArray() ?? null,
+    }
+  }
+}
 const distance = (a, b) => Math.hypot(...a.map((value, index) => value - b[index]))
+const viewportSizes = { desktop: [1440, 900], phone: [390, 844], 'compact-phone': [375, 667] }
+const viewportNames = (process.env.COMPARISON_VIEWPORTS || 'desktop,phone').split(',')
+assert(viewportNames.length && viewportNames.every(name => Object.hasOwn(viewportSizes, name)), 'Unknown COMPARISON_VIEWPORTS value')
 const browser = await chromium.launch({ channel: 'chrome', headless: true })
 try {
-  for (const [name, width, height] of [['desktop', 1440, 900], ['phone', 390, 844]]) {
-    const context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1, isMobile: name === 'phone', hasTouch: name === 'phone' })
+  for (const name of viewportNames) {
+    const [width, height] = viewportSizes[name]
+    const context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1, isMobile: name !== 'desktop', hasTouch: name !== 'desktop' })
     const page = await context.newPage()
     const result = { name, width, height, errors: [], failedRequests: [], samples: [], works: [] }
     results.viewports.push(result)
@@ -60,27 +110,110 @@ try {
     page.on('console', message => { if (message.type() === 'error') result.errors.push({ source: 'console', message: message.text(), location: message.location() }) })
     page.on('requestfailed', request => result.failedRequests.push({ url: request.url(), error: request.failure()?.errorText }))
     page.on('response', response => { if (response.status() >= 400) result.failedRequests.push({ url: response.url(), status: response.status() }) })
-    await page.addInitScript(() => {
+    await page.addInitScript(storyStickers => {
+      const stickerIds = [...new Set(Object.values(storyStickers))]
+      let referenceScene, referenceCamera, referenceCanvas
       window.referenceFrame = null
+      const sampleStickerSurface = mesh => {
+        const { position, uv } = mesh.geometry.attributes
+        const index = mesh.geometry.index
+        if (!uv) return null
+        let chosen, nearest = Infinity
+        for (let offset = 0; offset + 2 < (index?.count ?? position.count); offset += 3) {
+          const ids = [0, 1, 2].map(corner => index ? index.getX(offset + corner) : offset + corner)
+          const points = ids.map(id => [uv.getX(id), uv.getY(id)])
+          const [[ax, ay], [bx, by], [cx, cy]] = points
+          const denominator = (by - cy) * (ax - cx) + (cx - bx) * (ay - cy)
+          if (Math.abs(denominator) > 1e-12) {
+            const a = ((by - cy) * (0.5 - cx) + (cx - bx) * (0.5 - cy)) / denominator
+            const b = ((cy - ay) * (0.5 - cx) + (ax - cx) * (0.5 - cy)) / denominator
+            const weights = [a, b, 1 - a - b]
+            if (weights.every(weight => weight >= -1e-7)) {
+              chosen = { ids, weights, uv: [0.5, 0.5], method: 'uv-center', triangle: offset / 3 }
+              break
+            }
+          }
+          const centroid = [(ax + bx + cx) / 3, (ay + by + cy) / 3]
+          const distance = (centroid[0] - 0.5) ** 2 + (centroid[1] - 0.5) ** 2
+          if (distance < nearest) {
+            nearest = distance
+            chosen = { ids, weights: [1 / 3, 1 / 3, 1 / 3], uv: centroid, method: 'nearest-uv-triangle-centroid', triangle: offset / 3 }
+          }
+        }
+        if (!chosen) return null
+        const point = referenceCamera.position.clone().set(0, 0, 0)
+        const vertex = referenceCamera.position.clone()
+        chosen.ids.forEach((id, corner) => point.addScaledVector(vertex.fromBufferAttribute(position, id), chosen.weights[corner]))
+        return { world: point.applyMatrix4(mesh.matrixWorld).toArray(), uv: chosen.uv, method: chosen.method, triangle: chosen.triangle }
+      }
+      window.captureReferenceStickers = () => Object.fromEntries(stickerIds.map(id => {
+        const objectName = `ConnySticker-${id}`
+        const mesh = referenceScene.getObjectByName(objectName)
+        const positions = mesh?.geometry?.attributes.position
+        if (!positions?.count) return [id, { objectName, found: false }]
+        const geometry = mesh.geometry
+        if (!geometry.boundingBox) geometry.computeBoundingBox()
+        const worldCenter = geometry.boundingBox.getCenter(referenceCamera.position.clone()).applyMatrix4(mesh.matrixWorld)
+        const center = worldCenter.clone().project(referenceCamera).toArray()
+        const focusName = Object.keys(storyStickers).find(point => storyStickers[point] === id)
+        const focusWorld = referenceScene.getObjectByName(focusName).getWorldPosition(referenceCamera.position.clone())
+        const cameraWorld = referenceCamera.getWorldPosition(referenceCamera.position.clone())
+        const focusDistance = cameraWorld.distanceTo(focusWorld)
+        const surfaceSample = sampleStickerSurface(mesh)
+        const stickerDistance = surfaceSample ? cameraWorld.distanceTo(worldCenter.clone().fromArray(surfaceSample.world)) : null
+        const vertex = referenceCamera.position.clone()
+        const min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity]
+        for (let index = 0; index < positions.count; index++) {
+          vertex.fromBufferAttribute(positions, index).applyMatrix4(mesh.matrixWorld).project(referenceCamera)
+          const projected = vertex.toArray()
+          for (let axis = 0; axis < 3; axis++) {
+            min[axis] = Math.min(min[axis], projected[axis])
+            max[axis] = Math.max(max[axis], projected[axis])
+          }
+        }
+        const rect = referenceCanvas.getBoundingClientRect()
+        return [id, {
+          objectName, found: true, center, worldCenter: worldCenter.toArray(),
+          surfaceSample, samplingError: surfaceSample ? null : 'No valid UV triangle on sticker geometry',
+          focusDistance, stickerDistance, radialFocusDistanceError: surfaceSample ? Math.abs(focusDistance - stickerDistance) : null,
+          bounds: { min, max },
+          pixels: {
+            center: [rect.left + (center[0] + 1) * rect.width / 2, rect.top + (1 - center[1]) * rect.height / 2],
+            left: rect.left + (min[0] + 1) * rect.width / 2,
+            right: rect.left + (max[0] + 1) * rect.width / 2,
+            top: rect.top + (1 - max[1]) * rect.height / 2,
+            bottom: rect.top + (1 - min[1]) * rect.height / 2,
+          },
+        }]
+      }))
       window.__THREE_DEVTOOLS__ = new EventTarget()
       window.__THREE_DEVTOOLS__.addEventListener('observe', ({ detail }) => {
         if (!detail.isWebGLRenderer) return
         const render = detail.render
         detail.render = function (scene, camera) {
+          const rendered = render.call(this, scene, camera)
           if (scene.getObjectByName?.('Camera') && camera.isPerspectiveCamera) {
+            referenceScene = scene
+            referenceCamera = camera
+            referenceCanvas = this.domElement
             window.referenceFrame = {
               camera: camera.position.toArray(), quaternion: camera.quaternion.toArray(), fov: camera.fov,
               man: scene.getObjectByName('man')?.quaternion.toArray(),
+              ...(stickerIds.length ? {
+                cameraWorld: camera.getWorldPosition(camera.position.clone()).toArray(),
+                bodyMatrixWorld: scene.getObjectByName('ConnyBody').matrixWorld.toArray(),
+              } : {}),
             }
           }
-          return render.call(this, scene, camera)
+          return rendered
         }
       })
-    })
+    }, storyStickers)
     try {
-      const modelResponse = page.waitForResponse(response => new URL(response.url()).pathname.endsWith('/models/me.glb'), { timeout: 60000 })
-      await page.goto(url)
-      const response = await modelResponse
+      const [response] = await Promise.all([
+        page.waitForResponse(response => new URL(response.url()).pathname.endsWith('/models/me.glb'), { timeout: 60000 }),
+        page.goto(url),
+      ])
       check(`${name}: served prepared model`, response.ok() && sha256(await response.body()) === modelHash)
       await page.locator('.loading-screen').waitFor({ state: 'detached', timeout: 60000 })
       await page.waitForFunction(() => window.referenceFrame?.man, undefined, { timeout: 30000 })
@@ -99,13 +232,39 @@ try {
           scrollTo({ top: target, behavior: 'instant' })
         }, point)
         await page.waitForTimeout(2000)
-        const sample = await page.evaluate(() => ({
+        const sample = await page.evaluate(point => ({
           frame: window.referenceFrame, scroll: scrollY, width: document.documentElement.scrollWidth, viewport: innerWidth,
           headings: [...document.querySelectorAll('h1,h2,h3')].map(element => element.textContent),
-        }))
+          stickers: window.captureReferenceStickers(),
+          card: (() => {
+            const entry = document.querySelector(`[data-point="${point}"]`)
+            const body = entry?.querySelector('.tl-body')
+            if (!body) return null
+            return { bottom: body.getBoundingClientRect().bottom,
+              nextTop: entry.nextElementSibling?.getBoundingClientRect().top ?? innerHeight,
+              viewportHeight: innerHeight }
+          })(),
+        }), point)
         result.samples.push({ point, ...sample })
         check(`${name}: ${point} renders with original camera FOV`, Math.abs(sample.frame.fov - 22.89519204617112) < 0.00001, sample.frame)
         check(`${name}: ${point} has no horizontal overflow`, sample.width <= sample.viewport + 1, { width: sample.width, viewport: sample.viewport })
+        if (storyStickers[point]) {
+          const id = storyStickers[point]
+          const sticker = sample.stickers[id]
+          check(`${name}: ${point} ${id} sticker center is inside the camera viewport`,
+            sticker.found && sticker.center.every(Number.isFinite) && Math.abs(sticker.center[0]) <= 0.95 && Math.abs(sticker.center[1]) <= 0.95 && Math.abs(sticker.center[2]) <= 1,
+            sticker)
+          if (name !== 'desktop') {
+            const bottom = Math.min(sample.card.nextTop, sample.card.viewportHeight)
+            check(`${name}: ${point} entire sticker clears the text cards and viewport`,
+              sticker.found && sticker.pixels.top >= sample.card.bottom + 2 && sticker.pixels.bottom <= bottom - 2,
+              { pixels: sticker.pixels, card: sample.card })
+          }
+          const visibility = sticker.surfaceSample ? stickerLineOfSight(sample.frame, sticker) : null
+          check(`${name}: ${point} ${id} sticker surface sample has no foreground body occlusion`, visibility?.unobstructed, visibility ?? { samplingError: sticker.samplingError ?? 'Sticker not found' })
+          check(`${name}: ${point} ${id} sticker radial focus distance is within tolerance`, Boolean(sticker.surfaceSample) && sticker.radialFocusDistanceError <= maxFocusDistanceError,
+            { focusDistance: sticker.focusDistance, stickerDistance: sticker.stickerDistance, error: sticker.radialFocusDistanceError, tolerance: maxFocusDistanceError, samplingError: sticker.samplingError })
+        }
         await page.screenshot({ path: path.join(output, `${name}-${point}.png`) })
       }
       check(`${name}: camera moves through native scroll stops`, result.samples.slice(1).every((sample, index) => distance(sample.frame.camera, result.samples[index].frame.camera) > 0.01))

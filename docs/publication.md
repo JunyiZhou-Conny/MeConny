@@ -28,11 +28,11 @@ The camera and focus data, HDR environment, and fonts are inherited from the ref
 
 The NOTICE leaves the HDR source license to be confirmed. This import does not claim a new license for that asset. The upstream Blender source is not imported as Conny's source.
 
-The accepted model SHA-256 is `c4f68c6670534f528d2c663cf4cc0100c8f84c4803b2f28d435e92f8e237a7f7`. Its static bind pose preserves the supplied wink, smile, purple shirt, and peace sign. Eye tracking is inactive because this character has painted eyes and no independent eye meshes. Six embedded decals stay on the shirt in this release. The separate open-eye and face-sticker experiment does not alter this accepted release.
+The current model SHA-256 is `168a2c2bef0b549a86a5e906647dfdd62fc572863e5474af532815b09fba1f01`. Conny selected the open-eye portrait in [PR 14](https://github.com/JunyiZhou-Conny/MeConny/pull/14) for production on September 17, 2026. It preserves the smile, purple shirt, and peace sign, with four cheek stickers. Its eyes are static textured geometry without blinking or gaze tracking. The sticker focus anchors, research camera path, and responsive phone framing are calibrated to this model. See the [portrait guide](portrait/README.md) for source assets, repeatable generation, and known surface limitations.
 
 The reference settings produce bright highlights, close facial framing, and a partial raised-hand crop on phone. These observed properties are preserved for this publication.
 
-The only visitor-facing addition is a `More about me` link in the existing Open methods section. It makes the retained written hub discoverable without changing the scene, navigation layout, or visual styling.
+The `More about me` link in Open methods keeps the written hub discoverable. The open-eye release retains the reference lens, lighting, styling, and project content.
 
 ## Verify before release
 
@@ -49,12 +49,13 @@ npm run preview --prefix web -- --host 127.0.0.1 --port 3021 --strictPort
 Run the existing browser suite against the production preview or deployed URL, using an installed Playwright module:
 
 ```bash
+COMPARISON_VIEWPORTS=desktop,phone,compact-phone \
 PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
 COMPARISON_URL=http://localhost:3021 \
 node web/scripts/verify-reference.mjs /absolute/path/to/evidence
 ```
 
-It checks desktop and phone layouts, the original camera settings, five scroll stops, works rotation, all four project panels, real repository links, loaded images, native scroll restoration, and runtime errors. Baseline hashes and camera values are stored in `docs/reference/scene-contract.json`, so upstream Git history is not required in this repository.
+It checks desktop and two phone layouts, the camera settings, five scroll stops, works rotation, all four project panels, repository links, loaded images, native scroll restoration, and runtime errors. The portrait checks also verify sticker visibility, focus distance, and clearance from phone text cards at settled story stops. Baseline hashes and camera values are stored in `docs/reference/scene-contract.json`, so upstream Git history is not required in this repository.
 
 After the branch receives a Vercel preview, also run:
 
@@ -80,14 +81,6 @@ Vercel [Instant Rollback](https://vercel.com/docs/instant-rollback) can restore 
 
 ## Rebuild the character asset
 
-`web/scripts/build-reference-scene.mjs` takes explicit paths to the upstream scene GLB, Conny's prepared source GLB, the sticker directory, and an output GLB. The optional final argument selects placement JSON; its default is `web/scripts/conny-scene.json`. The source character was stored at `public/3d/conny-character.glb` in MeConny commit `3398a3be4d3f0b7f05d7751aadc0200f5fffa51f`.
+Use the [portrait guide](portrait/README.md) to rebuild the current open-eye model and face stickers. The prepared character and approved reference are committed under `assets/portrait/`. Sticker placement and camera corrections live in `web/scripts/portrait-calibration.json`. The two authoring scripts require fresh output paths and preserve the inputs.
 
-```bash
-node web/scripts/build-reference-scene.mjs \
-  /path/to/upstream-me.glb \
-  /path/to/conny-character.glb \
-  web/public/stickers \
-  /path/to/new-me.glb
-```
-
-Review the output before replacing `web/public/models/me.glb`. The composer retains camera samples and focus anchors, verifies the static bind pose, copies Conny's geometry and atlas, and projects the decal placement data. Keep preparation inputs separate from the generated output.
+The legacy `web/scripts/build-reference-scene.mjs` recreates the prior wink and shirt-sticker composition. The wink production baseline is commit `611b0970c416cd235afbe8612a2e8e30c4a13b59`, with model SHA-256 `c4f68c6670534f528d2c663cf4cc0100c8f84c4803b2f28d435e92f8e237a7f7`. Keep that historical model available for comparisons or rollback.

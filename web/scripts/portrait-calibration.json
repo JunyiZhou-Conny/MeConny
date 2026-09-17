@@ -1,0 +1,120 @@
+{
+  "fit": {
+    "scale": 1.73,
+    "translation": [
+      -0.06230005200000001,
+      -0.6819251720000001,
+      0.06800601599999997
+    ]
+  },
+  "decalOffset": 0.00045,
+  "stickers": [
+    {
+      "id": "pulse",
+      "target": "ConnyBody:0",
+      "image": "pulse-illustrated.webp",
+      "position": [
+        0.14021195786215704,
+        0.6137646501833304,
+        0.11431488318582406
+      ],
+      "normal": [
+        0.6335634239782546,
+        0.09834262984306479,
+        0.7674152167845646
+      ],
+      "size": 0.062,
+      "depth": 0.0186,
+      "rotation": -8
+    },
+    {
+      "id": "dna",
+      "target": "ConnyBody:0",
+      "image": "dna-illustrated.webp",
+      "position": [
+        0.13382711207021367,
+        0.5458278813874717,
+        0.07626102758133874
+      ],
+      "normal": [
+        0.7629858128989628,
+        -0.5960125857054698,
+        0.25024317572231364
+      ],
+      "size": 0.052,
+      "depth": 0.0156,
+      "rotation": 8
+    },
+    {
+      "id": "hub",
+      "target": "ConnyBody:0",
+      "image": "hub-illustrated.webp",
+      "position": [
+        -0.073072148175744,
+        0.644937827631505,
+        0.1299453505946877
+      ],
+      "normal": [
+        -0.6310724438516773,
+        0.2550969983835899,
+        0.7325797513081798
+      ],
+      "size": 0.066,
+      "depth": 0.0198,
+      "rotation": 8
+    },
+    {
+      "id": "chip",
+      "target": "ConnyBody:0",
+      "image": "chip-illustrated.webp",
+      "position": [
+        -0.07074195412221536,
+        0.582606875870786,
+        0.11914459778447495
+      ],
+      "normal": [
+        -0.548062915659274,
+        -0.43537347750465116,
+        0.7141967344958687
+      ],
+      "size": 0.061,
+      "depth": 0.0183,
+      "rotation": -8
+    }
+  ],
+  "focusDecals": {
+    "focus-1": "pulse",
+    "focus-2": "dna",
+    "focus-3": "hub",
+    "focus-4": "chip"
+  },
+  "cameraCorrections": [
+    {
+      "frame": 200,
+      "start": 150,
+      "end": 250,
+      "position": [
+        -0.6222222222222222,
+        0.3555555555555555,
+        0.9555555555555555
+      ],
+      "quaternion": [
+        -0.017201481334004093,
+        -0.3235624946562403,
+        -0.005883261235858731,
+        0.9460321391628178
+      ]
+    }
+  ],
+  "mobileFocusFraming": {
+    "centerX": -0.05,
+    "marginPx": 12,
+    "fill": 0.9,
+    "stickers": [
+      "ConnySticker-pulse",
+      "ConnySticker-dna",
+      "ConnySticker-hub",
+      "ConnySticker-chip"
+    ]
+  }
+}
