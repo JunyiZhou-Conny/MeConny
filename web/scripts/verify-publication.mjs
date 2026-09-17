@@ -35,12 +35,12 @@ check(config.installCommand, 'npm ci --prefix web', 'Installation uses the front
 check(config.buildCommand, 'npm run build --prefix web', 'Build uses the frontend package')
 check(config.outputDirectory, 'web/dist', 'Deployment publishes the frontend output')
 for (const [file, expected] of Object.entries(contract.files)) {
-  check(hash(await readFile(path.join(root, file))), expected, `${file} retains the reference configuration`)
+  check(hash(await readFile(path.join(root, file))), expected, `${file} matches the recorded scene contract`)
 }
 const manifest = JSON.parse(await readFile(path.join(web, 'package.json'), 'utf8'))
 check(manifest.dependencies, contract.dependencies, 'Runtime dependency versions remain unchanged')
 check(manifest.devDependencies, contract.devDependencies, 'Build dependency versions remain unchanged')
-check(hash(await readFile(path.join(dist, 'models/me.glb'))), contract.acceptedModelSha256, 'The build contains the accepted wink character')
+check(hash(await readFile(path.join(dist, 'models/me.glb'))), contract.model.sha256, `The build contains ${contract.model.label}`)
 
 const assets = [
   ['public/index.html', 'hub.html'],

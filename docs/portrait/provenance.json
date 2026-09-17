@@ -1,0 +1,191 @@
+{
+  "composition": {
+    "sources": [
+      {
+        "path": "upstream-me.glb (immutable upstream source, see README)",
+        "sha256": "77e8cf1ef81943c81cbe6f1c5f65048ccaecc4f001f12fc60857d3f38e4229ef"
+      },
+      {
+        "path": "assets/portrait/conny-character.glb",
+        "sha256": "440fa132ff3b87beff432508fd7a6b3c94c303395aecc204e2f502bac8a650b3"
+      }
+    ],
+    "output": {
+      "path": "intermediate-portrait.glb",
+      "bytes": 6283724,
+      "sha256": "ea4f23a8266969b53e6a0b5d7ee246b400486c78ca4b716248a7f52ea6175e09"
+    },
+    "fit": {
+      "scale": 1.73,
+      "translation": [
+        -0.06230005200000001,
+        -0.6819251720000001,
+        0.06800601599999997
+      ]
+    },
+    "characterTriangles": 185765,
+    "decals": [
+      {
+        "id": "pulse",
+        "target": "ConnyBody:0",
+        "depth": 0.0186,
+        "triangles": 150,
+        "imageSha256": "9bd9444acb528f0f1ac4d656ff578c24c28ea68cd725103b8db0c5e38d0dbab8"
+      },
+      {
+        "id": "dna",
+        "target": "ConnyBody:0",
+        "depth": 0.0156,
+        "triangles": 54,
+        "imageSha256": "da12dfff90d6904dcf0a897a455e4cd9e3a643f79d51a60407c6e8b21ddcc9b1"
+      },
+      {
+        "id": "hub",
+        "target": "ConnyBody:0",
+        "depth": 0.0198,
+        "triangles": 158,
+        "imageSha256": "9f069fb2002d7723d8d77c44f567f67055f75995a1ded179172ce96760ac0d62"
+      },
+      {
+        "id": "chip",
+        "target": "ConnyBody:0",
+        "depth": 0.0183,
+        "triangles": 162,
+        "imageSha256": "f3b485f88006f7dd28cbdda33bbfa2c193a1616a689ad4f682ede3f9a20391f7"
+      }
+    ],
+    "checks": {
+      "cameraExact": true,
+      "anchorsExact": true,
+      "bothAnimationBytesAndTargetsExact": true,
+      "staticSourceTransformsIdentity": true,
+      "characterAttributesAndMaterialsExact": true,
+      "characterImageBytesExact": true,
+      "noOriginalPersonalImagesOrGeometry": true,
+      "noSkinOrEyeNodes": true,
+      "sourceFilesUnchanged": true
+    }
+  },
+  "cameraCalibration": {
+    "source": {
+      "path": "intermediate-portrait.glb",
+      "sha256": "ea4f23a8266969b53e6a0b5d7ee246b400486c78ca4b716248a7f52ea6175e09"
+    },
+    "output": {
+      "path": "web/public/models/me.glb",
+      "sha256": "168a2c2bef0b549a86a5e906647dfdd62fc572863e5474af532815b09fba1f01",
+      "bytes": 6283724
+    },
+    "changes": [
+      {
+        "focus": "focus-1",
+        "sticker": "pulse",
+        "translation": [
+          0.18026663510153168,
+          0.3798876728171614,
+          0.2657707639114756
+        ]
+      },
+      {
+        "focus": "focus-2",
+        "sticker": "dna",
+        "translation": [
+          0.16922085188146962,
+          0.262357062800326,
+          0.19993759371571598
+        ]
+      },
+      {
+        "focus": "focus-3",
+        "sticker": "hub",
+        "translation": [
+          -0.1887148683440371,
+          0.43381726980250357,
+          0.2928114725288097
+        ]
+      },
+      {
+        "focus": "focus-4",
+        "sticker": "chip",
+        "translation": [
+          -0.18468363263143256,
+          0.32598472325645966,
+          0.27412617016714164
+        ]
+      },
+      {
+        "cameraFrame": 200,
+        "window": [
+          150,
+          250
+        ],
+        "changed": [
+          {
+            "path": "translation",
+            "samples": 99
+          },
+          {
+            "path": "rotation",
+            "samples": 99
+          }
+        ]
+      }
+    ],
+    "checks": {
+      "fovAndLensExact": true,
+      "manActionBytesExact": true,
+      "cameraTimesAndInterpolationExact": true,
+      "cameraSamplesOutsideWindowsExact": true,
+      "windowBoundaryPosesExact": true,
+      "otherNodesExact": true,
+      "geometryMaterialTextureBytesExact": true,
+      "sourceFileUnchanged": true
+    }
+  },
+  "generation": {
+    "provider": "Fal / Meshy 7",
+    "endpoint": "meshy/v7/image-to-3d",
+    "requestId": "01a0b00d-8ff3-7a30-896f-58a481ad510e",
+    "seed": 1450454959,
+    "quotedUsd": 0.8,
+    "originalBytes": 21704520,
+    "originalSha256": "1b8dea2b1373092e9deeefa47bd56bc3453017bdc2abdb7eac6f01253172db2b",
+    "reference": "assets/portrait/reference.jpg"
+  },
+  "preparation": {
+    "normalizedHeight": 1,
+    "orientation": "Y-up",
+    "trianglesPreserved": 185765,
+    "smoothNormals": true,
+    "normalMapRemoved": true,
+    "roughness": 0.76,
+    "metalness": 0,
+    "colorTexture": {
+      "size": [
+        2048,
+        2048
+      ],
+      "format": "WebP",
+      "quality": 93
+    },
+    "positionMaxErrorInModelHeights": 9.265e-06,
+    "uvMaxErrorAt2048Pixels": 0.01747
+  },
+  "capabilities": {
+    "independentEyes": false,
+    "blink": false,
+    "gazeTracking": false,
+    "referenceScrollAnimation": true
+  },
+  "mobileFocusFraming": {
+    "centerX": -0.05,
+    "marginPx": 12,
+    "fill": 0.9,
+    "stickers": [
+      "ConnySticker-pulse",
+      "ConnySticker-dna",
+      "ConnySticker-hub",
+      "ConnySticker-chip"
+    ]
+  }
+}

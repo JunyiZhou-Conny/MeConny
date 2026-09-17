@@ -9,7 +9,7 @@
     "mergeCommit": "0225fc889a6614131f49f751a9d49e35169d7321"
   },
   "files": {
-    "web/src/scene/Scene.tsx": "406802de3ae83cef7b0cddd28d5be767dddcbefddb9e4af29bf77ab49f4b1953",
+    "web/src/scene/Scene.tsx": "6d59504ce6ac317e33043313aeb089644095cbfeaffa8fda8702746bb949c633",
     "web/src/scene/Env.tsx": "51e2f61d41b783e54d77017450087b8bf092797d2668b6dfadf32345f00c9bf8",
     "web/src/styles.css": "0da23622865ad977bda939a4187c1394926de55eabff919a657f244e43d596f8",
     "web/src/data/focusPoints.ts": "1029e64253732c2ffa84952711cdc6340c380213852845f0ec698bba5264ca5d",
@@ -58,5 +58,46 @@
     }
   ],
   "originalModelSha256": "77e8cf1ef81943c81cbe6f1c5f65048ccaecc4f001f12fc60857d3f38e4229ef",
-  "acceptedModelSha256": "c4f68c6670534f528d2c663cf4cc0100c8f84c4803b2f28d435e92f8e237a7f7"
+  "model": {
+    "label": "Open-eye portrait with four face stickers",
+    "status": "preview candidate",
+    "sha256": "168a2c2bef0b549a86a5e906647dfdd62fc572863e5474af532815b09fba1f01",
+    "productionBaselineSha256": "c4f68c6670534f528d2c663cf4cc0100c8f84c4803b2f28d435e92f8e237a7f7",
+    "productionBaselineCommit": "611b0970c416cd235afbe8612a2e8e30c4a13b59",
+    "storyStickers": {
+      "focus-1": "pulse",
+      "focus-2": "dna",
+      "focus-3": "hub",
+      "focus-4": "chip"
+    },
+    "maxFocusDistanceError": 0.06,
+    "cameraCalibration": {
+      "focusDecals": {
+        "focus-1": "pulse",
+        "focus-2": "dna",
+        "focus-3": "hub",
+        "focus-4": "chip"
+      },
+      "correctedCameraFrames": [
+        151,
+        249
+      ],
+      "unchangedBoundaryFrames": [
+        150,
+        250
+      ]
+    },
+    "mobileFocusFraming": {
+      "centerX": -0.05,
+      "marginPx": 12,
+      "fill": 0.9,
+      "stickers": [
+        "ConnySticker-pulse",
+        "ConnySticker-dna",
+        "ConnySticker-hub",
+        "ConnySticker-chip"
+      ]
+    },
+    "productionSceneSourceSha256": "406802de3ae83cef7b0cddd28d5be767dddcbefddb9e4af29bf77ab49f4b1953"
+  }
 }
