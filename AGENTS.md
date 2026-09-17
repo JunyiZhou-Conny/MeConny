@@ -43,8 +43,8 @@ Rules that outlive any one change:
 - **Job Search is a scene.** The mini desk, the screen, the tool tiles, and the loop share the frame with Conny. Its annotation copy may only use facts already public in [`job-search-2026-2027-starter`](https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter). No jobs, offers, sponsorships, or submitted-application counts.
 - **Keep native document scroll.** One annotation at a time, stop tags, hash per stop, tint per stop. Do not hijack the wheel.
 - **Keep the fallbacks.** `prefers-reduced-motion`, no JavaScript, and a failed WebGL context all fall back to the poster plus stacked cards.
-- **Stickers are story cues.** Keep eight or fewer illustrated stickers on the sweater and none on the face. Use transparent 512px WebP art with cream borders. Set an explicit `stopId` for each interactive sticker.
-- **The bust is Conny.** `public/3d/conny-bust.glb`, built from one portrait in Blender. `model.src` in `content/tour.ts` is the single swap point, and the loader fits whatever arrives to one unit tall with its base on the floor. The loader decodes Meshopt, not Draco.
+- **Stickers are story cues.** Keep eight or fewer illustrated stickers on the shirt and none on the face. Use transparent 512px WebP art with cream borders. Set an explicit `stopId` for each interactive sticker.
+- **The bust is Conny.** `public/3d/conny-character.glb`, prepared from the supplied purple-shirt wink and peace-sign model. Its editable source is `assets/3d/conny-character.blend`; see `docs/prepared-character.md`. `model.src` in `content/tour.ts` is the single swap point, and the loader fits whatever arrives to one unit tall with its base on the floor. The loader decodes Meshopt, not Draco.
 
 ## The hub at `/hub`
 
@@ -70,9 +70,9 @@ To add a featured project:
 
 Do not restyle `public/css/style.css` unless the user asks. Outfit, cream-on-near-black, particle monogram, floating nav, skill universe — that is the point. The monogram letters are `CZ` in `public/js/hero-particles.js`.
 
-The tour uses warm dark grounds, light text, Fraunces headings, and IBM Plex body copy and counters. Bare annotations sit beside thin rails over the scene. Illustrated sweater stickers lead into project close-ups, Job Search places the workstation beside Conny, and Off hours returns to a frontal contact portrait. It lives in [`app/_tour/tour.css`](app/_tour/tour.css) and never touches `public/css/style.css`.
+The tour uses warm dark grounds, light text, Fraunces headings, and IBM Plex body copy and counters. Bare annotations sit beside thin rails over the scene. Illustrated shirt stickers lead into project close-ups, Job Search places the workstation beside Conny, and Off hours returns to a frontal contact portrait. It lives in [`app/_tour/tour.css`](app/_tour/tour.css) and never touches `public/css/style.css`.
 
-Keep `camera.focalPoint` on the subject and `camera.target` responsible for composition. The HDR environment and depth of field belong to the scene. [`docs/cinematic-tour.md`](docs/cinematic-tour.md) records asset provenance and the current model limits. The localized ear shader is calibrated to the existing GLB; disable or recalibrate it when replacing that asset.
+Keep `camera.focalPoint` on the subject and `camera.target` responsible for composition. The HDR environment and depth of field belong to the scene. [`docs/cinematic-tour.md`](docs/cinematic-tour.md) records asset provenance and the current model limits. The legacy ear shader is calibrated only to `conny-bust.glb` and must stay disabled for the prepared character.
 
 ## GitHub front door
 

@@ -44,13 +44,19 @@ The six active textures are 512 × 512 WebP files with transparency and irregula
 | `bike-illustrated.webp` | Bicycle | `off-hours` |
 | `headphones-illustrated.webp` | Headphones | `off-hours` |
 
-Stickers remain on the sweater. Each interactive decal has an explicit `stopId`. Alpha-aware pointer raycasts ignore transparent image margins. Hover lifts the decal along its surface normal, scales it to 1.06, shows a hand cursor, and projects a destination label beside it. Click or tap navigates to that stop. Navigation clears the previous hover state. Equivalent links support keyboard navigation. The retained SVG generator produces the older simple icons, not these illustrations. Workstation textures remain SVGs.
+Stickers remain on the shirt. Each interactive decal has an explicit `stopId`. Alpha-aware pointer raycasts ignore transparent image margins. Hover lifts the decal along its surface normal, scales it to 1.06, shows a hand cursor, and projects a destination label beside it. Click or tap navigates to that stop. Navigation clears the previous hover state. Equivalent links support keyboard navigation. The retained SVG generator produces the older simple icons, not these illustrations. Workstation textures remain SVGs.
 
 ## HDR source
 
 `public/3d/studio-environment.hdr` is a 512 × 256 derivative of the 1K HDR version of [Potsdamer Platz by Greg Zaal](https://polyhaven.com/a/potsdamer_platz), obtained from Poly Haven's official download CDN. The asset uses [CC0](https://polyhaven.com/license). The local file is 397,385 bytes, reduced from 1,540,678 bytes. `scripts/3d/downsample-hdr.mjs` averages 2 × 2 linear-light pixels and writes RGBE scanlines. Round-trip quantization error is 0.19% relative to the averaged linear RGB; radiance above 1 is preserved.
 
-## Character constraints
+## Current character
+
+The homepage now uses the prepared purple-shirt character with its authored wink and peace sign. [Prepared character reference](prepared-character.md) records its source, optimization, materials, head rig, and verification commands.
+
+## Legacy bust constraints
+
+The following calibration applies only to the retained `conny-bust.glb` rollback asset.
 
 `conny-bust.glb` has 15,000 triangles, one combined mesh, and one baked 1024px WebP base-color atlas. Meshopt compresses its geometry. The eyes and much of the facial detail are painted. The model has no skeletal rig or animation clips.
 
@@ -66,7 +72,7 @@ The helper checks the original vertex/index counts and required attributes befor
 
 Reduced motion, disabled JavaScript, an unavailable WebGL context, and unsupported floating-point render targets use the poster and all six stacked annotations. Job Search includes its own workstation still. The loading overlay fades after the live scene is ready. URLs retain a hash for each stop, and browser history remains available.
 
-## Verification of this iteration
+## Previous bust iteration verification
 
 `npm run verify` passed lint, TypeScript, and the production build. The production Chrome behavior suite passed 32 checks, including all six desktop and phone views, partial native scrolling, rapid retargeting, first-frame navigation during GPU warm-up, delayed JavaScript, history, keyboard navigation, reduced motion, context loss, denied floating-point targets, and failed assets. Seven sticker checks passed hover/click/touch navigation and actual 1.06 scale and 0.004 surface-normal lift.
 

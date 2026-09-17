@@ -1,0 +1,505 @@
+{
+  "measurement": "DOM wheel event to changed-camera RAF callback; not physical input-to-display latency",
+  "thresholdsUnchanged": true,
+  "firstBatch": {
+    "base": "http://localhost:3018",
+    "pixels": false,
+    "idleDuration": 6000,
+    "runs": [
+      {
+        "hardware": {
+          "viewport": [
+            1280,
+            720
+          ],
+          "devicePixelRatio": 2,
+          "canvas": [
+            1885,
+            1060
+          ],
+          "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        "character": "prepared-head-only",
+        "wheelResponseMs": 194.5999999642372,
+        "wheelSettleMs": 723.1999999880791,
+        "injectedStallMs": 200,
+        "injectedStallSettleMs": 526.9000000357628,
+        "transitionFrameP95Ms": 17.600000023841858,
+        "transitionWorstGapMs": 78,
+        "transitionGapsOver100Ms": 0,
+        "idle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "jobsIdle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "idleCameraAndTorsoStable": true,
+        "retargetMismatches": 0,
+        "postLoadShaderCompiles": 0,
+        "postLoadTextureUploads": 0,
+        "postLoadBonePoseUploads": 620,
+        "pixelReadbackP95Ms": 0,
+        "errors": [],
+        "gates": {
+          "firstResponse": false,
+          "boundedSettle": false,
+          "boundedStallRecovery": true,
+          "idleRenders": true,
+          "fixedIdlePose": true,
+          "matchingRetargetState": true,
+          "warmShaders": true,
+          "warmTextures": true,
+          "frameBudget": true,
+          "runtimeErrors": true
+        }
+      },
+      {
+        "hardware": {
+          "viewport": [
+            1280,
+            720
+          ],
+          "devicePixelRatio": 2,
+          "canvas": [
+            1885,
+            1060
+          ],
+          "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        "character": "prepared-head-only",
+        "wheelResponseMs": 78.79999995231628,
+        "wheelSettleMs": 610.3999999761581,
+        "injectedStallMs": 200.10000002384186,
+        "injectedStallSettleMs": 585.1999999880791,
+        "transitionFrameP95Ms": 17.600000023841858,
+        "transitionWorstGapMs": 50.19999998807907,
+        "transitionGapsOver100Ms": 0,
+        "idle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "jobsIdle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "idleCameraAndTorsoStable": true,
+        "retargetMismatches": 0,
+        "postLoadShaderCompiles": 0,
+        "postLoadTextureUploads": 0,
+        "postLoadBonePoseUploads": 584,
+        "pixelReadbackP95Ms": 0,
+        "errors": [],
+        "gates": {
+          "firstResponse": true,
+          "boundedSettle": true,
+          "boundedStallRecovery": true,
+          "idleRenders": true,
+          "fixedIdlePose": true,
+          "matchingRetargetState": true,
+          "warmShaders": true,
+          "warmTextures": true,
+          "frameBudget": true,
+          "runtimeErrors": true
+        }
+      },
+      {
+        "hardware": {
+          "viewport": [
+            1280,
+            720
+          ],
+          "devicePixelRatio": 2,
+          "canvas": [
+            1885,
+            1060
+          ],
+          "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        "character": "prepared-head-only",
+        "wheelResponseMs": 262,
+        "wheelSettleMs": 779.8999999761581,
+        "injectedStallMs": 200.5,
+        "injectedStallSettleMs": 550.5,
+        "transitionFrameP95Ms": 20.100000023841858,
+        "transitionWorstGapMs": 130.19999998807907,
+        "transitionGapsOver100Ms": 1,
+        "idle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "jobsIdle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "idleCameraAndTorsoStable": true,
+        "retargetMismatches": 0,
+        "postLoadShaderCompiles": 0,
+        "postLoadTextureUploads": 0,
+        "postLoadBonePoseUploads": 616,
+        "pixelReadbackP95Ms": 0,
+        "errors": [],
+        "gates": {
+          "firstResponse": false,
+          "boundedSettle": false,
+          "boundedStallRecovery": true,
+          "idleRenders": true,
+          "fixedIdlePose": true,
+          "matchingRetargetState": true,
+          "warmShaders": true,
+          "warmTextures": true,
+          "frameBudget": false,
+          "runtimeErrors": true
+        }
+      }
+    ]
+  },
+  "finalBatch": {
+    "base": "http://localhost:3018",
+    "pixels": false,
+    "idleDuration": 6000,
+    "runs": [
+      {
+        "hardware": {
+          "viewport": [
+            1280,
+            720
+          ],
+          "devicePixelRatio": 2,
+          "canvas": [
+            1885,
+            1060
+          ],
+          "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        "character": "prepared-head-only",
+        "wheelResponseMs": 61.10000002384186,
+        "wheelSettleMs": 593.3000000119209,
+        "injectedStallMs": 200,
+        "injectedStallSettleMs": 528.3000000119209,
+        "transitionFrameP95Ms": 17.599999964237213,
+        "transitionWorstGapMs": 169.79999995231628,
+        "transitionGapsOver100Ms": 1,
+        "idle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "jobsIdle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "idleCameraAndTorsoStable": true,
+        "retargetMismatches": 0,
+        "postLoadShaderCompiles": 0,
+        "postLoadTextureUploads": 0,
+        "postLoadBonePoseUploads": 574,
+        "pixelReadbackP95Ms": 0,
+        "errors": [],
+        "gates": {
+          "firstResponse": true,
+          "boundedSettle": true,
+          "boundedStallRecovery": true,
+          "idleRenders": true,
+          "fixedIdlePose": true,
+          "matchingRetargetState": true,
+          "warmShaders": true,
+          "warmTextures": true,
+          "frameBudget": false,
+          "runtimeErrors": true
+        }
+      },
+      {
+        "hardware": {
+          "viewport": [
+            1280,
+            720
+          ],
+          "devicePixelRatio": 2,
+          "canvas": [
+            1885,
+            1060
+          ],
+          "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        "character": "prepared-head-only",
+        "wheelResponseMs": 62.39999997615814,
+        "wheelSettleMs": 595.5,
+        "injectedStallMs": 200,
+        "injectedStallSettleMs": 520.2000000476837,
+        "transitionFrameP95Ms": 17.599999964237213,
+        "transitionWorstGapMs": 66.59999996423721,
+        "transitionGapsOver100Ms": 0,
+        "idle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "jobsIdle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "idleCameraAndTorsoStable": true,
+        "retargetMismatches": 0,
+        "postLoadShaderCompiles": 0,
+        "postLoadTextureUploads": 0,
+        "postLoadBonePoseUploads": 576,
+        "pixelReadbackP95Ms": 0,
+        "errors": [],
+        "gates": {
+          "firstResponse": true,
+          "boundedSettle": true,
+          "boundedStallRecovery": true,
+          "idleRenders": true,
+          "fixedIdlePose": true,
+          "matchingRetargetState": true,
+          "warmShaders": true,
+          "warmTextures": true,
+          "frameBudget": true,
+          "runtimeErrors": true
+        }
+      },
+      {
+        "hardware": {
+          "viewport": [
+            1280,
+            720
+          ],
+          "devicePixelRatio": 2,
+          "canvas": [
+            1885,
+            1060
+          ],
+          "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        "character": "prepared-head-only",
+        "wheelResponseMs": 118,
+        "wheelSettleMs": 637.8000000119209,
+        "injectedStallMs": 200.60000002384186,
+        "injectedStallSettleMs": 527.6999999880791,
+        "transitionFrameP95Ms": 17.600000023841858,
+        "transitionWorstGapMs": 54.5,
+        "transitionGapsOver100Ms": 0,
+        "idle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "jobsIdle": {
+          "frames": 0,
+          "bursts": 0,
+          "activeMorphFrames": 0,
+          "observedMorphNames": [],
+          "longestBurstMs": 0,
+          "longestQuietMs": 6000,
+          "dutyCycle": 0
+        },
+        "idleCameraAndTorsoStable": true,
+        "retargetMismatches": 0,
+        "postLoadShaderCompiles": 0,
+        "postLoadTextureUploads": 0,
+        "postLoadBonePoseUploads": 594,
+        "pixelReadbackP95Ms": 0,
+        "errors": [],
+        "gates": {
+          "firstResponse": false,
+          "boundedSettle": true,
+          "boundedStallRecovery": true,
+          "idleRenders": true,
+          "fixedIdlePose": true,
+          "matchingRetargetState": true,
+          "warmShaders": true,
+          "warmTextures": true,
+          "frameBudget": true,
+          "runtimeErrors": true
+        }
+      }
+    ]
+  },
+  "control": [
+    {
+      "kind": "native",
+      "wheelToScrollMs": 13.700000047683716,
+      "scrollToRafMs": 1.0999999642372131,
+      "wheelToRafMs": 14.800000011920929,
+      "frameDurationMs": 0,
+      "tasksAfterReady": [
+        {
+          "start": 7938.600000023842,
+          "duration": 114
+        }
+      ]
+    },
+    {
+      "kind": "tour",
+      "wheelToScrollMs": 22,
+      "scrollToRafMs": 80.09999996423721,
+      "wheelToRafMs": 102.09999996423721,
+      "frameDurationMs": 0,
+      "tasksAfterReady": [
+        {
+          "start": 9831.899999976158,
+          "duration": 128
+        },
+        {
+          "start": 9969.899999976158,
+          "duration": 403
+        },
+        {
+          "start": 11121.699999988079,
+          "duration": 87
+        }
+      ]
+    },
+    {
+      "kind": "tour",
+      "wheelToScrollMs": 236.39999997615814,
+      "scrollToRafMs": 89.40000003576279,
+      "wheelToRafMs": 325.80000001192093,
+      "frameDurationMs": 0,
+      "tasksAfterReady": [
+        {
+          "start": 11150,
+          "duration": 330
+        },
+        {
+          "start": 11510.5,
+          "duration": 105
+        },
+        {
+          "start": 11918.300000011921,
+          "duration": 50
+        }
+      ]
+    },
+    {
+      "kind": "native",
+      "wheelToScrollMs": 91.40000003576279,
+      "scrollToRafMs": 0.30000001192092896,
+      "wheelToRafMs": 91.70000004768372,
+      "frameDurationMs": 0,
+      "tasksAfterReady": [
+        {
+          "start": 7477.700000047684,
+          "duration": 83
+        }
+      ]
+    },
+    {
+      "kind": "native",
+      "wheelToScrollMs": 120.30000001192093,
+      "scrollToRafMs": 0.6000000238418579,
+      "wheelToRafMs": 120.90000003576279,
+      "frameDurationMs": 0.09999996423721313,
+      "tasksAfterReady": [
+        {
+          "start": 7486.699999988079,
+          "duration": 109
+        }
+      ]
+    },
+    {
+      "kind": "tour",
+      "wheelToScrollMs": 85.69999998807907,
+      "scrollToRafMs": 57.39999997615814,
+      "wheelToRafMs": 143.0999999642372,
+      "frameDurationMs": 0,
+      "tasksAfterReady": [
+        {
+          "start": 9499.800000011921,
+          "duration": 162
+        },
+        {
+          "start": 9665.699999988079,
+          "duration": 82
+        },
+        {
+          "start": 9911.800000011921,
+          "duration": 65
+        }
+      ]
+    }
+  ],
+  "diagnostic": [
+    {
+      "wheelToScrollMs": 111,
+      "scrollToFirstRafMs": 46.10000002384186,
+      "firstRafQueueMs": 0.3999999761581421,
+      "firstRafDurationMs": 13.199999988079071,
+      "preFirstLayoutMs": 20.499999940395355,
+      "preFirstHistoryMs": 7,
+      "wheelToSettleMs": 688.5
+    },
+    {
+      "wheelToScrollMs": 63,
+      "scrollToFirstRafMs": 32.09999996423721,
+      "firstRafQueueMs": 0.3999999761581421,
+      "firstRafDurationMs": 11.900000035762787,
+      "preFirstLayoutMs": 12.700000047683716,
+      "preFirstHistoryMs": 7,
+      "wheelToSettleMs": 622.1999999880791
+    },
+    {
+      "wheelToScrollMs": 18.30000001192093,
+      "scrollToFirstRafMs": 46.09999996423721,
+      "firstRafQueueMs": 0.5999999642372131,
+      "firstRafDurationMs": 10.400000035762787,
+      "preFirstLayoutMs": 22.899999976158142,
+      "preFirstHistoryMs": 6.800000011920929,
+      "wheelToSettleMs": 597.3999999761581
+    }
+  ]
+}

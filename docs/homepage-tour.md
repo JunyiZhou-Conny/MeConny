@@ -38,16 +38,18 @@ To change a tool tile or the screen, edit `scripts/3d/make-workstation.mjs` and 
 
 ## Place an illustrated sticker
 
-1. Open `http://localhost:3000/?place=1` and click the sweater. Placement mode pauses pointer attention and scheduled blinks.
+1. Open `http://localhost:3000/?place=1` and click the shirt. Placement mode pauses pointer attention and scheduled blinks.
 2. Copy the emitted surface position and normal from the console or placement panel into `tour.stickers`.
 3. Set `id`, `kind`, `label`, `image`, `size`, `rotation`, and the destination `stopId`.
 4. Add a transparent 512 × 512 WebP texture under `public/3d/stickers/`.
 5. Inspect the full decal from every stop where it is visible. Move clipped placements inboard and re-raycast the new surface position.
 6. Check pointer navigation and the equivalent keyboard link.
 
-Keep eight or fewer stickers on the sweater. Use irregular illustrated silhouettes, varied sizes, and cream borders. The six active `*-illustrated.webp` files are generated artwork. `scripts/3d/make-stickers.mjs` regenerates only the older SVG icons and the placement marker.
+Keep eight or fewer stickers on the shirt. Use irregular illustrated silhouettes, varied sizes, and cream borders. The six active `*-illustrated.webp` files are generated artwork. `scripts/3d/make-stickers.mjs` regenerates only the older SVG icons and the placement marker.
 
 ## Swap the bust
+
+The current prepared character has an explicit rig and material contract. Follow [the preparation guide](prepared-character.md) to rebuild it. The generic procedure below applies to a different asset pathname.
 
 1. Export a binary glTF with Y up and the face toward +z.
 2. Compress the model to Meshopt.
@@ -102,8 +104,8 @@ The separate browser scripts retain raw evidence and screenshots. They require C
 
 ```bash
 TOUR_URL=http://localhost:3000 node scripts/verify/decals.mjs
-TOUR_URL=http://localhost:3000 node scripts/verify/portrait.mjs
+TOUR_URL=http://localhost:3000 node scripts/verify/prepared-character.mjs
 TOUR_URL=http://localhost:3000 node scripts/verify/motion.mjs
 ```
 
-Run timing measurements after other browser captures finish. The default motion verifier runs three repetitions without canvas readback. It measures rendering submissions rather than physical display latency. Scheduled blinks count as short facial bursts; gaps during intentional rest are not dropped frames. `MOTION_PIXELS=1` adds explicit readback instrumentation and reports that overhead separately.
+Run timing measurements after other browser captures finish. The default motion verifier runs three repetitions without canvas readback. It measures rendering submissions rather than physical display latency. The current wink character has no scheduled blink. Gaps during intentional rest are not dropped frames. `MOTION_PIXELS=1` adds explicit readback instrumentation and reports that overhead separately.
