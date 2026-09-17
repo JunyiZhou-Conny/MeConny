@@ -1,6 +1,6 @@
-# Open-eye portrait candidate
+# Open-eye portrait
 
-This branch previews Conny with both eyes open and four stickers projected onto the cheeks. The smile, purple shirt, peace sign, and reference scene styling remain. The four sticker focus anchors and research camera arc are calibrated to this new face and forward hand. Production retains the accepted wink character until this candidate is selected for release.
+The production portrait shows Conny with both eyes open and four stickers projected onto the cheeks. The smile, purple shirt, peace sign, and reference scene styling remain. The four sticker focus anchors and research camera arc are calibrated to this new face and forward hand. Conny selected this version for production on September 17, 2026. The prior wink release remains available in Git history at `611b0970c416cd235afbe8612a2e8e30c4a13b59`.
 
 The final scene is 6,283,724 bytes: 185,765 character triangles and 524 decal triangles. The story stickers follow Clinical AI/pulse, Biology/dna, Job Search/hub, and Research/chip. Placement is defined in `web/scripts/portrait-calibration.json`; eyes and lips stay clear. The fit scale is 1.73 after comparing it with 1.65 in the actual homepage.
 
@@ -10,7 +10,7 @@ One Meshy 7 image-to-3D job ran through the connected Fal account after the user
 
 The generated normal and roughness maps exaggerated triangular surface patches. The prepared input uses smoothed normals, roughness 0.76, metalness 0, and a 2048-pixel WebP color map. Compression retains all triangles; maximum position error is 0.000009265 model heights. The prepared asset is 5,956,512 bytes. Geometry, texture, generation, and output hashes are recorded in [provenance.json](provenance.json).
 
-The eyes are part of a static textured mesh. There are no independent eyeballs, eyelid controls, blinks, or gaze tracking. Small generated polygonal contours near the nose and mouth and dark seams around the collar/hand remain visible in close inspection. This is a comparison candidate, not a claim that those features were hand-retopologized.
+The eyes are part of a static textured mesh. There are no independent eyeballs, eyelid controls, blinks, or gaze tracking. Small generated polygonal contours near the nose and mouth and dark seams around the collar/hand remain visible in close inspection. Those areas have not been hand-retopologized.
 
 ## Rebuild face placement
 
@@ -30,19 +30,19 @@ node web/scripts/calibrate-portrait-camera.mjs \
   web/scripts/portrait-calibration.json
 ```
 
-The composer’s optional final argument selects another calibration JSON. Use the same calibration for the separate camera postpass. Both scripts require a new output path. Source files are never overwritten. The composer verifies the inherited scene data, character streams, and image invariants, then writes a companion report. The camera postpass verifies the explicit candidate corrections and preserves unrelated scene data. The installed script and selected calibration reproduced the committed scene byte for byte.
+The composer’s optional final argument selects another calibration JSON. Use the same calibration for the separate camera postpass. Both scripts require a new output path. Source files are never overwritten. The composer verifies the inherited scene data, character streams, and image invariants, then writes a companion report. The camera postpass verifies the explicit portrait corrections and preserves unrelated scene data. The installed script and selected calibration reproduced the committed scene byte for byte.
 
-Review the result before replacing `web/public/models/me.glb` and its expected hash in `docs/reference/scene-contract.json`. Keep lens, lighting, and unrelated camera stops intact when comparing portrait options. The candidate adds mobile framing in `Scene.tsx`, enabled by scene metadata; the production scene source hash is retained in the contract. Record deliberate camera/focus corrections in calibration data and review the moving result. Run `npm run verify` and the desktop/phone browser suite described in [publication.md](../publication.md).
+Review the result before replacing `web/public/models/me.glb` and its expected hash in `docs/reference/scene-contract.json`. Keep lens, lighting, and unrelated camera stops intact when comparing portrait options. This portrait adds mobile framing in `Scene.tsx`, enabled by scene metadata; the prior production scene source hash is retained in the contract. Record deliberate camera/focus corrections in calibration data and review the moving result. Run `npm run verify` and the desktop/phone browser suite described in [publication.md](../publication.md).
 
 Face stickers are real shallow projected geometry attached to the character. They use the existing sticker artwork; Blender is not required to adjust their placement. Direct eyelid or topology editing would be a separate modeling task.
 
-## Why the candidate needs its own focus calibration
+## Why the portrait needs its own focus calibration
 
-The inherited research camera passes behind the new forward peace-sign hand. Its candidate correction raises that part of the camera path. The inherited biology focus anchor also lies on a different depth plane from the new cheek, which blurred the DNA sticker. Its candidate focus follows the actual sticker surface. These adjustments affect only this portrait branch; the production wink scene remains intact.
+The inherited research camera passes behind the new forward peace-sign hand. Its calibrated correction raises that part of the camera path. The inherited biology focus anchor also lies on a different depth plane from the new cheek, which blurred the DNA sticker. Its calibrated focus follows the actual sticker surface. The prior wink scene remains available at the production baseline commit recorded in the contract.
 
 ## Phone framing
 
-The inherited camera composition puts face stickers behind the phone story cards. Candidate scene metadata identifies the four stickers and supplies a 12-pixel margin. The runtime measures the space below each card and above the next card or viewport edge. It centers the active sticker within that gap and pulls the camera back when the sticker needs more room.
+The inherited camera composition puts face stickers behind the phone story cards. Portrait scene metadata identifies the four stickers and supplies a 12-pixel margin. The runtime measures the space below each card and above the next card or viewport edge. It centers the active sticker within that gap and pulls the camera back when the sticker needs more room.
 
 Framing interpolates between story stops and fades out at the opening and final portrait. Desktop framing, the lens, and lighting remain unchanged. This uses actual card heights so later text edits and shorter phone screens can change the available space.
 

@@ -11,6 +11,10 @@ assert.notEqual(path.resolve(inputPath), path.resolve(outputPath), 'Preserve the
 if (fs.existsSync(outputPath)) {
   assert.notEqual(fs.realpathSync(inputPath), fs.realpathSync(outputPath), 'Preserve the source GLB')
 }
+const reportPath = `${outputPath}.report.json`
+for (const destination of [outputPath, reportPath]) {
+  assert(!fs.lstatSync(destination, { throwIfNoEntry: false }), `Output already exists: ${destination}; choose a new path`)
+}
 
 const source = fs.readFileSync(inputPath)
 assert(source.length >= 28, 'GLB header is incomplete')
@@ -155,7 +159,7 @@ padded.copy(out, 20)
 out.writeUInt32LE(binary.length, 20 + padded.length)
 out.writeUInt32LE(0x004e4942, 24 + padded.length)
 binary.copy(out, 28 + padded.length)
-fs.writeFileSync(outputPath, out)
+fs.writeFileSync(outputPath, out, { flag: 'wx' })
 assert.deepEqual(fs.readFileSync(inputPath), source, 'Source file changed during calibration')
 
 const report = {
@@ -173,5 +177,5 @@ const report = {
     sourceFileUnchanged: true,
   },
 }
-fs.writeFileSync(`${outputPath}.report.json`, JSON.stringify(report, null, 2) + '\n')
+fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n', { flag: 'wx' })
 console.log(JSON.stringify(report, null, 2))

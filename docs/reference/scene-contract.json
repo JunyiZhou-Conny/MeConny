@@ -60,7 +60,7 @@
   "originalModelSha256": "77e8cf1ef81943c81cbe6f1c5f65048ccaecc4f001f12fc60857d3f38e4229ef",
   "model": {
     "label": "Open-eye portrait with four face stickers",
-    "status": "preview candidate",
+    "status": "production",
     "sha256": "168a2c2bef0b549a86a5e906647dfdd62fc572863e5474af532815b09fba1f01",
     "productionBaselineSha256": "c4f68c6670534f528d2c663cf4cc0100c8f84c4803b2f28d435e92f8e237a7f7",
     "productionBaselineCommit": "611b0970c416cd235afbe8612a2e8e30c4a13b59",
@@ -98,6 +98,6 @@
         "ConnySticker-chip"
       ]
     },
-    "productionSceneSourceSha256": "406802de3ae83cef7b0cddd28d5be767dddcbefddb9e4af29bf77ab49f4b1953"
+    "productionBaselineSceneSourceSha256": "406802de3ae83cef7b0cddd28d5be767dddcbefddb9e4af29bf77ab49f4b1953"
   }
 }
