@@ -16,6 +16,20 @@ const check = (actual, expected, message) => {
   checks++
 }
 
+function restoreCloudflareEmail(bytes) {
+  const decode = encoded => {
+    assert(/^(?:[0-9a-f]{2}){2,}$/i.test(encoded), 'Cloudflare email data is valid hexadecimal')
+    const data = Buffer.from(encoded, 'hex')
+    return Buffer.from(data.subarray(1).map(value => value ^ data[0])).toString('utf8')
+  }
+  const html = bytes.toString('utf8')
+    .replace(/href="\/cdn-cgi\/l\/email-protection#([0-9a-f]+)"/gi, (_, encoded) => `href="mailto:${decode(encoded)}"`)
+    .replace(/<span class="__cf_email__" data-cfemail="([0-9a-f]+)">\[email&#160;protected\]<\/span>/gi, (_, encoded) => decode(encoded))
+  const script = /<script data-cfasync="false" src="\/cdn-cgi\/scripts\/[0-9a-f]{8}\/cloudflare-static\/email-decode\.min\.js"><\/script>/gi
+  assert.equal([...html.matchAll(script)].length, 1, 'Cloudflare injects one recognized email decoder')
+  return Buffer.from(html.replace(script, ''))
+}
+
 check(config.framework, 'vite', 'Vercel deploys the Vite frontend')
 check(config.installCommand, 'npm ci --prefix web', 'Installation uses the frontend lockfile')
 check(config.buildCommand, 'npm run build --prefix web', 'Build uses the frontend package')
@@ -61,7 +75,12 @@ if (site) {
   ]) {
     const response = await fetch(new URL(route, origin))
     check(response.status, 200, `${route} returns 200`)
-    check(hash(Buffer.from(await response.arrayBuffer())), hash(await readFile(path.join(dist, file))), `${route} serves the verified build`)
+    const expected = await readFile(path.join(dist, file))
+    let actual = Buffer.from(await response.arrayBuffer())
+    if (file === 'hub.html' && !actual.equals(expected) && response.headers.get('server') === 'cloudflare') {
+      actual = restoreCloudflareEmail(actual)
+    }
+    check(hash(actual), hash(expected), `${route} serves the verified build`)
   }
   for (const [route, destination, expectedStatus] of [['/hub/', '/hub', 308], ['/3d', '/', 307]]) {
     const response = await fetch(new URL(route, origin), { redirect: 'manual' })
