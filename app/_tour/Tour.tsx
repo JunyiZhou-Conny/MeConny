@@ -20,6 +20,7 @@ import { repairConnyEar, tuneConnyHair } from "./character-material";
 import { createDecalInteraction } from "./decal-interaction";
 import { createConnyAttention } from "./character-attention";
 import { createAttentionMotion } from "./attention-motion";
+import { createPreparedCharacterAttention, legacyAttentionDriver } from "./prepared-character-attention";
 import { resolvePose, sampleMotion, type PoseMotion } from "./tour-motion";
 
 type Mode = "static" | "loading" | "live";
@@ -194,6 +195,7 @@ export function Tour() {
     let view = resolvePose(stops, startIndex, window.innerWidth < window.innerHeight, workstationStop);
     let motion: PoseMotion | null = null;
     let model: THREE.Mesh | null = null;
+    let characterOccluders: THREE.Mesh[] = [];
     let attention: ReturnType<typeof createAttentionMotion> | null = null;
 
     const scene = new THREE.Scene();
@@ -247,7 +249,7 @@ export function Tour() {
     const decals = placing ? null : createDecalInteraction({
       canvas: renderer.domElement,
       camera,
-      occluders: () => model ? [model] : [],
+      occluders: () => characterOccluders,
       onHover: (sticker, position) => setHovered(sticker ? { sticker, position } : null),
       onActivate: (sticker) => navigateTo(stops.findIndex((stop) => stop.id === sticker.stopId), true),
       invalidate,
@@ -284,8 +286,8 @@ export function Tour() {
         }
       }
       applyView();
-      const hovering = decals?.update(dt) ?? false;
       const attending = attention?.update(now) ?? false;
+      const hovering = decals?.update(dt) ?? false;
       root!.dataset.transitioning = String(Boolean(motion));
       try {
         composer.render(dt);
@@ -511,11 +513,18 @@ export function Tour() {
         returnToStatic();
         return;
       }
-      const mesh = stickerSurface(meshes);
+      const prepared = model3d.src === "/3d/conny-character.glb";
+      const mesh = prepared ? meshes.find((part) => part.name === "ConnyShirt") : stickerSurface(meshes);
+      if (!mesh) {
+        disposeObject(gltf.scene);
+        returnToStatic();
+        return;
+      }
       model = mesh;
+      characterOccluders = meshes;
       const replacedMaterials = new Set<THREE.Material>();
       for (const part of meshes) {
-        if (model3d.material) {
+        if (model3d.material && !prepared) {
           for (const material of Array.isArray(part.material) ? part.material : [part.material]) replacedMaterials.add(material);
           part.material = new THREE.MeshStandardMaterial({ color: model3d.material.color, roughness: model3d.material.roughness, metalness: 0 });
         }
@@ -524,8 +533,8 @@ export function Tour() {
             repairConnyEar(material);
             tuneConnyHair(material);
           }
-          if ("roughness" in material) material.roughness = model3d.finish.roughness;
-          if ("metalness" in material) material.metalness = model3d.finish.metalness;
+          if (!prepared && "roughness" in material) material.roughness = model3d.finish.roughness;
+          if (!prepared && "metalness" in material) material.metalness = model3d.finish.metalness;
         }
       }
       disposeMaterials(replacedMaterials);
@@ -542,13 +551,20 @@ export function Tour() {
       shadow.scale.set(size.x * fit * 1.06, size.z * fit * 1.25, 1);
       group.add(shadow, rig);
       group.updateMatrixWorld(true);
-      if (model3d.src === "/3d/conny-bust.glb" && !model3d.material) {
+      if (prepared) {
+        const face = createPreparedCharacterAttention(gltf.scene);
+        if (!face) {
+          returnToStatic();
+          return;
+        }
+        attention = createAttentionMotion({ face, camera, surface: renderer.domElement, pointerSurface: root, invalidate, interactive: !placing });
+      } else if (model3d.src === "/3d/conny-bust.glb" && !model3d.material) {
         const face = createConnyAttention(mesh, renderer);
         if (face) {
           // Three r186 exposes _materialDepth; its declaration still names materialDepth.
           const depthMaterial = (bokeh as BokehPass & { _materialDepth: THREE.MeshDepthMaterial })._materialDepth;
           face.applyDepthMaterial(depthMaterial);
-          attention = createAttentionMotion({ face, camera, surface: renderer.domElement, pointerSurface: root, invalidate, interactive: !placing });
+          attention = createAttentionMotion({ face: legacyAttentionDriver(face), camera, surface: renderer.domElement, pointerSurface: root, invalidate, interactive: !placing });
         }
       }
       for (const sticker of stickers) {

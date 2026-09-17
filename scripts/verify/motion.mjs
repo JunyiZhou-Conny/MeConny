@@ -47,10 +47,18 @@ function summarize(data) {
   const idleStable = ['idle', 'jobs-idle'].every(phase => {
     const frames = idleFrames.filter(frame => frame.phase === phase);
     const expectedCamera = phase === 'idle' ? data.idleCamera : data.jobsIdleCamera;
-    return frames.every(frame => distance(frame.camera, expectedCamera) < 0.000001 && Math.abs(frame.bodyYaw) < 0.000001);
+    const expectedCharacter = phase === 'idle' ? data.idleCharacter : data.jobsIdleCharacter;
+    return expectedCharacter !== null && expectedCharacter !== undefined && frames.every(frame =>
+      frame.character?.kind === expectedCharacter.kind &&
+      distance(frame.camera, expectedCamera) < 0.000001 &&
+      distance(frame.character.bodyMatrix, expectedCharacter.bodyMatrix) < 0.000001 &&
+      distance(frame.character.rootMatrix, expectedCharacter.rootMatrix) < 0.000001 &&
+      distance(frame.character.headQuaternion, expectedCharacter.headQuaternion) < 0.000001,
+    );
   });
   const result = {
     hardware: data.hardware,
+    character: data.idleCharacter?.kind ?? 'unidentified',
     wheelResponseMs: first ? first.start - wheel.time : null,
     wheelSettleMs: settled ? settled.start - wheel.time : null,
     injectedStallMs: data.stall?.duration,
@@ -61,7 +69,8 @@ function summarize(data) {
     idle, jobsIdle, idleCameraAndTorsoStable: idleStable,
     retargetMismatches: data.frames.filter(frame => frame.phase === 'retarget' && (frame.hash !== frame.active || frame.hash !== frame.card)).length,
     postLoadShaderCompiles: data.calls.filter(call => call.phase !== 'loading' && call.name === 'compileShader').length,
-    postLoadTextureUploads: data.calls.filter(call => call.phase !== 'loading' && ['texImage2D', 'texSubImage2D'].includes(call.name)).length,
+    postLoadTextureUploads: data.calls.filter(call => call.phase !== 'loading' && ['texImage2D', 'texSubImage2D'].includes(call.name) && call.textureRole !== 'bone-pose').length,
+    postLoadBonePoseUploads: data.calls.filter(call => call.phase !== 'loading' && call.textureRole === 'bone-pose').length,
     pixelReadbackP95Ms: quantile(data.frames.map(frame => frame.pixelCost || 0), 0.95),
     errors: data.errors,
   };
@@ -98,16 +107,54 @@ try {
       let camera;
       let scene;
       let renderer;
+      let characterBody;
+      let characterRoot;
+      let characterHead;
+      let skeletons = [];
       let previousImage;
       let pixelContext;
       const gl = WebGL2RenderingContext.prototype;
+      const bindings = new WeakMap();
+      const textureState = context => {
+        if (!bindings.has(context)) bindings.set(context, { unit: context.TEXTURE0, textures: new Map() });
+        return bindings.get(context);
+      };
+      const activeTexture = gl.activeTexture;
+      gl.activeTexture = function (unit) {
+        textureState(this).unit = unit;
+        return activeTexture.call(this, unit);
+      };
+      const bindTexture = gl.bindTexture;
+      gl.bindTexture = function (target, texture) {
+        const state = textureState(this);
+        state.textures.set(`${state.unit}:${target}`, texture);
+        return bindTexture.call(this, target, texture);
+      };
+      const characterState = () => characterBody ? {
+        kind: characterBody.name === 'ConnyShirt' ? 'prepared-head-only' : 'legacy-bust',
+        bodyName: characterBody.name,
+        bodyMatrix: Array.from(characterBody.matrixWorld.elements),
+        rootMatrix: characterRoot ? Array.from(characterRoot.matrixWorld.elements) : [],
+        headQuaternion: characterHead ? characterHead.quaternion.toArray() : [],
+      } : null;
       for (const name of ['drawElements', 'drawArrays', 'compileShader', 'linkProgram', 'texImage2D', 'texSubImage2D']) {
         const original = gl[name];
         gl[name] = function (...args) {
           const time = performance.now();
           const result = original.apply(this, args);
           data.counters[name] = (data.counters[name] || 0) + 1;
-          if (!name.startsWith('draw')) data.calls.push({ phase: data.phase, name, time, duration: performance.now() - time });
+          if (!name.startsWith('draw')) {
+            let textureRole;
+            if (name === 'texImage2D' || name === 'texSubImage2D') {
+              const state = textureState(this);
+              const bound = state.textures.get(`${state.unit}:${args[0]}`);
+              // Skinning uploads changing bone matrices through a DataTexture.
+              // Exclude only the exact WebGL textures owned by those skeletons;
+              // newly uploaded color/normal/material textures still fail warmup.
+              textureRole = bound && skeletons.some(skeleton => skeleton.boneTexture && renderer?.properties.get(skeleton.boneTexture).__webglTexture === bound) ? 'bone-pose' : 'asset-or-render-target';
+            }
+            data.calls.push({ phase: data.phase, name, time, duration: performance.now() - time, ...(textureRole ? { textureRole } : {}) });
+          }
           return result;
         };
       }
@@ -121,7 +168,15 @@ try {
           renders++;
           if (view.isPerspectiveCamera && object.background?.isColor) {
             camera = view;
-            scene = object;
+            if (scene !== object) {
+              scene = object;
+              characterBody = scene.getObjectByName('ConnyShirt') || scene.getObjectByName('ConnyBust') || scene.getObjectByName('conny_bust');
+              characterRoot = scene.getObjectByName('Root');
+              characterHead = scene.getObjectByName('Head');
+              const found = new Set();
+              scene.traverse(mesh => { if (mesh.isSkinnedMesh) found.add(mesh.skeleton); });
+              skeletons = [...found];
+            }
             data.camera = [...camera.position.toArray(), camera.fov];
           }
           return render.call(this, object, view);
@@ -140,6 +195,8 @@ try {
           const activeCard = document.querySelector('.tour-card[data-active="true"]');
           const activeId = [...document.querySelectorAll('.tour-card')].indexOf(activeCard);
           const frame = { phase: data.phase, start, duration: submitted - start, camera: [...camera.position.toArray(), camera.fov], bodyYaw: scene.children.find(child => child.isGroup)?.rotation.y || 0, renders: renders - before, draws: (data.counters.drawElements || 0) + (data.counters.drawArrays || 0) - draws, hash: location.hash, active: current?.getAttribute('href'), card: document.querySelectorAll('.tour-tag')[activeId]?.getAttribute('href'), transitioning: document.querySelector('.tour')?.dataset.transitioning === 'true' };
+          frame.character = characterState();
+          data.character = frame.character;
           if (data.phase === 'idle' || data.phase === 'jobs-idle') {
             frame.faceMorphs = [];
             scene.traverse(mesh => {
@@ -170,7 +227,7 @@ try {
     await settled(page, 'start');
     await page.mouse.move(1200, 20);
     await page.waitForTimeout(1200);
-    await page.evaluate(() => { window.motionProfile.phase = 'idle'; window.motionProfile.idleStarted = performance.now(); window.motionProfile.idleCamera = window.motionProfile.camera; });
+    await page.evaluate(() => { window.motionProfile.phase = 'idle'; window.motionProfile.idleStarted = performance.now(); window.motionProfile.idleCamera = window.motionProfile.camera; window.motionProfile.idleCharacter = window.motionProfile.character; });
     await page.waitForTimeout(idleDuration);
     await page.evaluate(() => { window.motionProfile.phase = 'wheel'; window.motionProfile.beforeWheel = window.motionProfile.camera; });
     await page.mouse.wheel(0, 720);
@@ -189,7 +246,7 @@ try {
     await page.evaluate(() => { window.motionProfile.phase = 'traverse-jobs-again'; });
     await page.locator('.tour-tag[href="#jobs"]').click();
     await settled(page, 'jobs');
-    await page.evaluate(() => { window.motionProfile.phase = 'jobs-idle'; window.motionProfile.jobsIdleStarted = performance.now(); window.motionProfile.jobsIdleCamera = window.motionProfile.camera; });
+    await page.evaluate(() => { window.motionProfile.phase = 'jobs-idle'; window.motionProfile.jobsIdleStarted = performance.now(); window.motionProfile.jobsIdleCamera = window.motionProfile.camera; window.motionProfile.jobsIdleCharacter = window.motionProfile.character; });
     await page.waitForTimeout(idleDuration);
     await page.evaluate(() => { window.motionProfile.phase = 'stall'; });
     await page.locator('.tour-tag[href="#start"]').click();

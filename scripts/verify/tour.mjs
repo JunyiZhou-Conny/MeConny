@@ -219,7 +219,7 @@ try {
     assert.equal(state.hash, '#start');
     assert.equal(state.current, '#start');
     assert.equal(state.transitioning, 'false');
-    for (const [index, expected] of [0.872, 0.806, 1.993].entries()) assert.ok(Math.abs(state.camera[index] - expected) < 0.001, JSON.stringify(state));
+    for (const [index, expected] of [0.482, 0.754, 2.232].entries()) assert.ok(Math.abs(state.camera[index] - expected) < 0.001, JSON.stringify(state));
     await page.waitForTimeout(500);
     assert.equal(await page.evaluate(() => window.partialScrollFrames), state.frames);
     await page.context().close();
@@ -343,7 +343,7 @@ try {
     await page.context().close();
   });
   for (const [asset, pattern] of [
-    ['model', '**/3d/conny-bust.glb'],
+    ['model', '**/3d/conny-character.glb'],
     ['sticker texture', '**/3d/stickers/pulse-illustrated.webp'],
   ]) {
     await record(`delayed ${asset} keeps the loading screen until the scene is ready`, async () => {
@@ -449,10 +449,10 @@ try {
   for (const kind of ['failed', 'invalid']) {
     await record(`${kind} GLB restores static Job Search`, async () => {
       const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
-      await context.route('**/3d/conny-bust.glb', route => kind === 'failed' ? route.abort() : route.fulfill({ status: 200, contentType: 'model/gltf-binary', body: 'invalid glb' }));
+      await context.route('**/3d/conny-character.glb', route => kind === 'failed' ? route.abort() : route.fulfill({ status: 200, contentType: 'model/gltf-binary', body: 'invalid glb' }));
       const page = await context.newPage();
       page.on('pageerror', error => errors.push({ url: page.url(), message: error.message }));
-      const requested = page.waitForRequest('**/3d/conny-bust.glb');
+      const requested = page.waitForRequest('**/3d/conny-character.glb');
       await page.goto(`${base}/#jobs`);
       await requested;
       await page.locator('.tour-stage canvas').waitFor({ state: 'detached' });
