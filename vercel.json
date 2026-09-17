@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "npm ci --prefix web",
+  "buildCommand": "npm run build --prefix web",
+  "outputDirectory": "web/dist",
+  "redirects": [
+    { "source": "/hub/", "destination": "/hub", "permanent": true },
+    { "source": "/3d", "destination": "/", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/hub", "destination": "/hub.html" }
+  ]
+}

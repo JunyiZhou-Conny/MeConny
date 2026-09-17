@@ -1,0 +1,62 @@
+{
+  "upstream": {
+    "repository": "https://github.com/dayinji/sen-3d-resume",
+    "commit": "c9a9fe373cde72c77ff7f2dabde17fb79dce89b3"
+  },
+  "imported": {
+    "repository": "https://github.com/JunyiZhou-Conny/my-3d-resume",
+    "commit": "66356f85c2930a41d0c19375b34326a55bffd7a9",
+    "mergeCommit": "0225fc889a6614131f49f751a9d49e35169d7321"
+  },
+  "files": {
+    "web/src/scene/Scene.tsx": "406802de3ae83cef7b0cddd28d5be767dddcbefddb9e4af29bf77ab49f4b1953",
+    "web/src/scene/Env.tsx": "51e2f61d41b783e54d77017450087b8bf092797d2668b6dfadf32345f00c9bf8",
+    "web/src/styles.css": "0da23622865ad977bda939a4187c1394926de55eabff919a657f244e43d596f8",
+    "web/src/data/focusPoints.ts": "1029e64253732c2ffa84952711cdc6340c380213852845f0ec698bba5264ca5d",
+    "web/src/store.ts": "38ba2b2a05cc0ab3721e249afa6b6488b14fea1e7ce6df42113ee3cbdd376735",
+    "web/vite.config.ts": "606f19a327b5ada8db5ddffec696b0bd91cf56982aebf836c13be7bbb123e8d1",
+    "web/package-lock.json": "17cd907cd88aa14a5c44865628eadcfddb5c7cf5073f66abb0e0db6040fe7df5"
+  },
+  "canvasProps": "\n          shadows={{ type: THREE.PCFShadowMap }}\n          dpr={[1, 1.5]}\n          camera={{ position: [0, 5, 19], fov: 39, near: 0.1, far: 500 }}\n          gl={{ antialias: false, stencil: false, depth: true, toneMapping: THREE.ACESFilmicToneMapping }}\n        ",
+  "dependencies": {
+    "@react-three/drei": "^9.114.0",
+    "@react-three/fiber": "^8.17.10",
+    "@react-three/postprocessing": "^2.16.3",
+    "framer-motion": "^11.18.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^10.1.0",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.1",
+    "three": "^0.169.0",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@types/three": "^0.169.0",
+    "@vitejs/plugin-react": "^4.3.3",
+    "eslint": "^10.8.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.7.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.65.0",
+    "vite": "^5.4.10"
+  },
+  "cameras": [
+    {
+      "name": "Camera.001",
+      "perspective": {
+        "aspectRatio": 1.7777777777777777,
+        "yfov": 0.39959648408210363,
+        "zfar": 100,
+        "znear": 0.10000000149011612
+      },
+      "type": "perspective"
+    }
+  ],
+  "originalModelSha256": "77e8cf1ef81943c81cbe6f1c5f65048ccaecc4f001f12fc60857d3f38e4229ef",
+  "acceptedModelSha256": "c4f68c6670534f528d2c663cf4cc0100c8f84c4803b2f28d435e92f8e237a7f7"
+}

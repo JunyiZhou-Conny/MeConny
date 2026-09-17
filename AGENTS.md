@@ -1,3 +1,26 @@
+# Production application
+
+The deployed website is the standalone Vite application in `web/`. All scene work and frontend dependencies belong to that package. Root `app/`, `proxy.ts`, and Next.js files are archived sources. The Next.js rules below apply only when explicitly working on that archived implementation.
+
+Use Node.js 24. From the repository root:
+
+```bash
+npm ci --prefix web
+npm run dev
+npm run verify
+npm run preview --prefix web -- --port 3021
+```
+
+`vercel.json` at the repository root selects the `web/` build through explicit install, build, and output settings. Preserve the existing project and domain associations. Ordinary feature branches receive previews; `main` is the production branch.
+
+The homepage uses the scene from `JunyiZhou-Conny/my-3d-resume`. Its imported commit and original scene configuration are recorded in `docs/reference/scene-contract.json`. Keep that contract when publishing the accepted design. Deliberate future design changes should update the contract and their visual evidence together.
+
+`web/src/App.tsx` owns the introduction, `web/src/ui/Resume.tsx` owns the five focus entries, and `web/src/data/works.ts` plus `web/src/content/works/` own project details. Runtime configuration lives in `web/src/scene/Scene.tsx` and `Env.tsx`. The character is `web/public/models/me.glb`. Do not mix the root Next/React dependencies with the frontend's React 18 and R3F 8 dependency tree.
+
+The existing written hub remains sourced from `public/index.html`, `public/css/`, `public/js/`, and `public/favicon/`. `web/scripts/copy-hub.mjs` copies it after each production build. Vercel serves it at `/hub`; `/hub/` canonicalizes to `/hub`, and `/3d` redirects to `/`. Do not create a second editable copy of the hub in `web/public`.
+
+The remaining content and curation rules below apply to that written hub. See `docs/publication.md` for verification, provenance, and rollback.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know
@@ -14,12 +37,12 @@ This is the public hub for Junyi (Conny) Zhou. It is a person page, not a produc
 
 The **look** is Javis Ng’s published GitHub Pages chrome (`public/css/style.css`, `public/js/*`), from [javis603.github.io](https://github.com/Javis603/javis603.github.io). The **words** are Conny’s. Do not put Javis’s name, Token Monitor, Discord-AIBot, or `javis-ai.com` back on this hub. Do not poll his Token Monitor worker.
 
-`proxy.ts` serves `public/index.html` at `/`. Do not rebuild the hub as a React page unless asked.
+The deployed site serves `public/index.html` at `/hub` through the static build described above. The archived `proxy.ts` served it at `/`. Do not rebuild the hub as a React page unless asked.
 
 ## Commands
 
 ```bash
-npm run dev       # local hub
+npm run dev       # Vite homepage
 npm run build     # production build
 npm run lint      # ESLint
 npm run verify    # lint + build
