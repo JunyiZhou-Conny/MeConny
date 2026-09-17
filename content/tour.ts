@@ -4,7 +4,7 @@
  * down +z. Desktop cameras reserve the right side for copy. Phone cameras
  * frame the scene above the copy.
  *
- * Sticker positions and normals come from raycasts against conny-bust.glb.
+ * Sticker positions and normals come from raycasts against conny-character.glb.
  * Open /?place=1 and click the bust to print a calibrated placement entry.
  */
 
@@ -117,7 +117,7 @@ export type Workstation = {
 };
 
 export type TourModel = {
-  /** GLB with EXT_meshopt_compression and KHR_mesh_quantization. */
+  /** GLB with EXT_meshopt_compression. */
   src: string;
   /**
    * Yaw in degrees, applied on load. The cameras assume the face looks down
@@ -135,7 +135,7 @@ export type TourModel = {
     color: string;
     roughness: number;
   };
-  /** Forced onto whichever material ends up on the mesh, so clay stays clay. */
+  /** Fallback finish for models without prepared material roles. */
   finish: {
     roughness: number;
     metalness: number;
@@ -161,11 +161,11 @@ export const tour = {
   description:
     "Meet Junyi (Conny) Zhou: clinical AI, computational biology, and agent systems. Explore the projects in an interactive 3D tour.",
   model: {
-    src: "/3d/conny-bust.glb",
+    src: "/3d/conny-character.glb",
     yaw: 0,
     poster: "/3d/poster.jpg",
     posterAlt:
-      "A soft clay bust of Conny in a sand-colored knit sweater, with thick dark hair and a warm smile, and illustrated paper stickers across the sweater.",
+      "Conny in a purple shirt, smiling with a wink and a raised peace sign, with illustrated project stickers across the shirt.",
     finish: {
       roughness: 0.92,
       metalness: 0,
@@ -187,15 +187,15 @@ export const tour = {
         { href: "https://github.com/JunyiZhou-Conny", label: "GitHub" },
       ],
       camera: {
-        position: [1.03, 0.82, 2.05],
-        target: [0.35, 0.5, 0],
+        position: [0.52, 0.76, 2.28],
+        target: [0.37, 0.51, 0],
         fov: 34,
-        focalPoint: [0, 0.68, 0.14],
+        focalPoint: [0.04, 0.75, 0.08],
         aperture: 0.01,
         maxblur: 0.009,
         phone: {
-          position: [0.3, 0.8, 2.5],
-          target: [0, 0.46, 0],
+          position: [0.1, 0.76, 2.7],
+          target: [0, 0.49, 0],
           fov: 40,
         },
       },
@@ -214,15 +214,15 @@ export const tour = {
         },
       ],
       camera: {
-        position: [-0.55, 0.68, 1.48],
-        target: [0.26, 0.48, 0.02],
+        position: [0.14, 0.7, 1.8],
+        target: [0.30, 0.49, 0.02],
         fov: 33,
-        focalPoint: [-0.12, 0.235, 0.086],
+        focalPoint: [-0.04, 0.403, -0.005],
         aperture: 0.012,
         maxblur: 0.009,
         phone: {
-          position: [-0.5, 0.72, 2.4],
-          target: [-0.05, 0.25, 0.02],
+          position: [0.06, 0.76, 2.5],
+          target: [0, 0.4, 0.02],
           fov: 39,
         },
       },
@@ -238,15 +238,15 @@ export const tour = {
         { href: "https://github.com/JunyiZhou-Conny/speciesOT", label: "GitHub" },
       ],
       camera: {
-        position: [-0.68, 0.65, 1.02],
-        target: [0.22, 0.25, 0.04],
+        position: [-0.18, 0.52, 1.23],
+        target: [0.22, 0.36, 0.04],
         fov: 34,
-        focalPoint: [-0.19, 0.12, 0.105],
+        focalPoint: [-0.058, 0.268, 0.052],
         aperture: 0.018,
         maxblur: 0.009,
         phone: {
-          position: [-0.6, 0.65, 1.45],
-          target: [-0.1, 0.14, 0.04],
+          position: [-0.13, 0.53, 1.9],
+          target: [0.01, 0.31, 0.04],
           fov: 40,
         },
       },
@@ -275,8 +275,8 @@ export const tour = {
         target: [0.17, 0.45, 0.1],
         fov: 36,
         focalPoint: [-0.26, 0.4, 0.2],
-        aperture: 0.012,
-        maxblur: 0.009,
+        aperture: 0.006,
+        maxblur: 0.004,
         phone: {
           position: [0.04, 1.03, 4.1],
           target: [-0.22, 0.24, 0.14],
@@ -298,15 +298,15 @@ export const tour = {
         },
       ],
       camera: {
-        position: [0.5, 0.59, 0.88],
-        target: [0.28, 0.4, 0.04],
+        position: [0.6, 0.79, 1.24],
+        target: [0.33, 0.62, 0.04],
         fov: 32,
-        focalPoint: [0.16, 0.235, 0.075],
+        focalPoint: [0.04, 0.75, 0.08],
         aperture: 0.018,
         maxblur: 0.009,
         phone: {
-          position: [0.52, 0.63, 1.35],
-          target: [0.1, 0.2, 0.05],
+          position: [0.42, 0.81, 1.9],
+          target: [0.05, 0.6, 0.05],
           fov: 40,
         },
       },
@@ -330,15 +330,15 @@ export const tour = {
         },
       ],
       camera: {
-        position: [0, 0.68, 2.1],
-        target: [0.34, 0.52, 0],
+        position: [0.02, 0.73, 2.2],
+        target: [0.36, 0.52, 0],
         fov: 33,
-        focalPoint: [0, 0.65, 0.12],
+        focalPoint: [0.04, 0.75, 0.08],
         aperture: 0.012,
         maxblur: 0.009,
         phone: {
-          position: [0, 0.68, 2.3],
-          target: [0, 0.43, 0],
+          position: [0, 0.74, 2.7],
+          target: [0, 0.47, 0],
           fov: 40,
         },
       },
@@ -346,11 +346,11 @@ export const tour = {
     },
   ] satisfies readonly TourStop[],
   /**
-   * Story cues, not scatter. They sit on the sweater like enamel pins, and
+   * Story cues, not scatter. They sit on the shirt like enamel pins, and
    * none of them go on the face: the face is the identity, and a sticker on a
    * cheek reads as a rash rather than a badge. The Job Search stop carries no
    * sticker on purpose, because its cue is the workstation.
-   * Positions are raycasts against public/3d/conny-bust.glb in the fitted
+   * Positions are raycasts against public/3d/conny-character.glb in the fitted
    * frame, captured with /?place=1.
    */
   stickers: [
@@ -360,9 +360,9 @@ export const tour = {
       kind: "work",
       label: "Heart with a pulse line sticker",
       image: "/3d/stickers/pulse-illustrated.webp",
-      position: [-0.12, 0.235, 0.086],
-      normal: [-0.222, 0.357, 0.907],
-      size: 0.14,
+      position: [-0.039, 0.403, -0.005],
+      normal: [-0.129, 0.767, 0.627],
+      size: 0.125,
       rotation: 6,
     },
     {
@@ -371,9 +371,9 @@ export const tour = {
       kind: "work",
       label: "DNA helix sticker",
       image: "/3d/stickers/dna-illustrated.webp",
-      position: [-0.19, 0.12, 0.105],
-      normal: [-0.192, 0.323, 0.927],
-      size: 0.17,
+      position: [-0.058, 0.268, 0.052],
+      normal: [0.35, 0.25, 0.903],
+      size: 0.135,
       rotation: -8,
     },
     {
@@ -382,9 +382,9 @@ export const tour = {
       kind: "work",
       label: "Illustrated terminal sticker",
       image: "/3d/stickers/hub-illustrated.webp",
-      position: [-0.065, 0.09, 0.122],
-      normal: [-0.021, 0.139, 0.99],
-      size: 0.09,
+      position: [0.014, 0.199, 0.065],
+      normal: [-0.229, 0.232, 0.946],
+      size: 0.072,
       rotation: 4,
     },
     {
@@ -393,9 +393,9 @@ export const tour = {
       kind: "work",
       label: "GPU chip sticker",
       image: "/3d/stickers/chip-illustrated.webp",
-      position: [0.16, 0.235, 0.075],
-      normal: [0.222, 0.412, 0.884],
-      size: 0.15,
+      position: [0.148, 0.391, -0.007],
+      normal: [-0.322, 0.547, 0.772],
+      size: 0.13,
       rotation: -14,
     },
     {
@@ -404,9 +404,9 @@ export const tour = {
       kind: "hobby",
       label: "Bicycle sticker",
       image: "/3d/stickers/bike-illustrated.webp",
-      position: [0.24, 0.125, 0.095],
-      normal: [0.231, 0.259, 0.938],
-      size: 0.145,
+      position: [0.224, 0.238, 0.027],
+      normal: [0.125, 0.098, 0.985],
+      size: 0.12,
       rotation: 7,
     },
     {
@@ -415,9 +415,9 @@ export const tour = {
       kind: "hobby",
       label: "Headphones sticker",
       image: "/3d/stickers/headphones-illustrated.webp",
-      position: [0.1, 0.1, 0.118],
-      normal: [0.07, 0.176, 0.982],
-      size: 0.1,
+      position: [0.117, 0.229, 0.068],
+      normal: [0.086, 0.228, 0.969],
+      size: 0.08,
       rotation: -5,
     },
   ] satisfies readonly Sticker[],

@@ -1,5 +1,5 @@
-import { MathUtils, PerspectiveCamera, Vector2 } from "three";
-import type { ConnyAttention } from "./character-attention";
+import { MathUtils, PerspectiveCamera, Vector2, Vector3 } from "three";
+import type { CharacterAttention } from "./prepared-character-attention";
 
 type Response = {
   eyeFrom: Vector2;
@@ -9,7 +9,7 @@ type Response = {
 };
 
 type Options = {
-  face: ConnyAttention;
+  face: CharacterAttention;
   camera: PerspectiveCamera;
   surface: HTMLElement;
   pointerSurface: HTMLElement;
@@ -20,6 +20,7 @@ type Options = {
 export function createAttentionMotion({ face, camera, surface, pointerSurface, invalidate, interactive }: Options) {
   const eyePointer = new Vector2();
   const headPointer = new Vector2();
+  const cameraWorld = new Vector3();
   let response: Response | null = null;
   let blinkStartedAt: number | null = null;
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -41,7 +42,7 @@ export function createAttentionMotion({ face, camera, surface, pointerSurface, i
   const leave = () => requestLook(new Vector2());
   const scheduleBlink = () => {
     clearTimeout(timer);
-    if (!running || !interactive || document.hidden) return;
+    if (!running || !interactive || document.hidden || !face.capabilities.blink) return;
     timer = setTimeout(() => {
       blinkStartedAt = performance.now();
       invalidate();
@@ -71,13 +72,8 @@ export function createAttentionMotion({ face, camera, surface, pointerSurface, i
         headPointer.copy(response.headFrom).lerp(response.to, ease(280));
         if (elapsed >= 280) response = null;
       }
-      face.setPose(
-        -Math.atan2(camera.position.y - 0.65, Math.max(camera.position.z, 0.1)) * 0.18 - headPointer.y * 0.02,
-        Math.atan2(camera.position.x, camera.position.z) * 0.12 + headPointer.x * 0.045,
-        0.012 - headPointer.x * 0.012,
-      );
-      const gaze = face.gazeFor(camera.position, eyePointer.x, eyePointer.y);
-      face.setGaze(gaze.x, gaze.y);
+      camera.getWorldPosition(cameraWorld);
+      face.lookAtViewer({ cameraWorld, eyePointer, headPointer });
       if (blinkStartedAt !== null) {
         const elapsed = now - blinkStartedAt;
         const amount = elapsed < 70 ? MathUtils.smoothstep(elapsed, 0, 70)
