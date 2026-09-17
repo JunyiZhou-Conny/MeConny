@@ -64,7 +64,13 @@ node web/scripts/verify-publication.mjs https://your-preview.vercel.app
 
 This verifies the actual served model, sticker, hub, hub assets, and license notices against the local build, then checks `/hub/` and `/3d` redirects. Vite's local preview does not implement Vercel routing; use `/hub.html` there. Inspect the hub and current homepage in the browser before release.
 
+The custom domain's existing [Cloudflare email obfuscation](https://developers.cloudflare.com/waf/tools/scrape-shield/email-address-obfuscation/) rewrites the hub's email links and visible address, then injects an email decoder. For a differing hub response identified as Cloudflare, the verifier restores only those recognized email encodings and removes exactly one recognized decoder script before comparing the entire HTML with the build. Other HTML changes still fail. All other asset and license comparisons remain byte-exact, and HTTP status and redirect checks remain unchanged.
+
 ## Release and rollback
+
+The first reference-scene release shipped on September 17, 2026 through [PR 12](https://github.com/JunyiZhou-Conny/MeConny/pull/12), production commit `4793b09e2a994e83822a7ca8cdfd251e9f7f8d9a`. GitHub recorded successful production deployment `6506850832`, available at [me-conny-my4nai87s](https://me-conny-my4nai87s-junyizhou-conny.vercel.app) and its [Vercel deployment page](https://vercel.com/junyizhou-conny/me-conny/BgLcWQeW7gS1decMMqxnjeRWvXEy).
+
+The public site passed all 88 desktop and phone browser checks, including the camera sequence and four project panels. All 72 remote publication checks passed after accounting for Cloudflare's email obfuscation. The apex domain returns HTTP 308 to `https://www.connyzhou.com/`; the homepage, written hub, assets, license notices, and route redirects were verified on the public domain.
 
 Use a feature branch for each iteration. Review its hosted preview, then merge the verified source into `main` to trigger production through the existing GitHub integration. Re-run both verification commands against the custom domain and check the apex redirect. MeConny is the editable production source of truth; no build-time fetch from another repository is used.
 
