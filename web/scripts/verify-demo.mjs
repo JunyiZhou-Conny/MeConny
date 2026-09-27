@@ -177,15 +177,6 @@ try {
           }
           check(`${viewport.name}: ${project.id} keeps keyboard focus inside the dialog`, trace.every(Boolean), trace)
         }
-        if (index === 0 && kind === 'title') {
-          await delay(settle)
-          await screenshot(page, `${viewport.name}-clinical-dialog`)
-          await dialog.locator('.case-media').evaluate((el) => el.scrollIntoView({ block: 'start', behavior: 'instant' }))
-          await delay(settle)
-          await screenshot(page, `${viewport.name}-clinical-dialog-media`)
-          const media = await dialog.evaluate((el) => [...el.querySelectorAll('.case-media a')].map((a) => ({ href: a.getAttribute('href'), img: Boolean(a.querySelector('img')) })))
-          check(`${viewport.name}: clinical screenshots open at full size`, media.length === 2 && media.every((m) => m.img && m.href.startsWith('/projects/')), media)
-        }
         if (kind === 'cta') await dialog.getByRole('button', { name: 'Back to selected work' }).press('Enter')
         else await page.keyboard.press('Escape')
         // Escape closes the native dialog at once; React unmounts it when the
@@ -217,6 +208,24 @@ try {
     check(`${viewport.name}: displayed media loads`, links.images.every((i) => i.loaded), links.images.filter((i) => !i.loaded))
     check(`${viewport.name}: internal anchor targets exist`, links.anchors.every((a) => a.exists), links.anchors.filter((a) => !a.exists))
     check(`${viewport.name}: external links are HTTPS`, links.external.every((l) => l.href.startsWith('https://')), links.external.filter((l) => !l.href.startsWith('https://')))
+
+    // Capture the open dialog last. In headless mobile emulation, screenshots of
+    // an open modal stopped animation frames until the next capture, which would
+    // stall the rAF focus return and smooth scrolling checked above.
+    const clinical = page.locator('#pediatric-savior h3 button')
+    await clinical.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }))
+    await delay(settle)
+    await clinical.focus()
+    await page.keyboard.press('Enter')
+    const dialog = page.locator('dialog[open]')
+    await dialog.waitFor()
+    await delay(settle)
+    await screenshot(page, `${viewport.name}-clinical-dialog`)
+    await dialog.locator('.case-media').evaluate((el) => el.scrollIntoView({ block: 'start', behavior: 'instant' }))
+    await delay(settle)
+    await screenshot(page, `${viewport.name}-clinical-dialog-media`)
+    const media = await dialog.evaluate((el) => [...el.querySelectorAll('.case-media a')].map((a) => ({ href: a.getAttribute('href'), img: Boolean(a.querySelector('img')) })))
+    check(`${viewport.name}: clinical screenshots open at full size`, media.length === 2 && media.every((m) => m.img && m.href.startsWith('/projects/')), media)
     await context.close()
   }
 
@@ -226,6 +235,8 @@ try {
   const served = await page.request.get(`${url}/models/me.glb`)
   check('Served model is the accepted open-eye GLB', served.ok() && digest(await served.body()) === acceptedModel, { status: served.status() })
   for (const route of ['/hub', '/hub/', '/hub.html', '/#species-ot']) {
+    // about:blank first, so a hash-only change is a real load, not a same-page scroll.
+    await page.goto('about:blank')
     await page.goto(`${url}${route}`, { waitUntil: 'domcontentloaded' })
     await ready(page)
     await delay(600)
