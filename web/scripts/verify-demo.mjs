@@ -154,7 +154,9 @@ try {
       await screenshot(page, `${viewport.name}-project-${index + 1}`)
       for (const [kind, selector] of [['cover', '.project-cover'], ['title', 'h3 button'], ['cta', '.project-actions button']]) {
         const trigger = article.locator(selector)
-        await trigger.scrollIntoViewIfNeeded()
+        // Playwright's stability wait is unreliable at ~1 fps; scroll directly.
+        await trigger.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }))
+        await delay(settle)
         await trigger.focus()
         const before = await page.evaluate(() => window.scrollY)
         await page.keyboard.press('Enter')
@@ -178,7 +180,7 @@ try {
         if (index === 0 && kind === 'title') {
           await delay(settle)
           await screenshot(page, `${viewport.name}-clinical-dialog`)
-          await dialog.locator('.case-media').scrollIntoViewIfNeeded()
+          await dialog.locator('.case-media').evaluate((el) => el.scrollIntoView({ block: 'start', behavior: 'instant' }))
           await delay(settle)
           await screenshot(page, `${viewport.name}-clinical-dialog-media`)
           const media = await dialog.evaluate((el) => [...el.querySelectorAll('.case-media a')].map((a) => ({ href: a.getAttribute('href'), img: Boolean(a.querySelector('img')) })))
