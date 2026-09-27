@@ -231,7 +231,6 @@ function Man2({
     }
   }, [scene])
 
-  // 相机动画总帧数：从 CameraAction clip 读（回退到最长 clip / 默认履历+入场+横移），不写死。
   // 作品区帧段 = [RESUME_FRAMES, totalFrames]，长度随 glb 而定（当前 me.glb 为 100 帧）。
   const totalFrames = useMemo(() => {
     const clips: any[] = animations || []
@@ -283,7 +282,6 @@ function Man2({
 
   // 履历锚点 DOM 元素（决定当前播放到第几段）
   const anchorEls = useRef<any>(null)
-  // 作品区画廊 DOM 元素（决定作品入场 / 横移阶段的帧）
   const galleryEl = useRef<any>(null)
 
   // 复用对象，避免每帧分配
@@ -344,30 +342,22 @@ function Man2({
         }
       }
     }
-    // 2) 帧驱动：先算"目标帧"（履历/作品统一，交界处两侧都是 RESUME_FRAMES → 连续），
-    //    再对最终帧做一次缓动——避免之前"平滑 s + 直读 rectTop"两路径不一致导致的瞬跳。
-    //    履历区 0–RESUME_FRAMES（节点 i→(i+1)·50）；作品区 = 入场（屏幕滑入）+ 首板块横移，直到末帧
     let frameTarget = THREE.MathUtils.clamp((sTarget + 1) * FRAMES_PER_NODE, 0, RESUME_FRAMES)
     let inWorks = false
     if (!galleryEl.current) galleryEl.current = document.querySelector('.wk-gallery')
     if (galleryEl.current) {
       const ih = window.innerHeight
       const rectTop = galleryEl.current.getBoundingClientRect().top
-      const range = Math.max(0, galleryEl.current.offsetHeight - ih)
       if (rectTop < ih) {
         inWorks = true
-        // 入场段结束帧（作品屏幕完全覆盖时）：履历末尾 + 入场帧数，钳到总帧
         const entranceEnd = Math.min(RESUME_FRAMES + WORKS_ENTRANCE, totalFrames)
         if (rectTop > 0) {
-          // 作品屏幕从底部(rectTop=ih)滑到完全覆盖(rectTop=0)：入场帧段
           const pA = THREE.MathUtils.clamp(1 - rectTop / ih, 0, 1)
           frameTarget = RESUME_FRAMES + (entranceEnd - RESUME_FRAMES) * pA
         } else {
-          // 已钉住，首板块水平移入（前一整屏 100vw 横移）：入场结束 → 末帧，之后定格末帧
-          // 竖滚与横移 1:1（px）；横移 100vw = innerWidth px
-          const scrolled = THREE.MathUtils.clamp(-rectTop, 0, range)
-          const pB = THREE.MathUtils.clamp(scrolled / window.innerWidth, 0, 1)
-          frameTarget = entranceEnd + (totalFrames - entranceEnd) * pB
+          const settleDistance = Math.max(1, ih * 0.55)
+          const settleProgress = THREE.MathUtils.clamp(-rectTop / settleDistance, 0, 1)
+          frameTarget = entranceEnd + (totalFrames - entranceEnd) * settleProgress
         }
       }
     }

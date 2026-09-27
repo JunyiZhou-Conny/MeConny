@@ -1,302 +1,395 @@
 import { useEffect, useRef, useState, type Ref } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import rehypeRaw from 'rehype-raw'
-import { WORKS, SECTION_COVERS, type WorkListItem, type WorkSection, type WorksLang } from '../data/works'
-import { getWorkDoc } from '../data/workDocs'
+import { PROJECTS, type Project } from '../data/projects'
+import './Works.css'
 
-const EASE = [0.22, 1, 0.36, 1]
-
-// 极简清单的一行：作品名靠左、数据(播放量/标签)靠右、发丝线分隔；整行可点开全屏详情
-function WorkLine({ item, onOpen }: { item: WorkListItem; onOpen: (item: WorkListItem) => void }) {
-  const hasMeta = item.meta || (item.tags && item.tags.length)
-  return (
-    <li className="wk-line">
-      <button className="wk-line-btn" onClick={() => onOpen(item)}>
-        <span className="wk-line-name">{item.name}</span>
-        {hasMeta && (
-          <span className="wk-line-meta">
-            {item.meta && <span className="wk-line-num">{item.meta}</span>}
-            {item.tags &&
-              item.tags.map((t, i) => (
-                <span key={i} className="wk-line-tag">
-                  {t}
-                </span>
-              ))}
-          </span>
-        )}
-      </button>
-    </li>
-  )
-}
-
-// 一张全高板块卡：左侧整高配图，右侧文字（编号 + 标题 + 清单）
-function SectionCard({
-  section,
-  data,
-  onOpen,
-}: {
-  section: WorkSection
-  data: WorksLang
-  onOpen: (item: WorkListItem) => void
-}) {
-  const [coverError, setCoverError] = useState(false)
-  const cover = SECTION_COVERS[section.id]
-  return (
-    <div className="wk-card">
-      <div className="wk-card-head">
-        <span className="wk-card-no">{section.no}</span>
-        <h3 className="wk-card-title">{section.title}</h3>
-        <span className="wk-card-tagline">{section.tagline}</span>
-      </div>
-      <div className="wk-card-cover">
-        {cover && !coverError ? (
-          <img src={cover} alt="" onError={() => setCoverError(true)} />
-        ) : (
-          <div className="wk-card-cover-ph" aria-hidden="true">
-            <span className="wk-card-cover-no">{section.no}</span>
-          </div>
-        )}
-      </div>
-      <SectionWorks section={section} data={data} onOpen={onOpen} />
-    </div>
-  )
-}
-
-// 板块内的作品清单（items 扁平 / groups 分组 / awards · footer 底部小字）
-function SectionWorks({
-  section,
-  data,
-  onOpen,
-}: {
-  section: WorkSection
-  data: WorksLang
-  onOpen: (item: WorkListItem) => void
-}) {
-  return (
-    <div className="wk-card-body">
-      {section.items && (
-        <ul className="wk-list">
-          {section.items.map((it, i) => (
-            <WorkLine key={i} item={it} onOpen={onOpen} />
-          ))}
-        </ul>
-      )}
-
-      {section.groups &&
-        section.groups.map((g, gi) => (
-          <div key={gi} className="wk-sub">
-            <div className="wk-sub-head">{g.heading}</div>
-            <ul className="wk-list">
-              {g.items.map((it, i) => (
-                <WorkLine key={i} item={{ name: it }} onOpen={onOpen} />
-              ))}
-            </ul>
-          </div>
-        ))}
-
-      {(section.awards || section.footer) && (
-        <div className="wk-foot">
-          {section.awards && (
-            <p className="wk-foot-line">
-              <span className="wk-foot-label">{data.awardsLabel}</span>
-              <span className="wk-foot-val accent">{section.awards.join('  ·  ')}</span>
-            </p>
-          )}
-          {section.footer && <p className="wk-foot-line">{section.footer}</p>}
+function ProjectVisual({ project }: { project: Project }) {
+  if (project.visual === 'clinical') {
+    return (
+      <div className="project-visual visual-clinical">
+        <div className="visual-label">
+          <span>01 / The training tool</span>
+          <span>Interface preview</span>
         </div>
-      )}
-    </div>
-  )
-}
-
-// 全屏沉浸详情：渲染该作品的 md（banner + 标题 + markdown 正文 + 外链）；
-// 无 md 时回退到占位 banner + meta/标签简介
-function WorkDetail({
-  item,
-  data,
-  onClose,
-}: {
-  item: WorkListItem
-  data: WorksLang
-  onClose: () => void
-}) {
-  const [bannerError, setBannerError] = useState(false)
-  const doc = getWorkDoc(item.slug)
-  const title = (doc && doc.title) || item.name
-  const banner = doc && doc.banner
-  // 有 md 详情时展示完整信息；无 md 时详情页只保留标题 + 统一占位文案
-  const link = doc ? doc.link || item.link : null
-  const tags = doc ? doc.tags || item.tags : null
-  // 副标题不含年份；标签单独做 badge 展示
-  const sub = doc ? [item.meta, doc.role].filter(Boolean).join('  ·  ') : ''
-
-  return (
-    <>
-      <motion.div
-        className="wk-detail-backdrop"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        onClick={onClose}
-      />
-      <motion.div
-        className="wk-detail"
-        initial={{ opacity: 0, scale: 0.985, y: 8 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.99, y: 6 }}
-        transition={{ duration: 0.42, ease: EASE }}
-      >
-        <button className="wk-detail-close" onClick={onClose} aria-label={data.closeLabel}>
-          ✕
-        </button>
-
-        {banner && !bannerError ? (
-          <div className="wk-detail-banner">
-            <img src={banner} alt={title} onError={() => setBannerError(true)} />
-          </div>
-        ) : (
-          <div className="wk-detail-banner is-ph" aria-hidden="true">
-            <span className="wk-detail-ph-text">{title}</span>
-          </div>
-        )}
-
-        <article className="wk-detail-article">
-          <header className="wk-detail-head">
-            <h3 className="wk-detail-title">{title}</h3>
-            {sub && <div className="wk-detail-sub">{sub}</div>}
-            {tags && tags.length > 0 && (
-              <div className="wk-detail-tags">
-                {tags.map((t, i) => (
-                  <span key={i} className="wk-badge">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            )}
-          </header>
-
-          {doc && doc.body ? (
-            <div className="wk-md">
-              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-                {doc.body}
-              </ReactMarkdown>
-            </div>
-          ) : (
-            // 无 md：演示详情页支持的组件 —— 介绍文本 + 图片/视频占位 + 跳转按钮
-            <>
-              <p className="wk-detail-desc">{data.detailPlaceholder}</p>
-              <div className="wk-detail-ph-img" aria-hidden="true">
-                <span className="wk-detail-ph-img-label">{data.phImageLabel}</span>
-              </div>
-              <span className="wk-detail-link is-ph" role="button" aria-disabled="true">
-                {data.phButtonLabel} <span aria-hidden="true">↗</span>
-              </span>
-            </>
-          )}
-
-          {link && (
-            <a
-              className="wk-detail-link"
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {data.visitLabel} <span aria-hidden="true">↗</span>
-            </a>
-          )}
-        </article>
-      </motion.div>
-    </>
-  )
-}
-
-export default function Works({ lang, innerRef }: { lang: 'en' | 'zh'; innerRef: Ref<HTMLElement> }) {
-  const data = WORKS[lang]
-  const sections = data.sections
-  const count = sections.length
-
-  const [active, setActive] = useState<WorkListItem | null>(null) // 当前打开详情的作品 item
-
-  // 竖滚 pin 转横移：测量整排卡片的实际可横移距离（px），竖滚进度 → 横移
-  const galleryRef = useRef<HTMLDivElement>(null)
-  const trackRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: galleryRef,
-    offset: ['start start', 'end end'],
-  })
-
-  // track 实际宽度 - 视口宽 = 需要横移的距离；随尺寸/语言变化重测
-  const [scrollRange, setScrollRange] = useState(0)
-  useEffect(() => {
-    const el = trackRef.current
-    if (!el) return
-    const measure = () => setScrollRange(Math.max(0, el.scrollWidth - window.innerWidth))
-    measure()
-    const ro = new ResizeObserver(measure)
-    ro.observe(el)
-    window.addEventListener('resize', measure)
-    return () => {
-      ro.disconnect()
-      window.removeEventListener('resize', measure)
-    }
-  }, [count, lang])
-
-  // px 数值插值（比 vw 字符串更顺）；竖滚行程与横移 1:1
-  const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange])
-  // 横移到底时「继续下滑」提示渐隐
-  const hintOpacity = useTransform(scrollYProgress, [0.85, 1], [1, 0])
-
-  // 详情打开时锁滚动 + ESC 关闭
-  useEffect(() => {
-    if (!active) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setActive(null)
-    window.addEventListener('keydown', onKey)
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prev
-    }
-  }, [active])
-
-  return (
-    <section className="works" lang={lang} ref={innerRef}>
-      <div
-        className="wk-gallery"
-        ref={galleryRef}
-        style={{ height: `calc(100vh + ${scrollRange}px)` }}
-      >
-        <div className="wk-gallery-sticky">
-          <span className="wk-gallery-title">{data.title}</span>
-
-          <motion.div className="wk-track" ref={trackRef} style={{ x }}>
-            {sections.map((s) => (
-              <SectionCard key={s.id} section={s} data={data} onOpen={setActive} />
-            ))}
-          </motion.div>
-
-          <div className="wk-progress" aria-hidden="true">
-            <motion.div className="wk-progress-fill" style={{ scaleX: scrollYProgress }} />
-          </div>
-          <motion.span className="wk-hint" style={{ opacity: hintOpacity }} aria-hidden="true">
-            {data.hint}
-          </motion.span>
+        <img
+          src="/projects/pediatric-source-case-editor.png"
+          alt="Original Pediatric Savior case editor with fields for a scenario outline and patient report"
+          loading="lazy"
+          width="1440"
+          height="960"
+        />
+        <div className="visual-foot">
+          <span>Prepare a case</span>
+          <span>Practice a decision</span>
+          <span>Review the session</span>
         </div>
       </div>
-
-      <AnimatePresence>
-        {active && (
-          <WorkDetail
-            key={active.slug || active.name}
-            item={active}
-            data={data}
-            onClose={() => setActive(null)}
+    )
+  }
+  if (project.visual === 'transport') {
+    return (
+      <div className="project-visual visual-transport">
+        <div className="visual-label">
+          <span>02 / Across species</span>
+          <span>Research in progress</span>
+        </div>
+        <div className="transport-flow">
+          <span>Mouse cells</span>
+          <span aria-hidden="true">→</span>
+          <span>Shared latent space</span>
+          <span aria-hidden="true">→</span>
+          <span>Human prediction</span>
+        </div>
+        <div className="transport-figure">
+          <img
+            src="/projects/speciesot-transport-umap-v08.png"
+            alt="v08 repository analysis compares raw and decoded UMAP frames for mouse-to-human transport"
+            loading="lazy"
+            width="2685"
+            height="1674"
           />
-        )}
-      </AnimatePresence>
-    </section>
+        </div>
+        <div className="visual-foot">
+          <span>Encode → Transport → Evaluate</span>
+          <span>Original analysis</span>
+        </div>
+      </div>
+    )
+  }
+  if (project.visual === 'queue') {
+    return (
+      <div className="project-visual visual-queue">
+        <div className="visual-label">
+          <span>03 / The daily workflow</span>
+          <span>System diagram</span>
+        </div>
+        <div className="queue-top">
+          <span className="queue-orbit" aria-hidden="true">
+            ☾
+          </span>
+          <div>
+            <small>Overnight</small>
+            <strong>Discover & triage</strong>
+          </div>
+          <span className="diagram-arrow" aria-hidden="true">
+            ↓
+          </span>
+        </div>
+        <div className="queue-review">
+          <div>
+            <small>Your decision</small>
+            <strong>Daily apply queue</strong>
+          </div>
+          <div className="queue-decisions">
+            <span>
+              Applied <span aria-hidden="true">✓</span>
+            </span>
+            <span>
+              Pass <span aria-hidden="true">↗</span>
+            </span>
+          </div>
+        </div>
+        <div className="queue-bottom">
+          <span>Decision recorded</span>
+          <span aria-hidden="true">→</span>
+          <span>Simplify reconciliation</span>
+        </div>
+        <div className="visual-foot">
+          <span>Automation prepares. A person decides.</span>
+        </div>
+      </div>
+    )
+  }
+  return (
+    <div className="project-visual visual-research">
+      <div className="visual-label">
+        <span>04 / The experiment loop</span>
+        <span>System diagram</span>
+      </div>
+      <div className="research-cycle">
+        <span>
+          <small>01</small>Submit
+        </span>
+        <span>
+          <small>02</small>Watch
+        </span>
+        <span>
+          <small>03</small>Reflect
+        </span>
+        <span>
+          <small>04</small>Decide
+        </span>
+        <div className="cycle-center">
+          Next
+          <br />
+          experiment<span aria-hidden="true">↻</span>
+        </div>
+      </div>
+      <div className="research-ledger">
+        <span>Checkpointed agenda</span>
+        <span>Cluster execution</span>
+      </div>
+      <div className="visual-foot">
+        <span>scGen / CellOT</span>
+        <span>FASRC Cannon</span>
+      </div>
+    </div>
+  )
+}
+
+function CaseStudy({
+  project,
+  close,
+}: {
+  project: Project | null
+  close: () => void
+}) {
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    if (!project) return
+    const dialog = dialogRef.current
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    dialog?.showModal()
+    return () => {
+      dialog?.close()
+      document.body.style.overflow = previousOverflow
+    }
+  }, [project])
+  if (!project) return null
+  return (
+    <dialog
+      ref={dialogRef}
+      className="case-study"
+      aria-labelledby="case-title"
+      onClose={close}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) close()
+      }}
+    >
+      <div className="case-reading">
+        <div className="case-toolbar">
+          <span>{project.number} / Project notes</span>
+          <button onClick={close} autoFocus>
+            Back to selected work <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div className="case-content">
+          <p className="project-kicker">
+            {project.domain} · {project.status}
+          </p>
+          <h2 id="case-title">{project.title}</h2>
+          <p className="case-deck">{project.subtitle}</p>
+          <div className="case-intro">
+            <section>
+              <h3>The question</h3>
+              <p>{project.context}</p>
+            </section>
+            <section>
+              <h3>The approach</h3>
+              <p>{project.approach}</p>
+            </section>
+          </div>
+          <h3 className="case-workflow-label">How it works</h3>
+          <ol className="case-steps">
+            {project.steps.map((step, index) => (
+              <li key={step.title}>
+                <span>0{index + 1}</span>
+                <div>
+                  <h4>{step.title}</h4>
+                  <p>{step.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          {project.visual === 'clinical' && (
+            <div className="case-media">
+              <figure>
+                <img
+                  src="/projects/pediatric-source-chat.png"
+                  alt="Original simulator chat with its source-provided Begin Simulation greeting"
+                  width="1440"
+                  height="960"
+                />
+                <figcaption>
+                  The resident training interface. Rendered from the original
+                  source with an empty demo state.
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="/projects/pediatric-source-instruction-editor.png"
+                  alt="Original instruction editor showing the scenario editing form"
+                  width="1440"
+                  height="960"
+                />
+                <figcaption>
+                  Educators can adjust the simulation instructions. No patient
+                  data is shown.
+                </figcaption>
+              </figure>
+            </div>
+          )}
+          {project.visual === 'transport' && (
+            <figure className="case-analysis">
+              <a
+                href="/projects/speciesot-transport-umap-v08.png"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  src="/projects/speciesot-transport-umap-v08.png"
+                  alt="Full original v08 transport figure, including all legends and raw versus decoded frame caveats"
+                  width="2685"
+                  height="1674"
+                />
+              </a>
+              <figcaption>
+                Original repository analysis. The top row uses the raw frame;
+                the bottom row uses the decoded frame. This is exploratory work,
+                not a claim of validated predictive accuracy. Open the figure to
+                inspect it at full size.
+              </figcaption>
+            </figure>
+          )}
+          {(project.visual === 'queue' || project.visual === 'research') && (
+            <div className="case-diagram">
+              <ProjectVisual project={project} />
+              <p>{project.caption}</p>
+            </div>
+          )}
+          <div className="case-source">
+            <div>
+              <h3>Explore the work</h3>
+              <p>{project.stack.join(' · ')}</p>
+            </div>
+            <div>
+              {project.evidence.map((link) => (
+                <a
+                  href={link.href}
+                  key={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {link.label} <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+              <a href={project.repository} target="_blank" rel="noreferrer">
+                View repository <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  )
+}
+
+export default function Works({ innerRef }: { innerRef: Ref<HTMLDivElement> }) {
+  const [activeProject, setActiveProject] = useState<Project | null>(null)
+  const triggerRef = useRef<HTMLElement | null>(null)
+  const open = (project: Project, trigger: HTMLElement) => {
+    triggerRef.current = trigger
+    setActiveProject(project)
+  }
+  const close = () => {
+    setActiveProject(null)
+    requestAnimationFrame(() =>
+      triggerRef.current?.focus({ preventScroll: true })
+    )
+  }
+  return (
+    <div className="wk-gallery project-journal" ref={innerRef}>
+      <section
+        id="works"
+        className="selected-work"
+        aria-labelledby="works-title"
+      >
+        <div className="journal-intro">
+          <p className="project-kicker">A closer look / 2024–2026</p>
+          <div>
+            <h2 id="works-title">
+              Selected work
+              <span className="handdrawn-star" aria-hidden="true">
+                ✳
+              </span>
+            </h2>
+            <p>
+              Tools for practicing medicine,
+              <br />
+              understanding cells, and doing the next experiment.
+            </p>
+          </div>
+          <nav className="project-index" aria-label="Selected projects">
+            {PROJECTS.map((project) => (
+              <a href={`#${project.id}`} key={project.id}>
+                <span>{project.number}</span>
+                {project.title}
+                <span aria-hidden="true">↘</span>
+              </a>
+            ))}
+          </nav>
+        </div>
+        <div className="project-list">
+          {PROJECTS.map((project) => (
+            <article
+              className={`project-spread spread-${project.visual}`}
+              key={project.id}
+              id={project.id}
+            >
+              <div className="project-copy project-heading">
+                <p className="project-kicker">
+                  <span>{project.number}</span> / {project.domain}
+                </p>
+                <h3>
+                  <button
+                    onClick={(event) => open(project, event.currentTarget)}
+                  >
+                    {project.title}
+                  </button>
+                </h3>
+                <p className="project-subtitle">{project.subtitle}</p>
+              </div>
+              <figure className="project-evidence">
+                <button
+                  className="project-cover"
+                  aria-label={`View ${project.title} case study`}
+                  onClick={(event) => open(project, event.currentTarget)}
+                >
+                  <ProjectVisual project={project} />
+                  <span className="cover-open" aria-hidden="true">
+                    View project ↗
+                  </span>
+                </button>
+                <figcaption>{project.caption}</figcaption>
+              </figure>
+              <div className="project-copy project-description">
+                <p className="project-summary">{project.summary}</p>
+                <div className="project-meta">
+                  <span>{project.status}</span>
+                  <span>{project.stack.slice(0, 3).join(' · ')}</span>
+                </div>
+                <div className="project-actions">
+                  <button
+                    onClick={(event) => open(project, event.currentTarget)}
+                  >
+                    Read case study <span aria-hidden="true">↗</span>
+                  </button>
+                  <a href={project.repository} target="_blank" rel="noreferrer">
+                    GitHub <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="journal-outro">
+          <span>There’s a person behind the projects.</span>
+          <a href="#about">
+            More about me <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </section>
+      <CaseStudy project={activeProject} close={close} />
+    </div>
   )
 }
