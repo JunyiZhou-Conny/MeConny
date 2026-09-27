@@ -1,0 +1,940 @@
+{
+  "started": "2026-09-18T06:29:48.051Z",
+  "checks": [
+    {
+      "name": "desktop: pediatric-savior reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 258.671875,
+          "bottom": 417.671875,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "image": {
+          "top": 185.671875,
+          "bottom": 758.8125,
+          "left": 583.921875,
+          "right": 1203.203125
+        },
+        "description": {
+          "top": 417.671875,
+          "bottom": 685.796875,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "scrollWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 258.671875,
+          "bottom": 417.671875,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "image": {
+          "top": 185.671875,
+          "bottom": 758.8125,
+          "left": 583.921875,
+          "right": 1203.203125
+        },
+        "description": {
+          "top": 417.671875,
+          "bottom": 685.796875,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "scrollWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "desktop: pediatric-savior cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "desktop: pediatric-savior case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "desktop: pediatric-savior keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "desktop: pediatric-savior returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 4138,
+        "focused": true,
+        "scroll": 4138
+      }
+    },
+    {
+      "name": "desktop: species-ot reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 284.375,
+          "bottom": 443.375,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "image": {
+          "top": 185.8125,
+          "bottom": 810.078125,
+          "left": 583.921875,
+          "right": 1203.203125
+        },
+        "description": {
+          "top": 443.375,
+          "bottom": 711.5,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "scrollWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "name": "desktop: species-ot has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 284.375,
+          "bottom": 443.375,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "image": {
+          "top": 185.8125,
+          "bottom": 810.078125,
+          "left": 583.921875,
+          "right": 1203.203125
+        },
+        "description": {
+          "top": 443.375,
+          "bottom": 711.5,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "scrollWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "name": "desktop: species-ot title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "desktop: species-ot cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "desktop: species-ot case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "desktop: species-ot keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "desktop: species-ot returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 4933,
+        "focused": true,
+        "scroll": 4933
+      }
+    },
+    {
+      "name": "desktop: job-search-os reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 212.765625,
+          "bottom": 371.765625,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "image": {
+          "top": 186.078125,
+          "bottom": 666.578125,
+          "left": 583.921875,
+          "right": 1203.203125
+        },
+        "description": {
+          "top": 371.765625,
+          "bottom": 639.890625,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "scrollWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "name": "desktop: job-search-os has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 212.765625,
+          "bottom": 371.765625,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "image": {
+          "top": 186.078125,
+          "bottom": 666.578125,
+          "left": 583.921875,
+          "right": 1203.203125
+        },
+        "description": {
+          "top": 371.765625,
+          "bottom": 639.890625,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "scrollWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "name": "desktop: job-search-os title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "desktop: job-search-os cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "desktop: job-search-os case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "desktop: job-search-os keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "desktop: job-search-os returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 5671,
+        "focused": true,
+        "scroll": 5671
+      }
+    },
+    {
+      "name": "desktop: autoresearch reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 203.765625,
+          "bottom": 362.765625,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "image": {
+          "top": 185.578125,
+          "bottom": 649.078125,
+          "left": 583.921875,
+          "right": 1203.203125
+        },
+        "description": {
+          "top": 362.765625,
+          "bottom": 630.890625,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "scrollWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "name": "desktop: autoresearch has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 203.765625,
+          "bottom": 362.765625,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "image": {
+          "top": 185.578125,
+          "bottom": 649.078125,
+          "left": 583.921875,
+          "right": 1203.203125
+        },
+        "description": {
+          "top": 362.765625,
+          "bottom": 630.890625,
+          "left": 76.796875,
+          "right": 507.125
+        },
+        "scrollWidth": 1280,
+        "width": 1280
+      }
+    },
+    {
+      "name": "desktop: autoresearch title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "desktop: autoresearch cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "desktop: autoresearch case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "desktop: autoresearch keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "desktop: autoresearch returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 6323,
+        "focused": true,
+        "scroll": 6323
+      }
+    },
+    {
+      "name": "phone: pediatric-savior reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 164.296875,
+          "bottom": 282.765625,
+          "left": 22,
+          "right": 368
+        },
+        "image": {
+          "top": 308.765625,
+          "bottom": 719.96875,
+          "left": 22,
+          "right": 368
+        },
+        "description": {
+          "top": 745.96875,
+          "bottom": 974.09375,
+          "left": 22,
+          "right": 368
+        },
+        "scrollWidth": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "phone: pediatric-savior has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 164.296875,
+          "bottom": 282.765625,
+          "left": 22,
+          "right": 368
+        },
+        "image": {
+          "top": 308.765625,
+          "bottom": 719.96875,
+          "left": 22,
+          "right": 368
+        },
+        "description": {
+          "top": 745.96875,
+          "bottom": 974.09375,
+          "left": 22,
+          "right": 368
+        },
+        "scrollWidth": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "phone: pediatric-savior title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "phone: pediatric-savior cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "phone: pediatric-savior case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "phone: pediatric-savior keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "phone: pediatric-savior returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 5093,
+        "focused": true,
+        "scroll": 5093
+      }
+    },
+    {
+      "name": "phone: species-ot reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 164.09375,
+          "bottom": 311.953125,
+          "left": 22,
+          "right": 368
+        },
+        "image": {
+          "top": 337.953125,
+          "bottom": 805.375,
+          "left": 22,
+          "right": 368
+        },
+        "description": {
+          "top": 831.375,
+          "bottom": 1059.5,
+          "left": 22,
+          "right": 368
+        },
+        "scrollWidth": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "phone: species-ot has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 164.09375,
+          "bottom": 311.953125,
+          "left": 22,
+          "right": 368
+        },
+        "image": {
+          "top": 337.953125,
+          "bottom": 805.375,
+          "left": 22,
+          "right": 368
+        },
+        "description": {
+          "top": 831.375,
+          "bottom": 1059.5,
+          "left": 22,
+          "right": 368
+        },
+        "scrollWidth": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "phone: species-ot title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "phone: species-ot cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "phone: species-ot case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "phone: species-ot keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "phone: species-ot returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 6082,
+        "focused": true,
+        "scroll": 6082
+      }
+    },
+    {
+      "name": "phone: job-search-os reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 164.5,
+          "bottom": 312.359375,
+          "left": 22,
+          "right": 368
+        },
+        "image": {
+          "top": 338.359375,
+          "bottom": 798.734375,
+          "left": 22,
+          "right": 368
+        },
+        "description": {
+          "top": 824.734375,
+          "bottom": 1052.859375,
+          "left": 22,
+          "right": 368
+        },
+        "scrollWidth": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "phone: job-search-os has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 164.5,
+          "bottom": 312.359375,
+          "left": 22,
+          "right": 368
+        },
+        "image": {
+          "top": 338.359375,
+          "bottom": 798.734375,
+          "left": 22,
+          "right": 368
+        },
+        "description": {
+          "top": 824.734375,
+          "bottom": 1052.859375,
+          "left": 22,
+          "right": 368
+        },
+        "scrollWidth": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "phone: job-search-os title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "phone: job-search-os cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "phone: job-search-os case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "phone: job-search-os keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "phone: job-search-os returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 7063,
+        "focused": true,
+        "scroll": 7063
+      }
+    },
+    {
+      "name": "phone: autoresearch reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 163.859375,
+          "bottom": 282.328125,
+          "left": 22,
+          "right": 368
+        },
+        "image": {
+          "top": 308.328125,
+          "bottom": 757.703125,
+          "left": 22,
+          "right": 368
+        },
+        "description": {
+          "top": 783.703125,
+          "bottom": 1011.828125,
+          "left": 22,
+          "right": 368
+        },
+        "scrollWidth": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "phone: autoresearch has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 163.859375,
+          "bottom": 282.328125,
+          "left": 22,
+          "right": 368
+        },
+        "image": {
+          "top": 308.328125,
+          "bottom": 757.703125,
+          "left": 22,
+          "right": 368
+        },
+        "description": {
+          "top": 783.703125,
+          "bottom": 1011.828125,
+          "left": 22,
+          "right": 368
+        },
+        "scrollWidth": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "phone: autoresearch title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "phone: autoresearch cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "phone: autoresearch case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "phone: autoresearch keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "phone: autoresearch returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 8004,
+        "focused": true,
+        "scroll": 8004
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 139.40625,
+          "bottom": 257.875,
+          "left": 22,
+          "right": 353
+        },
+        "image": {
+          "top": 283.875,
+          "bottom": 685.078125,
+          "left": 22,
+          "right": 353
+        },
+        "description": {
+          "top": 711.078125,
+          "bottom": 939.203125,
+          "left": 22,
+          "right": 353
+        },
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 139.40625,
+          "bottom": 257.875,
+          "left": 22,
+          "right": 353
+        },
+        "image": {
+          "top": 283.875,
+          "bottom": 685.078125,
+          "left": 22,
+          "right": 353
+        },
+        "description": {
+          "top": 711.078125,
+          "bottom": 939.203125,
+          "left": 22,
+          "right": 353
+        },
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: pediatric-savior cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: pediatric-savior case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: pediatric-savior keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: pediatric-savior returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 4563,
+        "focused": true,
+        "scroll": 4563
+      }
+    },
+    {
+      "name": "compact-phone: species-ot reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 139.203125,
+          "bottom": 287.0625,
+          "left": 22,
+          "right": 353
+        },
+        "image": {
+          "top": 313.0625,
+          "bottom": 771.140625,
+          "left": 22,
+          "right": 353
+        },
+        "description": {
+          "top": 797.140625,
+          "bottom": 1052.453125,
+          "left": 22,
+          "right": 353
+        },
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "name": "compact-phone: species-ot has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 139.203125,
+          "bottom": 287.0625,
+          "left": 22,
+          "right": 353
+        },
+        "image": {
+          "top": 313.0625,
+          "bottom": 771.140625,
+          "left": 22,
+          "right": 353
+        },
+        "description": {
+          "top": 797.140625,
+          "bottom": 1052.453125,
+          "left": 22,
+          "right": 353
+        },
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "name": "compact-phone: species-ot title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: species-ot cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: species-ot case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: species-ot keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: species-ot returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 4969,
+        "focused": true,
+        "scroll": 4969
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 139.453125,
+          "bottom": 287.3125,
+          "left": 22,
+          "right": 353
+        },
+        "image": {
+          "top": 313.3125,
+          "bottom": 773.6875,
+          "left": 22,
+          "right": 353
+        },
+        "description": {
+          "top": 799.6875,
+          "bottom": 1027.8125,
+          "left": 22,
+          "right": 353
+        },
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 139.453125,
+          "bottom": 287.3125,
+          "left": 22,
+          "right": 353
+        },
+        "image": {
+          "top": 313.3125,
+          "bottom": 773.6875,
+          "left": 22,
+          "right": 353
+        },
+        "description": {
+          "top": 799.6875,
+          "bottom": 1027.8125,
+          "left": 22,
+          "right": 353
+        },
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: job-search-os cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: job-search-os case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: job-search-os keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: job-search-os returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 5977,
+        "focused": true,
+        "scroll": 5977
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch reading layout is preserved",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 139.8125,
+          "bottom": 258.28125,
+          "left": 22,
+          "right": 353
+        },
+        "image": {
+          "top": 284.28125,
+          "bottom": 733.65625,
+          "left": 22,
+          "right": 353
+        },
+        "description": {
+          "top": 759.65625,
+          "bottom": 1014.96875,
+          "left": 22,
+          "right": 353
+        },
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch has no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "heading": {
+          "top": 139.8125,
+          "bottom": 258.28125,
+          "left": 22,
+          "right": 353
+        },
+        "image": {
+          "top": 284.28125,
+          "bottom": 733.65625,
+          "left": 22,
+          "right": 353
+        },
+        "description": {
+          "top": 759.65625,
+          "bottom": 1014.96875,
+          "left": 22,
+          "right": 353
+        },
+        "scrollWidth": 375,
+        "width": 375
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch title Tab reaches cover",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: autoresearch cover Tab reaches case CTA",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: autoresearch case CTA Tab reaches GitHub",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: autoresearch keyboard cover activation opens right dialog",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: autoresearch returns to cover without scroll movement",
+      "passed": true,
+      "detail": {
+        "before": 6918,
+        "focused": true,
+        "scroll": 6918
+      }
+    },
+    {
+      "name": "No runtime errors in follow-up",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "finished": "2026-09-18T06:30:01.522Z",
+  "summary": {
+    "passed": 85,
+    "failed": 0
+  }
+}

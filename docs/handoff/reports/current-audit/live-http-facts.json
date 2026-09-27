@@ -1,0 +1,111 @@
+{
+  "verified_at": "2026-09-27T21:10:27.496404+00:00",
+  "method": "curl GET",
+  "responses": [
+    {
+      "url": "https://connyzhou.com/",
+      "status": 200,
+      "final_url": "https://www.connyzhou.com/",
+      "bytes": 1029,
+      "sha256": "292232376702b1186bad96511589693d80290327b1b1505d6f39e7fa8c218fe3",
+      "headers": [
+        "HTTP/2 308 ",
+        "content-type: text/plain",
+        "location: https://www.connyzhou.com/",
+        "server: cloudflare",
+        "x-vercel-id: iad1::5kl2k-1790543427663-e83b44f24a49",
+        "HTTP/2 200 ",
+        "content-type: text/html; charset=utf-8",
+        "last-modified: Thu, 17 Sep 2026 17:23:35 GMT",
+        "server: cloudflare",
+        "x-vercel-id: iad1::8pjqw-1790543427962-3db9651b1065"
+      ]
+    },
+    {
+      "url": "https://www.connyzhou.com/",
+      "status": 200,
+      "final_url": "https://www.connyzhou.com/",
+      "bytes": 1029,
+      "sha256": "292232376702b1186bad96511589693d80290327b1b1505d6f39e7fa8c218fe3",
+      "headers": [
+        "HTTP/2 200 ",
+        "content-type: text/html; charset=utf-8",
+        "last-modified: Thu, 17 Sep 2026 17:23:35 GMT",
+        "server: cloudflare",
+        "x-vercel-id: iad1::tgv4h-1790543428148-85e8a7040746"
+      ],
+      "title": "About Conny \u00b7 Junyi Zhou",
+      "assets": [
+        "./assets/index-BnIdxQrl.js",
+        "./assets/index-BYr08T6v.css"
+      ]
+    },
+    {
+      "url": "https://www.connyzhou.com/hub",
+      "status": 200,
+      "final_url": "https://www.connyzhou.com/hub",
+      "bytes": 26158,
+      "sha256": "5892001a9e67d9ba1f4df5ef95e86db67474acd25ea496346eb66bd32b6267ef",
+      "headers": [
+        "HTTP/2 200 ",
+        "content-type: text/html; charset=utf-8",
+        "last-modified: Thu, 17 Sep 2026 17:23:35 GMT",
+        "server: cloudflare",
+        "x-vercel-id: iad1::s5wqk-1790543428399-0c274d9c4659"
+      ]
+    },
+    {
+      "url": "https://www.connyzhou.com/hub/",
+      "status": 200,
+      "final_url": "https://www.connyzhou.com/hub",
+      "bytes": 26158,
+      "sha256": "dfb4dc7d282aabb5b23daa27d9662f0250dcfd7521ba65376ac85cc50498e25d",
+      "headers": [
+        "HTTP/2 308 ",
+        "content-type: text/plain",
+        "location: /hub",
+        "server: cloudflare",
+        "x-vercel-id: iad1::8pjqw-1790543428632-e948d4d0f380",
+        "HTTP/2 200 ",
+        "content-type: text/html; charset=utf-8",
+        "last-modified: Thu, 17 Sep 2026 17:23:35 GMT",
+        "server: cloudflare",
+        "x-vercel-id: iad1::tgv4h-1790543428765-9b689b6e2098"
+      ]
+    },
+    {
+      "url": "https://www.connyzhou.com/3d",
+      "status": 200,
+      "final_url": "https://www.connyzhou.com/",
+      "bytes": 1029,
+      "sha256": "292232376702b1186bad96511589693d80290327b1b1505d6f39e7fa8c218fe3",
+      "headers": [
+        "HTTP/2 307 ",
+        "content-type: text/plain",
+        "location: /",
+        "server: cloudflare",
+        "x-vercel-id: iad1::85cm4-1790543429050-4d9b42073f97",
+        "HTTP/2 200 ",
+        "content-type: text/html; charset=utf-8",
+        "last-modified: Thu, 17 Sep 2026 17:23:35 GMT",
+        "server: cloudflare",
+        "x-vercel-id: iad1::85cm4-1790543429114-b1f63e91d0f2"
+      ]
+    },
+    {
+      "url": "https://www.connyzhou.com/models/me.glb",
+      "status": 200,
+      "final_url": "https://www.connyzhou.com/models/me.glb",
+      "bytes": 6283724,
+      "sha256": "168a2c2bef0b549a86a5e906647dfdd62fc572863e5474af532815b09fba1f01",
+      "headers": [
+        "HTTP/2 200 ",
+        "content-type: model/gltf-binary",
+        "last-modified: Thu, 17 Sep 2026 17:23:35 GMT",
+        "server: cloudflare",
+        "x-vercel-id: iad1::45vcj-1790543429289-536e7f316fd2"
+      ]
+    }
+  ],
+  "note": "Python urllib requests returned403; normal curl requests succeeded."
+}

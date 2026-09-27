@@ -1,0 +1,538 @@
+{
+  "created_at_utc": "2026-09-27T21:20:49.253358+00:00",
+  "repository": "https://github.com/JunyiZhou-Conny/MeConny.git",
+  "base_commit": "62749f90f3ff1af836366c1a2f2361e4f264f8a5",
+  "local_branch": "codex/editorial-demo",
+  "state": "uncommitted local design snapshot; no remote branch or deployment",
+  "file_count": 105,
+  "untracked_file_count": 10,
+  "bytes": 18961788,
+  "patch_sha256": "3a6b7af611937849c3a6e7d27b78db5c6b91d9c2c6225722bd08326d043a5c87",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 480,
+      "sha256": "207e265ff4901f9ad9f96d8ce08530e04f9fc600815472a66d0a446096d654cd"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 5027,
+      "sha256": "cad23bafa5b4b42ce06dc8a33eec3e1f35815dfcd4ccd30c8d34b803307e9eca"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 11,
+      "sha256": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49"
+    },
+    {
+      "path": "DEMO.md",
+      "bytes": 2027,
+      "sha256": "19ad89c895092918b5493d15825d5dde7ab02ab5b9ae275c6c96943918ddedcf"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3063,
+      "sha256": "429018c4b2e0a873b489d3fe44b04fd5c31ddb7984a521327d17ae1446deebd6"
+    },
+    {
+      "path": "app/fonts/noto-serif-sc-zhou.ttf",
+      "bytes": 1716,
+      "sha256": "470ec617e67f2c7761134d2638711149f102caf80d0061f302dba5b150f9b221"
+    },
+    {
+      "path": "app/globals.css",
+      "bytes": 2145,
+      "sha256": "7a8bb4bb96fa9d50821885b1b3eb807b3bad583aede8083e79b71a8767ae4288"
+    },
+    {
+      "path": "app/icon.svg",
+      "bytes": 263,
+      "sha256": "e05480af75c155df656fa7eee9b6ffe6b30a483e492df9778f1118e2c54337dd"
+    },
+    {
+      "path": "app/layout.tsx",
+      "bytes": 1457,
+      "sha256": "9a328fe4e42419a5b2d6176cb504364e65da598a170c2826097a9518074be4aa"
+    },
+    {
+      "path": "app/opengraph-image.tsx",
+      "bytes": 1626,
+      "sha256": "0b31dbeba4c4d1788f73942116eb0b8eb09c729f74b4176e568138b9a1bc14c6"
+    },
+    {
+      "path": "app/page.tsx",
+      "bytes": 50,
+      "sha256": "325d25fce6ad0d989235bbd2d491c877643771ad06d7666b83d369ea3ee554a6"
+    },
+    {
+      "path": "app/robots.ts",
+      "bytes": 179,
+      "sha256": "5c220845e9cd1ebe82e7bf6c569e6bac739ead113b7772fd2bb2a79425dc1299"
+    },
+    {
+      "path": "assets/portrait/conny-character.glb",
+      "bytes": 5956512,
+      "sha256": "440fa132ff3b87beff432508fd7a6b3c94c303395aecc204e2f502bac8a650b3"
+    },
+    {
+      "path": "assets/portrait/reference.jpg",
+      "bytes": 288646,
+      "sha256": "bb0699b54c6925cdd32e246a6a3598f63e634402a753fa4f66ed8acb152f770b"
+    },
+    {
+      "path": "content/site.ts",
+      "bytes": 7429,
+      "sha256": "0fed6047ba1f286042f532e9e7ec3434bae2a3834385d6bf169063c5f4d12840"
+    },
+    {
+      "path": "docs/github-hygiene.md",
+      "bytes": 1268,
+      "sha256": "096ab2bb7827fabc32b09f2a106893f317acf08c3ce158b47d7cee1e0ff615f6"
+    },
+    {
+      "path": "docs/portrait/README.md",
+      "bytes": 6225,
+      "sha256": "76a5fd2d8ced3d0297db53a7d9653cd49b82ca6e0d850b1bb17ddb1f05672322"
+    },
+    {
+      "path": "docs/portrait/provenance.json",
+      "bytes": 4962,
+      "sha256": "07ad28d40120c74cd35b72574094cebb467830c4390234886dad9b525d6641da"
+    },
+    {
+      "path": "docs/publication.md",
+      "bytes": 9075,
+      "sha256": "1ba966a258270e7548e4fe163ddf13860a668532554a3d2aaf68db814045bec7"
+    },
+    {
+      "path": "docs/reference/LICENSE",
+      "bytes": 1350,
+      "sha256": "7971398d71fd7a2874509a7ff3651f7b26c8628851746b67e9944de8a7d06a10"
+    },
+    {
+      "path": "docs/reference/NOTICE",
+      "bytes": 2586,
+      "sha256": "ac1a14ca26601e1860260dd4c3c3f6dea91ead19ca4e8ce7eaeeb8966cf56512"
+    },
+    {
+      "path": "docs/reference/fonts/README.md",
+      "bytes": 1449,
+      "sha256": "23e6bb0984547107d2ef26161dcfb1b3ac0a4b860887b5519e23c74ccc09cc9f"
+    },
+    {
+      "path": "docs/reference/fonts/cormorant-upright-OFL.txt",
+      "bytes": 4413,
+      "sha256": "9134ca6996bd33ea2022e109f13f20e29dee1dcd8b2e8878aad576d2ca334e9f"
+    },
+    {
+      "path": "docs/reference/fonts/mansalva-OFL.txt",
+      "bytes": 4391,
+      "sha256": "14ac0a5413a923c9ad11b6f541df17207fb7a0e0725e43eb29c88eb04c3ea2aa"
+    },
+    {
+      "path": "docs/reference/scene-contract.json",
+      "bytes": 3659,
+      "sha256": "3c952e4f208417fcd0d8849fe1f14666ee49bc0742789776e88988bf162900d8"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "bytes": 506,
+      "sha256": "06cd6e7bb62b7fa281d6fbab6261888ccf071f36abf23b287f81652babd00100"
+    },
+    {
+      "path": "next.config.ts",
+      "bytes": 133,
+      "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 235229,
+      "sha256": "cf3729d625e3fdfa17ae4a773537fedc2579ab5c07235ed951601b3fdafdc90f"
+    },
+    {
+      "path": "package.json",
+      "bytes": 825,
+      "sha256": "368584319f8dbc5372190ea097fd0dbe0e1f45068bd188f9fdb6636c2d84c9d9"
+    },
+    {
+      "path": "postcss.config.mjs",
+      "bytes": 94,
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    },
+    {
+      "path": "profile/README.md",
+      "bytes": 921,
+      "sha256": "14e32400d8da71f47a9390dd3adc4fccd23591b8848edf5e4b8d952dfe11570a"
+    },
+    {
+      "path": "proxy.ts",
+      "bytes": 529,
+      "sha256": "6ad44074c42ec4b0759ef3c748de7d22ab2ac4a0c14c47422686f78e89d1c7f2"
+    },
+    {
+      "path": "public/css/style.css",
+      "bytes": 45526,
+      "sha256": "af78b22e3b4ac9453158c1327f6e34df514b30be67305d7bb8a9216bd86d59ce"
+    },
+    {
+      "path": "public/favicon/apple-touch-icon.png",
+      "bytes": 3906,
+      "sha256": "f16727350109955212ff7d981e1b06c76d64424b32a615f0547396ab5d859413"
+    },
+    {
+      "path": "public/favicon/favicon-96x96.png",
+      "bytes": 1985,
+      "sha256": "c3f8da65c8fcb7a5dfe2854c08e715190e7ea5448de0087f551c8cd648c4dac5"
+    },
+    {
+      "path": "public/favicon/favicon.ico",
+      "bytes": 15086,
+      "sha256": "e0304441588f3b078d9d581980b8143fbfe8f17151ba42d0c3149980ae5efcbb"
+    },
+    {
+      "path": "public/favicon/favicon.svg",
+      "bytes": 517,
+      "sha256": "1f804a48ec43d39a22109ecf52aaf5f220af2c08c8d9687aa1b33c2d6ddb6018"
+    },
+    {
+      "path": "public/favicon/site.webmanifest",
+      "bytes": 440,
+      "sha256": "c1871cc7ca65d8939e990333e73452510f912f17a4698660f11c3d377459685f"
+    },
+    {
+      "path": "public/favicon/web-app-manifest-192x192.png",
+      "bytes": 4297,
+      "sha256": "141c36190db9718f6e8ba152a28cf483033e3ec43311bc1c6ab2f53a22297337"
+    },
+    {
+      "path": "public/favicon/web-app-manifest-512x512.png",
+      "bytes": 15331,
+      "sha256": "434af9341f38fd3b33e78192275d3a95e6a87b7f785f5688d9ac72eb7c3ad5c1"
+    },
+    {
+      "path": "public/index.html",
+      "bytes": 25852,
+      "sha256": "46b864df1b01af3ed8e1e13524bd28601992785737199f9557d3fc04f97bf6ba"
+    },
+    {
+      "path": "public/js/hero-particles.js",
+      "bytes": 14691,
+      "sha256": "0be5abba81311095ba2dec4d50c3453c2e2b31be2964e98d63dbc0a21c992faa"
+    },
+    {
+      "path": "public/js/main.js",
+      "bytes": 17038,
+      "sha256": "fc66797c209a44d14c5e47780a29b3c23536bf60c17f526115bcb0b564d8877a"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 666,
+      "sha256": "be18523b23b78b6e1a876ddd107d330f0168bddf09d751b57e0b5edce69c66f3"
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 433,
+      "sha256": "8fc673cbb7a1641cdf04db076a10d003cc7c6428cf55d54b5ace5620683e13b6"
+    },
+    {
+      "path": "web/.gitignore",
+      "bytes": 453,
+      "sha256": "24723fb06ed2be61caefba9a43a7a2b2b516d04e38a1be1e42a6e5ccf8231b85"
+    },
+    {
+      "path": "web/eslint.config.js",
+      "bytes": 1097,
+      "sha256": "d030add5c621d2dd072847f3a26c6037ff9966c555fea1644da796ea44261c5f"
+    },
+    {
+      "path": "web/index.html",
+      "bytes": 568,
+      "sha256": "cf9cda66b4f17bb72f7bfbb6d755954198d7e646742d283523bd2ba7a3e93f12"
+    },
+    {
+      "path": "web/package-lock.json",
+      "bytes": 200712,
+      "sha256": "17cd907cd88aa14a5c44865628eadcfddb5c7cf5073f66abb0e0db6040fe7df5"
+    },
+    {
+      "path": "web/package.json",
+      "bytes": 1082,
+      "sha256": "e4a6ca511a8bf256c0e9c1c68fe69e0b6cd313158a2f298bd411379e30d3a4a6"
+    },
+    {
+      "path": "web/postcss.config.mjs",
+      "bytes": 31,
+      "sha256": "0a37d0784804e398c21889267090c1be1ad0c93dc5fdf5b21c01e980eba37531"
+    },
+    {
+      "path": "web/public/fonts/cormorant-upright-400.woff2",
+      "bytes": 23000,
+      "sha256": "80270ca27db456d6dbb3f4227cc38a021734da9c286ad5d2e982d5eeb410be43"
+    },
+    {
+      "path": "web/public/fonts/cormorant-upright-500.woff2",
+      "bytes": 23036,
+      "sha256": "a1b5c01d0846c7764e918de83e8e282b0d398c3a0c6616fc412bde1b65729fd2"
+    },
+    {
+      "path": "web/public/fonts/cormorant-upright-600.woff2",
+      "bytes": 23000,
+      "sha256": "c4610fd3f3b2eca8f2d6b63597c9fc2279ff8b3ed2e6d8487f4047fc8951df85"
+    },
+    {
+      "path": "web/public/fonts/mansalva-400.woff2",
+      "bytes": 53644,
+      "sha256": "a820ef1f04311e07e966acda399e66c9d186a74c85d4cc24d0d8d342c7338765"
+    },
+    {
+      "path": "web/public/models/me.glb",
+      "bytes": 6283724,
+      "sha256": "168a2c2bef0b549a86a5e906647dfdd62fc572863e5474af532815b09fba1f01"
+    },
+    {
+      "path": "web/public/projects/pediatric-source-case-editor.png",
+      "bytes": 66737,
+      "sha256": "dcfb0efd7784af60074e433749ebe52e28456968bfc3f06322109d874800f8b2"
+    },
+    {
+      "path": "web/public/projects/pediatric-source-chat.png",
+      "bytes": 59261,
+      "sha256": "0d1853b0c71f113c7be06ace79225eda67a9ed72f03a5d1ad5ef4d73b7407562"
+    },
+    {
+      "path": "web/public/projects/pediatric-source-instruction-editor.png",
+      "bytes": 63366,
+      "sha256": "77e7cf66b654d28b4750d913fd5bb2ac129683aac72cc3398bb658c6750c8b58"
+    },
+    {
+      "path": "web/public/projects/speciesot-transport-umap-v08.png",
+      "bytes": 697474,
+      "sha256": "dd9668fb9701bb452875a7e2e8bfa2b08405497f085b29f4ff3784974d6efe44"
+    },
+    {
+      "path": "web/public/stickers/bike-illustrated.webp",
+      "bytes": 75558,
+      "sha256": "0ed900fe37ae9663494b1a6b45d70dada9744d553b05d60b5abbe2109d627b24"
+    },
+    {
+      "path": "web/public/stickers/chip-illustrated.webp",
+      "bytes": 73114,
+      "sha256": "f3b485f88006f7dd28cbdda33bbfa2c193a1616a689ad4f682ede3f9a20391f7"
+    },
+    {
+      "path": "web/public/stickers/dna-illustrated.webp",
+      "bytes": 46920,
+      "sha256": "da12dfff90d6904dcf0a897a455e4cd9e3a643f79d51a60407c6e8b21ddcc9b1"
+    },
+    {
+      "path": "web/public/stickers/headphones-illustrated.webp",
+      "bytes": 80472,
+      "sha256": "b0be8d43ef4255077b6fb4651062556fcb32722f2d14b02b04aba1a58c8d1a53"
+    },
+    {
+      "path": "web/public/stickers/hub-illustrated.webp",
+      "bytes": 72988,
+      "sha256": "9f069fb2002d7723d8d77c44f567f67055f75995a1ded179172ce96760ac0d62"
+    },
+    {
+      "path": "web/public/stickers/pulse-illustrated.webp",
+      "bytes": 63122,
+      "sha256": "9bd9444acb528f0f1ac4d656ff578c24c28ea68cd725103b8db0c5e38d0dbab8"
+    },
+    {
+      "path": "web/public/textures/env.hdr",
+      "bytes": 4132592,
+      "sha256": "439d7e99b34bd3727896d9a06247d4bd80d8276f208f4fdefce919ce74b602c3"
+    },
+    {
+      "path": "web/scripts/build-portrait-scene.mjs",
+      "bytes": 17882,
+      "sha256": "ef295214bb7928ff00adda1c8195a9ebc89ff6052240bf70cc2bb6616b8ff132"
+    },
+    {
+      "path": "web/scripts/build-reference-scene.mjs",
+      "bytes": 18126,
+      "sha256": "c2622dffc9140cc1987af3f51bd3a980b866430bfacacc07a2f79556e3add53f"
+    },
+    {
+      "path": "web/scripts/calibrate-portrait-camera.mjs",
+      "bytes": 8406,
+      "sha256": "9f831416b375e8abfa6962918d2ed5319d20fd06cf18c4e645319c15f9059206"
+    },
+    {
+      "path": "web/scripts/compress-media.sh",
+      "bytes": 2692,
+      "sha256": "4bbbef6c5abfd29a5dfddca0682ca4b9948e031c868f8c8199f1a5e48a203028"
+    },
+    {
+      "path": "web/scripts/conny-scene.json",
+      "bytes": 1088,
+      "sha256": "05f4f8d8a2af00705e00fb233f06ba21655979732ea899eba6b9fcb9a87e854d"
+    },
+    {
+      "path": "web/scripts/copy-hub.mjs",
+      "bytes": 1054,
+      "sha256": "23d23f0d343a2eb74e87da78b035ba4dcd3a1ff783b1036b3787a5c7a1262ab5"
+    },
+    {
+      "path": "web/scripts/portrait-calibration.json",
+      "bytes": 2458,
+      "sha256": "caabc38984326446e3e65959118c7024c5b042a1c985093c49d9e4b7c0bd3de6"
+    },
+    {
+      "path": "web/scripts/verify-publication.mjs",
+      "bytes": 5100,
+      "sha256": "6510be77ff2f4c5952afe1007f94fa055c04df1b9057c3c74d4fd3e54ee6b523"
+    },
+    {
+      "path": "web/scripts/verify-reference.mjs",
+      "bytes": 22065,
+      "sha256": "59615dc20460892d21f98f7ec23200dffb589f0384e85954b4ec9d79fd85cff9"
+    },
+    {
+      "path": "web/src/App.tsx",
+      "bytes": 4471,
+      "sha256": "ab684a062a126f120343ec0689e5336e8837f7e84fecb37326c23186f9b7bdec"
+    },
+    {
+      "path": "web/src/content/works/autoresearch.md",
+      "bytes": 573,
+      "sha256": "c3ecf23b066f7eb3c65f6730a14bcf7daf12d13490ca9ab8f84db9c781bf5ec9"
+    },
+    {
+      "path": "web/src/content/works/example.md",
+      "bytes": 1364,
+      "sha256": "24ff2f7cb0b858fed0d9e681b0f590669d0e764a3722c4a4914118fa6c5eadec"
+    },
+    {
+      "path": "web/src/content/works/job-search-os.md",
+      "bytes": 443,
+      "sha256": "ffd1e265e77f9afbe8221f37948106294ed60863129941517e5e26125a0739ef"
+    },
+    {
+      "path": "web/src/content/works/pediatric-savior.md",
+      "bytes": 510,
+      "sha256": "7ae2d74712c7a9474a7f6fe1b990f92c01229fa49058a54bfe1e9e903010fcdb"
+    },
+    {
+      "path": "web/src/content/works/species-ot.md",
+      "bytes": 540,
+      "sha256": "1ed899bc6fa1935a9d982c135dc1a44793fd6cc0774af6c344be9223974ea0ee"
+    },
+    {
+      "path": "web/src/data/focusPoints.ts",
+      "bytes": 1783,
+      "sha256": "1029e64253732c2ffa84952711cdc6340c380213852845f0ec698bba5264ca5d"
+    },
+    {
+      "path": "web/src/data/projects.ts",
+      "bytes": 8383,
+      "sha256": "1835f751a401bb85d115a74ebe2bbe469fd482a8e478071175414de995d6ba74"
+    },
+    {
+      "path": "web/src/data/workDocs.ts",
+      "bytes": 2360,
+      "sha256": "49c4c86dfcc90d177620609d8c7a47289376240a26e14d642ada264ce134a98c"
+    },
+    {
+      "path": "web/src/data/works.ts",
+      "bytes": 6597,
+      "sha256": "02cfae827ba3bbacaad54ba23d707331d1b27c6751727f94bde48c29a2549545"
+    },
+    {
+      "path": "web/src/editorial.css",
+      "bytes": 5788,
+      "sha256": "63057252f15f801ced7ebb6b396021bb8d365eee78f4e3070f30a4d0c335067c"
+    },
+    {
+      "path": "web/src/main.tsx",
+      "bytes": 154,
+      "sha256": "b1e2647787d6d51bd34fa8a29d9c8343bd04b896c3d5429cf9f707f4d7fc8757"
+    },
+    {
+      "path": "web/src/scene/Env.tsx",
+      "bytes": 2247,
+      "sha256": "51e2f61d41b783e54d77017450087b8bf092797d2668b6dfadf32345f00c9bf8"
+    },
+    {
+      "path": "web/src/scene/Scene.tsx",
+      "bytes": 26466,
+      "sha256": "8d5799560f5da97a9927b6461337d7c621e4c1eb365abe79d16ee8903e682faf"
+    },
+    {
+      "path": "web/src/store.ts",
+      "bytes": 852,
+      "sha256": "38ba2b2a05cc0ab3721e249afa6b6488b14fea1e7ce6df42113ee3cbdd376735"
+    },
+    {
+      "path": "web/src/styles.css",
+      "bytes": 33416,
+      "sha256": "0da23622865ad977bda939a4187c1394926de55eabff919a657f244e43d596f8"
+    },
+    {
+      "path": "web/src/ui/About.css",
+      "bytes": 3689,
+      "sha256": "3f7ce390e34362cb4b394a2e3ce50e688976e98ed42ebb469a3aa721f4d209df"
+    },
+    {
+      "path": "web/src/ui/About.tsx",
+      "bytes": 3585,
+      "sha256": "00e451c560078ca662471507103870384e6c3b8c94fc3e9c6d7d4803100d8b22"
+    },
+    {
+      "path": "web/src/ui/LoadingScreen.tsx",
+      "bytes": 1993,
+      "sha256": "425ed51e12f49b7d464e211747d2ff353c9865745e47c0187574b27938fdcbd5"
+    },
+    {
+      "path": "web/src/ui/NoiseOverlay.tsx",
+      "bytes": 4039,
+      "sha256": "b021e303af607ae6d43f3c46b0084dbcb6b3ab493dc21d5beced4cb2fca89c4b"
+    },
+    {
+      "path": "web/src/ui/Resume.tsx",
+      "bytes": 7692,
+      "sha256": "561fc4ee440758d1f62c61fcd79676b2be0add3f0e1762bb3e88a02e60920dd1"
+    },
+    {
+      "path": "web/src/ui/SocialIcons.tsx",
+      "bytes": 1503,
+      "sha256": "15cde5f3d6bde385c0971f320eabb496b3a3dad9c9c88400a564a4337389e284"
+    },
+    {
+      "path": "web/src/ui/Works.css",
+      "bytes": 13799,
+      "sha256": "dfc7e2286d14fed4d60cc1cd1d818d986ef98434be7e06fed6043168e00590c2"
+    },
+    {
+      "path": "web/src/ui/Works.tsx",
+      "bytes": 13268,
+      "sha256": "105c44936894b8982627068057bdada263e5a03fb0462966b4276fa74b5a62d4"
+    },
+    {
+      "path": "web/src/vite-env.d.ts",
+      "bytes": 38,
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    },
+    {
+      "path": "web/tsconfig.app.json",
+      "bytes": 657,
+      "sha256": "b2752c7470c1281480f83c12c98d2e9ae5a3ea3b3933c7d59038fc81844c913f"
+    },
+    {
+      "path": "web/tsconfig.json",
+      "bytes": 107,
+      "sha256": "e8d6f7b50828db3953e21c7e92584f9206b3cd2551b4012507372afbb7fe9ce3"
+    },
+    {
+      "path": "web/tsconfig.node.json",
+      "bytes": 336,
+      "sha256": "3ced5d22ba9e246c839a695526296a8d067fbe9db838d728516d2eac9215b333"
+    },
+    {
+      "path": "web/vite.config.ts",
+      "bytes": 299,
+      "sha256": "606f19a327b5ada8db5ddffec696b0bd91cf56982aebf836c13be7bbb123e8d1"
+    }
+  ]
+}

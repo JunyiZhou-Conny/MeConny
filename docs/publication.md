@@ -84,3 +84,7 @@ Vercel [Instant Rollback](https://vercel.com/docs/instant-rollback) can restore 
 Use the [portrait guide](portrait/README.md) to rebuild the current open-eye model and face stickers. The prepared character and approved reference are committed under `assets/portrait/`. Sticker placement and camera corrections live in `web/scripts/portrait-calibration.json`. The two authoring scripts require fresh output paths and preserve the inputs.
 
 The legacy `web/scripts/build-reference-scene.mjs` recreates the prior wink and shirt-sticker composition. The wink production baseline is commit `611b0970c416cd235afbe8612a2e8e30c4a13b59`, with model SHA-256 `c4f68c6670534f528d2c663cf4cc0100c8f84c4803b2f28d435e92f8e237a7f7`. Keep that historical model available for comparisons or rollback.
+
+## Cloud design handoff — 2026-09-27
+
+The [cloud handoff](handoff/README.md) contains the complete local editorial-demo patch, source manifest, project evidence, and [next-agent instructions](handoff/NEXT-AGENT.md). The patch is a recovery payload; this handoff commit does not change the running application. The `claude/website-handoff-docs-sx9xp0` branch disables automatic Vercel deployment so the handoff can be shared without hosting the demo. Production main remains `62749f9`.

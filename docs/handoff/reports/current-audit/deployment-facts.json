@@ -1,0 +1,355 @@
+{
+  "verified_at": "2026-09-27T21:09:27.578896+00:00",
+  "repo": {
+    "full_name": "JunyiZhou-Conny/MeConny",
+    "html_url": "https://github.com/JunyiZhou-Conny/MeConny",
+    "private": false,
+    "default_branch": "main",
+    "pushed_at": "2026-09-17T17:22:43Z",
+    "has_pages": false,
+    "homepage": "https://me-conny.vercel.app"
+  },
+  "head": {
+    "sha": "62749f90f3ff1af836366c1a2f2361e4f264f8a5",
+    "html_url": "https://github.com/JunyiZhou-Conny/MeConny/commit/62749f90f3ff1af836366c1a2f2361e4f264f8a5",
+    "commit": {
+      "tree": {
+        "sha": "b4815d38452386fbd49ae33d0d4f0d41545cdd79",
+        "url": "https://api.github.com/repos/JunyiZhou-Conny/MeConny/git/trees/b4815d38452386fbd49ae33d0d4f0d41545cdd79"
+      },
+      "comment_count": 0
+    },
+    "date": "2026-09-17T17:22:43Z",
+    "title": "Publish open-eye portrait with face stickers (#14)"
+  },
+  "deployments": [
+    {
+      "id": 6508335903,
+      "sha": "62749f90f3ff1af836366c1a2f2361e4f264f8a5",
+      "ref": "62749f90f3ff1af836366c1a2f2361e4f264f8a5",
+      "task": "deploy",
+      "environment": "Production",
+      "production_environment": false,
+      "created_at": "2026-09-17T17:23:14Z",
+      "updated_at": "2026-09-17T17:23:15Z",
+      "statuses_url": "https://api.github.com/repos/JunyiZhou-Conny/MeConny/deployments/6508335903/statuses",
+      "statuses": [
+        {
+          "state": "success",
+          "environment": "Production",
+          "environment_url": "https://me-conny-9umujg99p-junyizhou-conny.vercel.app",
+          "log_url": "https://me-conny-9umujg99p-junyizhou-conny.vercel.app",
+          "description": "Deployment has completed",
+          "created_at": "2026-09-17T17:23:15Z",
+          "updated_at": "2026-09-17T17:23:15Z"
+        }
+      ]
+    },
+    {
+      "id": 6508302197,
+      "sha": "f788854dc5a34a1656723b6259c1b14e594bb615",
+      "ref": "f788854dc5a34a1656723b6259c1b14e594bb615",
+      "task": "deploy",
+      "environment": "Preview",
+      "production_environment": false,
+      "created_at": "2026-09-17T17:21:18Z",
+      "updated_at": "2026-09-17T17:21:18Z",
+      "statuses_url": "https://api.github.com/repos/JunyiZhou-Conny/MeConny/deployments/6508302197/statuses",
+      "statuses": [
+        {
+          "state": "success",
+          "environment": "Preview",
+          "environment_url": "https://me-conny-r3jjrw9ps-junyizhou-conny.vercel.app",
+          "log_url": "https://me-conny-r3jjrw9ps-junyizhou-conny.vercel.app",
+          "description": "Deployment has completed",
+          "created_at": "2026-09-17T17:21:18Z",
+          "updated_at": "2026-09-17T17:21:18Z"
+        }
+      ]
+    },
+    {
+      "id": 6508068669,
+      "sha": "d1e0315f702d907dbda2ac68da33b67511977641",
+      "ref": "d1e0315f702d907dbda2ac68da33b67511977641",
+      "task": "deploy",
+      "environment": "Preview",
+      "production_environment": false,
+      "created_at": "2026-09-17T17:08:15Z",
+      "updated_at": "2026-09-17T17:08:15Z",
+      "statuses_url": "https://api.github.com/repos/JunyiZhou-Conny/MeConny/deployments/6508068669/statuses",
+      "statuses": [
+        {
+          "state": "success",
+          "environment": "Preview",
+          "environment_url": "https://me-conny-jjzn4o8g0-junyizhou-conny.vercel.app",
+          "log_url": "https://me-conny-jjzn4o8g0-junyizhou-conny.vercel.app",
+          "description": "Deployment has completed",
+          "created_at": "2026-09-17T17:08:15Z",
+          "updated_at": "2026-09-17T17:08:15Z"
+        }
+      ]
+    },
+    {
+      "id": 6506968498,
+      "sha": "611b0970c416cd235afbe8612a2e8e30c4a13b59",
+      "ref": "611b0970c416cd235afbe8612a2e8e30c4a13b59",
+      "task": "deploy",
+      "environment": "Production",
+      "production_environment": false,
+      "created_at": "2026-09-17T16:06:56Z",
+      "updated_at": "2026-09-17T16:06:56Z",
+      "statuses_url": "https://api.github.com/repos/JunyiZhou-Conny/MeConny/deployments/6506968498/statuses",
+      "statuses": [
+        {
+          "state": "success",
+          "environment": "Production",
+          "environment_url": "https://me-conny-dc6zqd4vb-junyizhou-conny.vercel.app",
+          "log_url": "https://me-conny-dc6zqd4vb-junyizhou-conny.vercel.app",
+          "description": "Deployment has completed",
+          "created_at": "2026-09-17T16:06:56Z",
+          "updated_at": "2026-09-17T16:06:56Z"
+        }
+      ]
+    },
+    {
+      "id": 6506931855,
+      "sha": "2af5e97af876e207fd33c54380fd1c86027a7b9f",
+      "ref": "2af5e97af876e207fd33c54380fd1c86027a7b9f",
+      "task": "deploy",
+      "environment": "Preview",
+      "production_environment": false,
+      "created_at": "2026-09-17T16:05:01Z",
+      "updated_at": "2026-09-17T16:05:01Z",
+      "statuses_url": "https://api.github.com/repos/JunyiZhou-Conny/MeConny/deployments/6506931855/statuses",
+      "statuses": [
+        {
+          "state": "success",
+          "environment": "Preview",
+          "environment_url": "https://me-conny-cc4r5rh5h-junyizhou-conny.vercel.app",
+          "log_url": "https://me-conny-cc4r5rh5h-junyizhou-conny.vercel.app",
+          "description": "Deployment has completed",
+          "created_at": "2026-09-17T16:05:01Z",
+          "updated_at": "2026-09-17T16:05:01Z"
+        }
+      ]
+    },
+    {
+      "id": 6506850832,
+      "sha": "4793b09e2a994e83822a7ca8cdfd251e9f7f8d9a",
+      "ref": "4793b09e2a994e83822a7ca8cdfd251e9f7f8d9a",
+      "task": "deploy",
+      "environment": "Production",
+      "production_environment": false,
+      "created_at": "2026-09-17T16:00:47Z",
+      "updated_at": "2026-09-17T16:00:47Z",
+      "statuses_url": "https://api.github.com/repos/JunyiZhou-Conny/MeConny/deployments/6506850832/statuses",
+      "statuses": [
+        {
+          "state": "success",
+          "environment": "Production",
+          "environment_url": "https://me-conny-my4nai87s-junyizhou-conny.vercel.app",
+          "log_url": "https://me-conny-my4nai87s-junyizhou-conny.vercel.app",
+          "description": "Deployment has completed",
+          "created_at": "2026-09-17T16:00:47Z",
+          "updated_at": "2026-09-17T16:00:47Z"
+        }
+      ]
+    },
+    {
+      "id": 6506795928,
+      "sha": "908ad61e6c242182d31b5e9e40350558a70d179f",
+      "ref": "908ad61e6c242182d31b5e9e40350558a70d179f",
+      "task": "deploy",
+      "environment": "Preview",
+      "production_environment": false,
+      "created_at": "2026-09-17T15:57:49Z",
+      "updated_at": "2026-09-17T15:57:49Z",
+      "statuses_url": "https://api.github.com/repos/JunyiZhou-Conny/MeConny/deployments/6506795928/statuses",
+      "statuses": [
+        {
+          "state": "success",
+          "environment": "Preview",
+          "environment_url": "https://me-conny-pzu4hasxv-junyizhou-conny.vercel.app",
+          "log_url": "https://me-conny-pzu4hasxv-junyizhou-conny.vercel.app",
+          "description": "Deployment has completed",
+          "created_at": "2026-09-17T15:57:49Z",
+          "updated_at": "2026-09-17T15:57:49Z"
+        }
+      ]
+    },
+    {
+      "id": 6495235631,
+      "sha": "3398a3be4d3f0b7f05d7751aadc0200f5fffa51f",
+      "ref": "3398a3be4d3f0b7f05d7751aadc0200f5fffa51f",
+      "task": "deploy",
+      "environment": "Preview",
+      "production_environment": false,
+      "created_at": "2026-09-17T03:53:04Z",
+      "updated_at": "2026-09-17T03:53:04Z",
+      "statuses_url": "https://api.github.com/repos/JunyiZhou-Conny/MeConny/deployments/6495235631/statuses",
+      "statuses": [
+        {
+          "state": "success",
+          "environment": "Preview",
+          "environment_url": "https://me-conny-gwrsivs1g-junyizhou-conny.vercel.app",
+          "log_url": "https://me-conny-gwrsivs1g-junyizhou-conny.vercel.app",
+          "description": "Deployment has completed",
+          "created_at": "2026-09-17T03:53:04Z",
+          "updated_at": "2026-09-17T03:53:04Z"
+        }
+      ]
+    },
+    {
+      "id": 6490929607,
+      "sha": "4b1956e13761c0c30461fe2fd26154d06042b49d",
+      "ref": "4b1956e13761c0c30461fe2fd26154d06042b49d",
+      "task": "deploy",
+      "environment": "Preview",
+      "production_environment": false,
+      "created_at": "2026-09-16T21:37:26Z",
+      "updated_at": "2026-09-16T21:37:26Z",
+      "statuses_url": "https://api.github.com/repos/JunyiZhou-Conny/MeConny/deployments/6490929607/statuses",
+      "statuses": [
+        {
+          "state": "success",
+          "environment": "Preview",
+          "environment_url": "https://me-conny-r97wurdbz-junyizhou-conny.vercel.app",
+          "log_url": "https://me-conny-r97wurdbz-junyizhou-conny.vercel.app",
+          "description": "Deployment has completed",
+          "created_at": "2026-09-16T21:37:26Z",
+          "updated_at": "2026-09-16T21:37:26Z"
+        }
+      ]
+    },
+    {
+      "id": 6487253069,
+      "sha": "77a43dc4af2f4d11ac88bdcbf94fadd30dce1e87",
+      "ref": "77a43dc4af2f4d11ac88bdcbf94fadd30dce1e87",
+      "task": "deploy",
+      "environment": "Preview",
+      "production_environment": false,
+      "created_at": "2026-09-16T18:02:10Z",
+      "updated_at": "2026-09-16T18:02:12Z",
+      "statuses_url": "https://api.github.com/repos/JunyiZhou-Conny/MeConny/deployments/6487253069/statuses",
+      "statuses": [
+        {
+          "state": "success",
+          "environment": "Preview",
+          "environment_url": "https://me-conny-5yrc4r83u-junyizhou-conny.vercel.app",
+          "log_url": "https://me-conny-5yrc4r83u-junyizhou-conny.vercel.app",
+          "description": "Deployment has completed",
+          "created_at": "2026-09-16T18:02:12Z",
+          "updated_at": "2026-09-16T18:02:12Z"
+        }
+      ]
+    }
+  ],
+  "status": {
+    "state": "success",
+    "sha": "62749f90f3ff1af836366c1a2f2361e4f264f8a5",
+    "statuses": [
+      {
+        "context": "Vercel",
+        "state": "success",
+        "description": "Deployment has completed",
+        "target_url": "https://vercel.com/junyizhou-conny/me-conny/2RuS3ycz6eHNABiyu3aCK6NYCGiT",
+        "created_at": "2026-09-17T17:23:14Z",
+        "updated_at": "2026-09-17T17:23:14Z"
+      }
+    ]
+  },
+  "checks": {
+    "total_count": 0,
+    "check_runs": []
+  },
+  "runs": {
+    "total_count": 1,
+    "workflow_runs": [
+      {
+        "name": "github-pages",
+        "head_sha": "18fc4de1abd5a207707bd2a0f83664eb4593cdb5",
+        "head_branch": "cursor/go-live-vercel-3e53",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "failure",
+        "html_url": "https://github.com/JunyiZhou-Conny/MeConny/actions/runs/32905894667",
+        "created_at": "2026-08-25T22:23:16Z",
+        "updated_at": "2026-08-25T22:23:25Z",
+        "path": ".github/workflows/pages.yml"
+      }
+    ]
+  },
+  "tree": {
+    "sha": "62749f90f3ff1af836366c1a2f2361e4f264f8a5",
+    "truncated": false,
+    "tree": []
+  },
+  "protection": {
+    "message": "Branch not protected",
+    "documentation_url": "https://docs.github.com/rest/branches/branch-protection#get-branch-protection",
+    "status": "404"
+  },
+  "rules_on_main": [],
+  "release_prs": [
+    {
+      "number": 12,
+      "title": "feat(site): publish reference homepage through MeConny",
+      "state": "closed",
+      "merged": true,
+      "merged_at": "2026-09-17T16:00:18Z",
+      "merge_commit_sha": "4793b09e2a994e83822a7ca8cdfd251e9f7f8d9a",
+      "html_url": "https://github.com/JunyiZhou-Conny/MeConny/pull/12"
+    },
+    {
+      "number": 13,
+      "title": "fix(verify): account for Cloudflare email obfuscation",
+      "state": "closed",
+      "merged": true,
+      "merged_at": "2026-09-17T16:06:15Z",
+      "merge_commit_sha": "611b0970c416cd235afbe8612a2e8e30c4a13b59",
+      "html_url": "https://github.com/JunyiZhou-Conny/MeConny/pull/13"
+    },
+    {
+      "number": 14,
+      "title": "Publish open-eye portrait with face stickers",
+      "state": "closed",
+      "merged": true,
+      "merged_at": "2026-09-17T17:22:44Z",
+      "merge_commit_sha": "62749f90f3ff1af836366c1a2f2361e4f264f8a5",
+      "html_url": "https://github.com/JunyiZhou-Conny/MeConny/pull/14"
+    }
+  ],
+  "pr14_reviewed_head_checks": [
+    {
+      "name": "Cursor Approval Agent: Pull Request Router and Approver",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/JunyiZhou-Conny/MeConny/runs/105317832640"
+    },
+    {
+      "name": "Vercel Preview Comments",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/JunyiZhou-Conny/MeConny/runs/105307072357"
+    },
+    {
+      "name": "Cursor Bugbot",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/JunyiZhou-Conny/MeConny/runs/105306930790"
+    }
+  ],
+  "editorial_demo_remote_branch": {
+    "name": "codex/editorial-demo",
+    "exists": false,
+    "http_status": 404,
+    "message": "Branch not found"
+  },
+  "rulesets": [],
+  "pr14_reviewed_head_status": {
+    "sha": "f788854dc5a34a1656723b6259c1b14e594bb615",
+    "state": "success",
+    "context": "Vercel",
+    "target_url": "https://vercel.com/junyizhou-conny/me-conny/Dxkfb1WkW4hFZMATXseFeMJAts1U"
+  }
+}

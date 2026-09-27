@@ -1,0 +1,12 @@
+ts	phase	decision	why	evidence	result
+2026-09-18T06:28:33+00:00	isolation	Confirmed local MeConny-demo worktree uses production base 62749f9	User requested a demo without hosting	MeConny-demo	local only
+2026-09-18T06:28:33+00:00	design	Selected continuous vertical project journal	Project material needs more width than a portrait sidebar allows	work/editorial-demo/architecture.md	implemented
+2026-09-18T06:28:33+00:00	evidence	Used original interface renders and public research figure	Show actual project artifacts without inventing dialogue or experiment results	work/editorial-demo/evidence.md	four source assets copied
+2026-09-18T06:28:33+00:00	content	Updated Job Search OS description to current Simplify workflow	The current repository supersedes old portfolio architecture	work/editorial-demo/evidence.md	updated
+2026-09-18T06:28:33+00:00	legibility	Placed grain below HTML and made hero body 17px with 1.55 line height	Introductory text needs consistent contrast across the moving portrait	outputs/editorial-demo/verification/results.json	desktop and phone measured
+2026-09-18T06:28:33+00:00	review	Fixed source branch link and hidden hero keyboard focus	Independent inspection found a broken source path and invisible focus targets	work/editorial-demo/review.md	fixed
+2026-09-18T06:28:33+00:00	verification	Completed 155 browser checks before final reading-order refinement	Exercise every project entry and return path at three viewport sizes	outputs/editorial-demo/verification/results.json	155 passed
+2026-09-18T06:28:33+00:00	accessibility	Made mobile project DOM order match visual order	Keyboard navigation should follow title then cover then case-study link	MeConny-demo/web/src/ui/Works.tsx	targeted verification pending
+2026-09-18T06:31:38+00:00	verification	Verified final project order and keyboard behavior	Check the rendered result after the layout refinement	outputs/editorial-demo/verification/project-flow-results.json	85 passed
+2026-09-18T06:31:38+00:00	verification	Verified literal project deep-link reloads	Cold navigation alone does not prove browser reload behavior	outputs/editorial-demo/verification/deep-link-refresh.json	2 passed
+2026-09-18T06:31:38+00:00	visual	Moved Works anchor label below the fixed navigation	Keep the first section label fully readable after a navigation click	work/editorial-demo/final-checks.md	label top 110px exceeds header bottom 94px

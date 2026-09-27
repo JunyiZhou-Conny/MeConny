@@ -1,0 +1,2642 @@
+{
+  "url": "http://127.0.0.1:3023",
+  "started": "2026-09-18T06:25:34.405Z",
+  "checks": [
+    {
+      "name": "Demo model is identical to production",
+      "passed": true,
+      "detail": {
+        "sha256": "168a2c2bef0b549a86a5e906647dfdd62fc572863e5474af532815b09fba1f01",
+        "bytes": 6283724
+      }
+    },
+    {
+      "name": "desktop: hero copy is at least 16px with 1.5 line height",
+      "passed": true,
+      "detail": {
+        "size": 17,
+        "line": 26.35,
+        "family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      }
+    },
+    {
+      "name": "desktop: no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "width": 1280,
+        "scrollWidth": 1280,
+        "projects": [
+          {
+            "id": "pediatric-savior",
+            "top": 4232.671875,
+            "left": 76.796875,
+            "width": 1126.40625,
+            "height": 744.140625
+          },
+          {
+            "id": "species-ot",
+            "top": 4976.8125,
+            "left": 76.796875,
+            "width": 1126.40625,
+            "height": 795.265625
+          },
+          {
+            "id": "job-search-os",
+            "top": 5772.078125,
+            "left": 76.796875,
+            "width": 1126.40625,
+            "height": 651.5
+          },
+          {
+            "id": "autoresearch",
+            "top": 6423.578125,
+            "left": 76.796875,
+            "width": 1126.40625,
+            "height": 634.5
+          }
+        ],
+        "anchors": [
+          "focus-1",
+          "focus-2",
+          "focus-3",
+          "focus-4",
+          "focus-5"
+        ],
+        "grain": "2",
+        "scene": "0",
+        "content": "10"
+      }
+    },
+    {
+      "name": "desktop: four complete vertically ordered projects",
+      "passed": true,
+      "detail": [
+        {
+          "id": "pediatric-savior",
+          "top": 4232.671875,
+          "left": 76.796875,
+          "width": 1126.40625,
+          "height": 744.140625
+        },
+        {
+          "id": "species-ot",
+          "top": 4976.8125,
+          "left": 76.796875,
+          "width": 1126.40625,
+          "height": 795.265625
+        },
+        {
+          "id": "job-search-os",
+          "top": 5772.078125,
+          "left": 76.796875,
+          "width": 1126.40625,
+          "height": 651.5
+        },
+        {
+          "id": "autoresearch",
+          "top": 6423.578125,
+          "left": 76.796875,
+          "width": 1126.40625,
+          "height": 634.5
+        }
+      ]
+    },
+    {
+      "name": "desktop: five camera anchor wrappers retained",
+      "passed": true,
+      "detail": [
+        "focus-1",
+        "focus-2",
+        "focus-3",
+        "focus-4",
+        "focus-5"
+      ]
+    },
+    {
+      "name": "desktop: grain is contained beneath content",
+      "passed": true,
+      "detail": {
+        "scene": "0",
+        "content": "10",
+        "grain": "2"
+      }
+    },
+    {
+      "name": "Served model is identical to production",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: pediatric-savior modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4138,
+        "focused": true,
+        "scroll": 4138
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: pediatric-savior title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4138,
+        "focused": true,
+        "scroll": 4138
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: pediatric-savior cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4138,
+        "focused": true,
+        "scroll": 4138
+      }
+    },
+    {
+      "name": "desktop: species-ot cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: species-ot modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "desktop: species-ot cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4933,
+        "focused": true,
+        "scroll": 4933
+      }
+    },
+    {
+      "name": "desktop: species-ot title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: species-ot title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4933,
+        "focused": true,
+        "scroll": 4933
+      }
+    },
+    {
+      "name": "desktop: species-ot cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: species-ot cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4933,
+        "focused": true,
+        "scroll": 4933
+      }
+    },
+    {
+      "name": "desktop: job-search-os cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: job-search-os modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "desktop: job-search-os cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5671,
+        "focused": true,
+        "scroll": 5671
+      }
+    },
+    {
+      "name": "desktop: job-search-os title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: job-search-os title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5671,
+        "focused": true,
+        "scroll": 5671
+      }
+    },
+    {
+      "name": "desktop: job-search-os cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: job-search-os cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5671,
+        "focused": true,
+        "scroll": 5671
+      }
+    },
+    {
+      "name": "desktop: autoresearch cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: autoresearch modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "desktop: autoresearch cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6323,
+        "focused": true,
+        "scroll": 6323
+      }
+    },
+    {
+      "name": "desktop: autoresearch title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: autoresearch title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6323,
+        "focused": true,
+        "scroll": 6323
+      }
+    },
+    {
+      "name": "desktop: autoresearch cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "desktop: autoresearch cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6323,
+        "focused": true,
+        "scroll": 6323
+      }
+    },
+    {
+      "name": "desktop: More about me stays in this page",
+      "passed": true,
+      "detail": [
+        {
+          "text": "About",
+          "target": null
+        },
+        {
+          "text": "More about me",
+          "target": null
+        },
+        {
+          "text": "More about me",
+          "target": null
+        },
+        {
+          "text": "More about me ↓",
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "desktop: More about me reaches integrated About",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": 90.078125,
+        "width": 1280,
+        "height": 1160.453125
+      }
+    },
+    {
+      "name": "desktop: displayed media loads",
+      "passed": true,
+      "detail": [
+        {
+          "src": "http://127.0.0.1:3023/projects/pediatric-source-case-editor.png",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:3023/projects/speciesot-transport-umap-v08.png",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "name": "desktop: internal anchor targets exist",
+      "passed": true,
+      "detail": [
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#start",
+          "exists": true
+        },
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#contact",
+          "exists": true
+        },
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#pediatric-savior",
+          "exists": true
+        },
+        {
+          "href": "#species-ot",
+          "exists": true
+        },
+        {
+          "href": "#job-search-os",
+          "exists": true
+        },
+        {
+          "href": "#autoresearch",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#start",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "phone: hero copy is at least 16px with 1.5 line height",
+      "passed": true,
+      "detail": {
+        "size": 16,
+        "line": 24,
+        "family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      }
+    },
+    {
+      "name": "phone: no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "projects": [
+          {
+            "id": "pediatric-savior",
+            "top": 4726.296875,
+            "left": 22,
+            "width": 346,
+            "height": 902.796875
+          },
+          {
+            "id": "species-ot",
+            "top": 5629.09375,
+            "left": 22,
+            "width": 346,
+            "height": 988.40625
+          },
+          {
+            "id": "job-search-os",
+            "top": 6617.5,
+            "left": 22,
+            "width": 346,
+            "height": 981.359375
+          },
+          {
+            "id": "autoresearch",
+            "top": 7598.859375,
+            "left": 22,
+            "width": 346,
+            "height": 940.96875
+          }
+        ],
+        "anchors": [
+          "focus-1",
+          "focus-2",
+          "focus-3",
+          "focus-4",
+          "focus-5"
+        ],
+        "grain": "2",
+        "scene": "0",
+        "content": "10"
+      }
+    },
+    {
+      "name": "phone: four complete vertically ordered projects",
+      "passed": true,
+      "detail": [
+        {
+          "id": "pediatric-savior",
+          "top": 4726.296875,
+          "left": 22,
+          "width": 346,
+          "height": 902.796875
+        },
+        {
+          "id": "species-ot",
+          "top": 5629.09375,
+          "left": 22,
+          "width": 346,
+          "height": 988.40625
+        },
+        {
+          "id": "job-search-os",
+          "top": 6617.5,
+          "left": 22,
+          "width": 346,
+          "height": 981.359375
+        },
+        {
+          "id": "autoresearch",
+          "top": 7598.859375,
+          "left": 22,
+          "width": 346,
+          "height": 940.96875
+        }
+      ]
+    },
+    {
+      "name": "phone: five camera anchor wrappers retained",
+      "passed": true,
+      "detail": [
+        "focus-1",
+        "focus-2",
+        "focus-3",
+        "focus-4",
+        "focus-5"
+      ]
+    },
+    {
+      "name": "phone: grain is contained beneath content",
+      "passed": true,
+      "detail": {
+        "scene": "0",
+        "content": "10",
+        "grain": "2"
+      }
+    },
+    {
+      "name": "phone: story 1 has visible copy and lower scene space",
+      "passed": true,
+      "detail": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "entry": {
+          "top": 253.3125,
+          "bottom": 835.46875
+        },
+        "card": {
+          "top": 253.3125,
+          "bottom": 447.234375,
+          "height": 193.921875
+        },
+        "availableBelow": 388.234375
+      }
+    },
+    {
+      "name": "phone: story 2 has visible copy and lower scene space",
+      "passed": true,
+      "detail": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "entry": {
+          "top": 253.46875,
+          "bottom": 860.421875
+        },
+        "card": {
+          "top": 253.46875,
+          "bottom": 472.1875,
+          "height": 218.71875
+        },
+        "availableBelow": 371.8125
+      }
+    },
+    {
+      "name": "phone: story 3 has visible copy and lower scene space",
+      "passed": true,
+      "detail": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "entry": {
+          "top": 253.421875,
+          "bottom": 885.171875
+        },
+        "card": {
+          "top": 253.421875,
+          "bottom": 496.9375,
+          "height": 243.515625
+        },
+        "availableBelow": 347.0625
+      }
+    },
+    {
+      "name": "phone: story 4 has visible copy and lower scene space",
+      "passed": true,
+      "detail": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "entry": {
+          "top": 253.171875,
+          "bottom": 891.375
+        },
+        "card": {
+          "top": 253.171875,
+          "bottom": 503.140625,
+          "height": 249.96875
+        },
+        "availableBelow": 340.859375
+      }
+    },
+    {
+      "name": "phone: story 5 has visible copy and lower scene space",
+      "passed": true,
+      "detail": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "entry": {
+          "top": 253.375,
+          "bottom": 794.0625
+        },
+        "card": {
+          "top": 253.375,
+          "bottom": 557.75,
+          "height": 304.375
+        },
+        "availableBelow": 236.3125
+      }
+    },
+    {
+      "name": "phone: pediatric-savior cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: pediatric-savior modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "phone: pediatric-savior cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4608,
+        "focused": true,
+        "scroll": 4608
+      }
+    },
+    {
+      "name": "phone: pediatric-savior title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: pediatric-savior title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4608,
+        "focused": true,
+        "scroll": 4608
+      }
+    },
+    {
+      "name": "phone: pediatric-savior cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: pediatric-savior cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5093,
+        "focused": true,
+        "scroll": 5093
+      }
+    },
+    {
+      "name": "phone: species-ot cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: species-ot modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "phone: species-ot cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5511,
+        "focused": true,
+        "scroll": 5511
+      }
+    },
+    {
+      "name": "phone: species-ot title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: species-ot title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5511,
+        "focused": true,
+        "scroll": 5511
+      }
+    },
+    {
+      "name": "phone: species-ot cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: species-ot cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6082,
+        "focused": true,
+        "scroll": 6082
+      }
+    },
+    {
+      "name": "phone: job-search-os cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: job-search-os modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "phone: job-search-os cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6499,
+        "focused": true,
+        "scroll": 6499
+      }
+    },
+    {
+      "name": "phone: job-search-os title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: job-search-os title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6499,
+        "focused": true,
+        "scroll": 6499
+      }
+    },
+    {
+      "name": "phone: job-search-os cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: job-search-os cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 7063,
+        "focused": true,
+        "scroll": 7063
+      }
+    },
+    {
+      "name": "phone: autoresearch cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: autoresearch modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "phone: autoresearch cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 7481,
+        "focused": true,
+        "scroll": 7481
+      }
+    },
+    {
+      "name": "phone: autoresearch title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: autoresearch title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 7481,
+        "focused": true,
+        "scroll": 7481
+      }
+    },
+    {
+      "name": "phone: autoresearch cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "phone: autoresearch cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 8004,
+        "focused": true,
+        "scroll": 8004
+      }
+    },
+    {
+      "name": "phone: More about me stays in this page",
+      "passed": true,
+      "detail": [
+        {
+          "text": "About",
+          "target": null
+        },
+        {
+          "text": "More about me",
+          "target": null
+        },
+        {
+          "text": "More about me",
+          "target": null
+        },
+        {
+          "text": "More about me ↓",
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "phone: More about me reaches integrated About",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": 89.828125,
+        "width": 390,
+        "height": 1648.9375
+      }
+    },
+    {
+      "name": "phone: displayed media loads",
+      "passed": true,
+      "detail": [
+        {
+          "src": "http://127.0.0.1:3023/projects/pediatric-source-case-editor.png",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:3023/projects/speciesot-transport-umap-v08.png",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "name": "phone: internal anchor targets exist",
+      "passed": true,
+      "detail": [
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#start",
+          "exists": true
+        },
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#contact",
+          "exists": true
+        },
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#pediatric-savior",
+          "exists": true
+        },
+        {
+          "href": "#species-ot",
+          "exists": true
+        },
+        {
+          "href": "#job-search-os",
+          "exists": true
+        },
+        {
+          "href": "#autoresearch",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#start",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "compact-phone: hero copy is at least 16px with 1.5 line height",
+      "passed": true,
+      "detail": {
+        "size": 16,
+        "line": 24,
+        "family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      }
+    },
+    {
+      "name": "compact-phone: no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "width": 375,
+        "scrollWidth": 375,
+        "projects": [
+          {
+            "id": "pediatric-savior",
+            "top": 4117.40625,
+            "left": 22,
+            "width": 331,
+            "height": 892.796875
+          },
+          {
+            "id": "species-ot",
+            "top": 5010.203125,
+            "left": 22,
+            "width": 331,
+            "height": 1006.25
+          },
+          {
+            "id": "job-search-os",
+            "top": 6016.453125,
+            "left": 22,
+            "width": 331,
+            "height": 981.359375
+          },
+          {
+            "id": "autoresearch",
+            "top": 6997.8125,
+            "left": 22,
+            "width": 331,
+            "height": 968.15625
+          }
+        ],
+        "anchors": [
+          "focus-1",
+          "focus-2",
+          "focus-3",
+          "focus-4",
+          "focus-5"
+        ],
+        "grain": "2",
+        "scene": "0",
+        "content": "10"
+      }
+    },
+    {
+      "name": "compact-phone: four complete vertically ordered projects",
+      "passed": true,
+      "detail": [
+        {
+          "id": "pediatric-savior",
+          "top": 4117.40625,
+          "left": 22,
+          "width": 331,
+          "height": 892.796875
+        },
+        {
+          "id": "species-ot",
+          "top": 5010.203125,
+          "left": 22,
+          "width": 331,
+          "height": 1006.25
+        },
+        {
+          "id": "job-search-os",
+          "top": 6016.453125,
+          "left": 22,
+          "width": 331,
+          "height": 981.359375
+        },
+        {
+          "id": "autoresearch",
+          "top": 6997.8125,
+          "left": 22,
+          "width": 331,
+          "height": 968.15625
+        }
+      ]
+    },
+    {
+      "name": "compact-phone: five camera anchor wrappers retained",
+      "passed": true,
+      "detail": [
+        "focus-1",
+        "focus-2",
+        "focus-3",
+        "focus-4",
+        "focus-5"
+      ]
+    },
+    {
+      "name": "compact-phone: grain is contained beneath content",
+      "passed": true,
+      "detail": {
+        "scene": "0",
+        "content": "10",
+        "grain": "2"
+      }
+    },
+    {
+      "name": "compact-phone: story 1 has visible copy and lower scene space",
+      "passed": true,
+      "detail": {
+        "viewport": {
+          "width": 375,
+          "height": 667
+        },
+        "entry": {
+          "top": 199.75,
+          "bottom": 700.484375
+        },
+        "card": {
+          "top": 199.75,
+          "bottom": 393.671875,
+          "height": 193.921875
+        },
+        "availableBelow": 273.328125
+      }
+    },
+    {
+      "name": "compact-phone: story 2 has visible copy and lower scene space",
+      "passed": true,
+      "detail": {
+        "viewport": {
+          "width": 375,
+          "height": 667
+        },
+        "entry": {
+          "top": 200.484375,
+          "bottom": 726.015625
+        },
+        "card": {
+          "top": 200.484375,
+          "bottom": 419.203125,
+          "height": 218.71875
+        },
+        "availableBelow": 247.796875
+      }
+    },
+    {
+      "name": "compact-phone: story 3 has visible copy and lower scene space",
+      "passed": true,
+      "detail": {
+        "viewport": {
+          "width": 375,
+          "height": 667
+        },
+        "entry": {
+          "top": 200.015625,
+          "bottom": 750.34375
+        },
+        "card": {
+          "top": 200.015625,
+          "bottom": 443.53125,
+          "height": 243.515625
+        },
+        "availableBelow": 223.46875
+      }
+    },
+    {
+      "name": "compact-phone: story 4 has visible copy and lower scene space",
+      "passed": true,
+      "detail": {
+        "viewport": {
+          "width": 375,
+          "height": 667
+        },
+        "entry": {
+          "top": 200.34375,
+          "bottom": 757.125
+        },
+        "card": {
+          "top": 200.34375,
+          "bottom": 450.3125,
+          "height": 249.96875
+        },
+        "availableBelow": 216.6875
+      }
+    },
+    {
+      "name": "compact-phone: story 5 has visible copy and lower scene space",
+      "passed": true,
+      "detail": {
+        "viewport": {
+          "width": 375,
+          "height": 667
+        },
+        "entry": {
+          "top": 200.125,
+          "bottom": 691.25
+        },
+        "card": {
+          "top": 200.125,
+          "bottom": 504.5,
+          "height": 304.375
+        },
+        "availableBelow": 162.5
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: pediatric-savior modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4024,
+        "focused": true,
+        "scroll": 4024
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: pediatric-savior title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4024,
+        "focused": true,
+        "scroll": 4024
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: pediatric-savior cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4563,
+        "focused": true,
+        "scroll": 4563
+      }
+    },
+    {
+      "name": "compact-phone: species-ot cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: species-ot modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "compact-phone: species-ot cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4969,
+        "focused": true,
+        "scroll": 4969
+      }
+    },
+    {
+      "name": "compact-phone: species-ot title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: species-ot title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4969,
+        "focused": true,
+        "scroll": 4969
+      }
+    },
+    {
+      "name": "compact-phone: species-ot cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: species-ot cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5569,
+        "focused": true,
+        "scroll": 5569
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: job-search-os modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5977,
+        "focused": true,
+        "scroll": 5977
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: job-search-os title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5977,
+        "focused": true,
+        "scroll": 5977
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: job-search-os cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6550,
+        "focused": true,
+        "scroll": 6550
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch cover opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: autoresearch modal contains document focus and makes background inert",
+      "passed": true,
+      "detail": {
+        "backgroundInert": true,
+        "focusTrace": [
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BODY",
+            "inside": false,
+            "documentFocused": false,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "DIALOG",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "BUTTON",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          },
+          {
+            "tag": "A",
+            "inside": true,
+            "documentFocused": true,
+            "modal": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6918,
+        "focused": true,
+        "scroll": 6918
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch title opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: autoresearch title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6918,
+        "focused": true,
+        "scroll": 6918
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch cta opens correct detail",
+      "passed": true
+    },
+    {
+      "name": "compact-phone: autoresearch cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 7518,
+        "focused": true,
+        "scroll": 7518
+      }
+    },
+    {
+      "name": "compact-phone: More about me stays in this page",
+      "passed": true,
+      "detail": [
+        {
+          "text": "About",
+          "target": null
+        },
+        {
+          "text": "More about me",
+          "target": null
+        },
+        {
+          "text": "More about me",
+          "target": null
+        },
+        {
+          "text": "More about me ↓",
+          "target": null
+        }
+      ]
+    },
+    {
+      "name": "compact-phone: More about me reaches integrated About",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": 89.96875,
+        "width": 375,
+        "height": 1648.9375
+      }
+    },
+    {
+      "name": "compact-phone: displayed media loads",
+      "passed": true,
+      "detail": [
+        {
+          "src": "http://127.0.0.1:3023/projects/pediatric-source-case-editor.png",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:3023/projects/speciesot-transport-umap-v08.png",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "name": "compact-phone: internal anchor targets exist",
+      "passed": true,
+      "detail": [
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#start",
+          "exists": true
+        },
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#contact",
+          "exists": true
+        },
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#works",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#pediatric-savior",
+          "exists": true
+        },
+        {
+          "href": "#species-ot",
+          "exists": true
+        },
+        {
+          "href": "#job-search-os",
+          "exists": true
+        },
+        {
+          "href": "#autoresearch",
+          "exists": true
+        },
+        {
+          "href": "#about",
+          "exists": true
+        },
+        {
+          "href": "#start",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "/hub normalizes to integrated About",
+      "passed": true,
+      "detail": {
+        "top": 90.078125,
+        "path": "/",
+        "hash": "#about"
+      }
+    },
+    {
+      "name": "/hub/ normalizes to integrated About",
+      "passed": true,
+      "detail": {
+        "top": 90.078125,
+        "path": "/",
+        "hash": "#about"
+      }
+    },
+    {
+      "name": "/hub.html normalizes to integrated About",
+      "passed": true,
+      "detail": {
+        "top": 90.078125,
+        "path": "/",
+        "hash": "#about"
+      }
+    },
+    {
+      "name": "Cold direct #species-ot load remains correctly anchored after font swap",
+      "passed": true,
+      "detail": {
+        "top": 89.8125,
+        "hash": "#species-ot",
+        "scroll": 4887,
+        "fonts": "loaded"
+      }
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny/Airway-Management-Assistant",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny/Airway-Management-Assistant#readme",
+      "passed": true
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny/Airway-Management-Assistant/tree/9edcba81b3535c37852a89d2f6b6fac273843d6b/src",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny/Airway-Management-Assistant/tree/9edcba81b3535c37852a89d2f6b6fac273843d6b/src",
+      "passed": true
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny/Airway-Management-Assistant",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny/Airway-Management-Assistant",
+      "passed": true
+    },
+    {
+      "name": "Local linked resource resolves: /projects/speciesot-transport-umap-v08.png",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny/speciesOT",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny/speciesOT#readme",
+      "passed": true
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny/speciesOT",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny/speciesOT",
+      "passed": true
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny/job-search-2026-2027-starter",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter#the-one-hour-daily-loop",
+      "passed": true
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny/job-search-2026-2027-starter/blob/main/docs/collaborators/SETUP.md",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter/blob/main/docs/collaborators/SETUP.md",
+      "passed": true
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny/job-search-2026-2027-starter",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter",
+      "passed": true
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny/scgen-cellot-autoresearch/blob/main/AUTONOMOUS_DESIGN.md",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch/blob/main/AUTONOMOUS_DESIGN.md",
+      "passed": true
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny/scgen-cellot-autoresearch",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch#layout",
+      "passed": true
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny/scgen-cellot-autoresearch",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch",
+      "passed": true
+    },
+    {
+      "name": "GitHub source link resolves: /JunyiZhou-Conny",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "External link has valid HTTPS target: https://github.com/JunyiZhou-Conny",
+      "passed": true
+    },
+    {
+      "name": "External link has valid HTTPS target: https://www.linkedin.com/in/junyi-zhou-270208247",
+      "passed": true
+    },
+    {
+      "name": "External link has valid HTTPS target: https://mooneylab.seas.harvard.edu/people/junyi-conny-zhou",
+      "passed": true
+    },
+    {
+      "name": "No runtime or browser console errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "runtimeErrors": [],
+  "screenshots": [
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/desktop-hero.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/desktop-project-1.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/desktop-clinical-dialog.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/desktop-project-2.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/desktop-project-3.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/desktop-project-4.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/desktop-about.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-hero.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-story-1.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-story-2.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-story-3.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-story-4.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-story-5.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-project-1.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-clinical-dialog.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-project-2.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-project-3.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-project-4.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/phone-about.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-hero.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-story-1.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-story-2.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-story-3.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-story-4.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-story-5.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-project-1.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-clinical-dialog.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-project-2.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-project-3.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-project-4.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/compact-phone-about.png",
+    "/Users/conny/Documents/Codex/2026-09-15/i-wan/outputs/editorial-demo/verification/desktop-cold-species-anchor.png"
+  ],
+  "externalLinks": [
+    {
+      "href": "https://github.com/JunyiZhou-Conny/Airway-Management-Assistant#readme",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny/Airway-Management-Assistant"
+    },
+    {
+      "href": "https://github.com/JunyiZhou-Conny/Airway-Management-Assistant/tree/9edcba81b3535c37852a89d2f6b6fac273843d6b/src",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny/Airway-Management-Assistant/tree/9edcba81b3535c37852a89d2f6b6fac273843d6b/src"
+    },
+    {
+      "href": "https://github.com/JunyiZhou-Conny/Airway-Management-Assistant",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny/Airway-Management-Assistant"
+    },
+    {
+      "href": "https://github.com/JunyiZhou-Conny/speciesOT#readme",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny/speciesOT"
+    },
+    {
+      "href": "https://github.com/JunyiZhou-Conny/speciesOT",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny/speciesOT"
+    },
+    {
+      "href": "https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter#the-one-hour-daily-loop",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter"
+    },
+    {
+      "href": "https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter/blob/main/docs/collaborators/SETUP.md",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter/blob/main/docs/collaborators/SETUP.md"
+    },
+    {
+      "href": "https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter"
+    },
+    {
+      "href": "https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch/blob/main/AUTONOMOUS_DESIGN.md",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch/blob/main/AUTONOMOUS_DESIGN.md"
+    },
+    {
+      "href": "https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch#layout",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch"
+    },
+    {
+      "href": "https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch"
+    },
+    {
+      "href": "https://github.com/JunyiZhou-Conny",
+      "protocol": "https:",
+      "status": 200,
+      "finalUrl": "https://github.com/JunyiZhou-Conny"
+    },
+    {
+      "href": "https://www.linkedin.com/in/junyi-zhou-270208247",
+      "protocol": "https:"
+    },
+    {
+      "href": "https://mooneylab.seas.harvard.edu/people/junyi-conny-zhou",
+      "protocol": "https:"
+    }
+  ],
+  "finished": "2026-09-18T06:26:35.335Z",
+  "summary": {
+    "passed": 155,
+    "failed": 0,
+    "screenshots": 32
+  }
+}

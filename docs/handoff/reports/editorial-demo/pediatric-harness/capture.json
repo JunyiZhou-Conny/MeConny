@@ -1,0 +1,12 @@
+{
+  "url": "http://127.0.0.1:54980",
+  "errors": [],
+  "externalRequestsBlocked": [],
+  "sourceCommit": "9edcba81b3535c37852a89d2f6b6fac273843d6b",
+  "fixture": "No patient, participant, or conversation records. Empty cases. Chat greeting supplied by original source. Local backend fixture acknowledges initialization only. Auth0 logout and unused type animation imports are inert.",
+  "screenshotFiles": [
+    "pediatric-source-chat.png",
+    "pediatric-source-case-editor.png",
+    "pediatric-source-instruction-editor.png"
+  ]
+}
