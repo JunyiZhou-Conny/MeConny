@@ -25,6 +25,8 @@ This iteration ran in a Claude Code cloud container on `claude/website-handoff-d
 
 An in-page trace explained an early false alarm. Escape closes the native dialog and returns focus to the trigger at once. The browser queues the dialog's `close` event, and React releases the scroll lock and unmounts only when that event arrives. At about 1 fps, that took up to 2.3 seconds. The checks now wait for React's unmount rather than the `open` attribute. The application code is unchanged, and at normal frame rates the gap is a single task.
 
+A second trace found a harness artifact. In headless mobile emulation, taking screenshots of an open modal stopped `requestAnimationFrame` for the whole page until the next screenshot. Timers kept running. That stalled the app's animation-frame focus return after the close button, but only for the project whose dialog had just been captured. The check script now takes dialog screenshots last in each viewport. An experiment that routed the close button through the native `dialog.close()` was reverted, because under the same stall it would have left the scroll lock on.
+
 The container has no GPU. Chromium used SwiftShader WebGL at about 1 fps, so the checks wait for motion to settle. Frame timing, smoothness, and real-device Safari behavior were not measured.
 
 ## Browser results
