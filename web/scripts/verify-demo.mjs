@@ -73,7 +73,7 @@ async function waitForCopy(page, selector) {
     .waitForFunction(
       (s) => [...document.querySelectorAll(`${s} .tl-period, ${s} .tl-place`)].every((el) => getComputedStyle(el).opacity === '1'),
       selector,
-      { timeout: 20000 }
+      { polling: 250, timeout: 20000 }
     )
     .catch(() => {})
 }
@@ -192,7 +192,7 @@ try {
         // queued close event arrives, which can be seconds later at ~1 fps.
         await page.locator('dialog.case-study').waitFor({ state: 'detached', timeout: 30000 })
         await page
-          .waitForFunction((el) => document.activeElement === el, await trigger.elementHandle(), { timeout: 8000 })
+          .waitForFunction((el) => document.activeElement === el, await trigger.elementHandle(), { polling: 250, timeout: 30000 })
           .catch(() => {})
         const back = await trigger.evaluate((el) => ({ focused: document.activeElement === el, scroll: window.scrollY, overflow: document.body.style.overflow }))
         check(`${viewport.name}: ${project.id} ${kind} restores focus and scroll`, back.focused && Math.abs(back.scroll - before) < 3 && back.overflow === '', { before, ...back })
@@ -201,6 +201,10 @@ try {
 
     await page.locator('.journal-outro a').click()
     await page.waitForFunction(() => location.hash === '#about')
+    // html uses smooth scrolling; at ~1 fps it can take many seconds to land.
+    await page
+      .waitForFunction(() => Math.abs(document.getElementById('about').getBoundingClientRect().top) < innerHeight * 0.3, null, { polling: 250, timeout: 60000 })
+      .catch(() => {})
     await delay(settle)
     const about = await page.locator('#about').boundingBox()
     check(`${viewport.name}: More about me reaches the integrated About`, about.y < viewport.height * 0.35 && about.y > -50, about)
