@@ -130,14 +130,30 @@
   margin-top: 24px;
   max-width: 39ch;
 }
-.project-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  color: #53604d;
-  font-size: 12px;
-  line-height: 1.6;
-  margin-top: 24px;
+.project-facts {
+  margin-top: 26px;
+  border-top: 1px solid #c3cbbb;
+  max-width: 440px;
+}
+.project-facts > div {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 1px solid #c3cbbb;
+}
+.project-facts dt,
+.case-facts dt {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.9;
+  text-transform: uppercase;
+  color: #566451;
+}
+.project-facts dd {
+  font-size: 14px;
+  line-height: 1.5;
 }
 .project-actions {
   display: flex;
@@ -149,9 +165,7 @@
 .project-actions a {
   background: none;
   border: 0;
-  font:
-    500 14px/1.5 'Helvetica Neue',
-    sans-serif;
+  font: 500 14px/1.5 var(--sans);
   color: #26352e;
   text-decoration: none;
   border-bottom: 1px solid #617657;
@@ -481,12 +495,23 @@
   margin-top: 16px;
   max-width: 38ch;
 }
+.case-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 30px;
+}
+.case-facts dd {
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.5;
+}
 .case-intro {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   padding: 40px 0;
-  margin-top: 24px;
+  margin-top: 32px;
   border-block: 1px solid #b5bfad;
 }
 .case-content h3 {
@@ -530,6 +555,16 @@
 .case-media {
   display: grid;
   gap: 28px;
+}
+@media (min-width: 901px) {
+  .case-media {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.case-media a,
+.case-analysis a {
+  display: block;
+  cursor: zoom-in;
 }
 .case-media img,
 .case-analysis img {
@@ -679,8 +714,13 @@
     margin-top: 0;
     max-width: none;
   }
-  .project-meta {
-    margin-top: 18px;
+  .project-facts {
+    margin-top: 20px;
+    max-width: none;
+  }
+  .project-facts > div {
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 12px;
   }
   .project-actions {
     margin-top: 14px;
@@ -721,7 +761,6 @@
     padding: 12px 20px;
   }
   .case-toolbar > span {
-    max-width: 70px;
     line-height: 1.5;
   }
   .case-toolbar button {
@@ -731,10 +770,16 @@
   .case-content {
     padding: 30px 22px 48px;
   }
+  .case-facts {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 20px;
+    margin-top: 24px;
+  }
   .case-intro {
     grid-template-columns: 1fr;
     gap: 28px;
     padding-block: 28px;
+    margin-top: 28px;
   }
   .case-content h2 {
     font-size: 38px;

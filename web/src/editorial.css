@@ -14,6 +14,9 @@
   --paper: #eeede5;
   --sage: #dde2d7;
   --green: #26352e;
+  --sans: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei',
+    sans-serif;
+  font-family: var(--sans);
 }
 html {
   scroll-padding-top: 90px;
@@ -115,11 +118,7 @@ summary:focus-visible {
   text-shadow: 0 2px 16px rgba(20, 30, 22, 0.3);
 }
 .about-body {
-  font:
-    400 17px/1.55 'Helvetica Neue',
-    Helvetica,
-    Arial,
-    sans-serif;
+  font: 400 17px/1.55 var(--sans);
   color: var(--green);
   margin: 0;
   max-width: none;
@@ -180,6 +179,7 @@ summary:focus-visible {
   color: var(--green);
 }
 .tl-period {
+  font-family: var(--sans);
   color: #50624f;
   font-size: 12px;
   line-height: 1.5;
@@ -317,6 +317,28 @@ summary:focus-visible {
   .tl-group-sub,
   .tl-group-head {
     font-size: 16px;
+  }
+  /* Stop 5 pulls back to the full portrait. The entry top still drives the
+     camera at 30vh; its card settles near the bottom so the face stays clear. */
+  .tl-entry:last-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: calc(70svh - 16px + 6vh);
+    padding-bottom: 6vh;
+  }
+  .tl-entry:last-child .tl-dot {
+    position: relative;
+    flex: none;
+    top: 6px;
+    left: -22px;
+    margin-bottom: -11px;
+  }
+  .tl-entry:last-child .tl-group {
+    margin-top: 0.9em;
+  }
+  .tl-entry:last-child .tl-group + .tl-group {
+    margin-top: 0.2em;
   }
 }
 @media (prefers-reduced-motion: reduce) {

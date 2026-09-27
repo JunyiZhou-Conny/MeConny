@@ -136,6 +136,25 @@ function ProjectVisual({ project }: { project: Project }) {
   )
 }
 
+function ProjectFacts({
+  project,
+  className,
+}: {
+  project: Project
+  className: string
+}) {
+  return (
+    <dl className={className}>
+      {project.facts.map((fact) => (
+        <div key={fact.label}>
+          <dt>{fact.label}</dt>
+          <dd>{fact.value}</dd>
+        </div>
+      ))}
+    </dl>
+  )
+}
+
 function CaseStudy({
   project,
   close,
@@ -174,11 +193,10 @@ function CaseStudy({
           </button>
         </div>
         <div className="case-content">
-          <p className="project-kicker">
-            {project.domain} · {project.status}
-          </p>
+          <p className="project-kicker">{project.domain}</p>
           <h2 id="case-title">{project.title}</h2>
           <p className="case-deck">{project.subtitle}</p>
+          <ProjectFacts project={project} className="case-facts" />
           <div className="case-intro">
             <section>
               <h3>The question</h3>
@@ -204,24 +222,36 @@ function CaseStudy({
           {project.visual === 'clinical' && (
             <div className="case-media">
               <figure>
-                <img
-                  src="/projects/pediatric-source-chat.png"
-                  alt="Original simulator chat with its source-provided Begin Simulation greeting"
-                  width="1440"
-                  height="960"
-                />
+                <a
+                  href="/projects/pediatric-source-chat.png"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src="/projects/pediatric-source-chat.png"
+                    alt="Original simulator chat with its source-provided Begin Simulation greeting"
+                    width="1440"
+                    height="960"
+                  />
+                </a>
                 <figcaption>
                   The resident training interface. Rendered from the original
                   source with an empty demo state.
                 </figcaption>
               </figure>
               <figure>
-                <img
-                  src="/projects/pediatric-source-instruction-editor.png"
-                  alt="Original instruction editor showing the scenario editing form"
-                  width="1440"
-                  height="960"
-                />
+                <a
+                  href="/projects/pediatric-source-instruction-editor.png"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src="/projects/pediatric-source-instruction-editor.png"
+                    alt="Original instruction editor showing the scenario editing form"
+                    width="1440"
+                    height="960"
+                  />
+                </a>
                 <figcaption>
                   Educators can adjust the simulation instructions. No patient
                   data is shown.
@@ -364,10 +394,7 @@ export default function Works({ innerRef }: { innerRef: Ref<HTMLDivElement> }) {
               </figure>
               <div className="project-copy project-description">
                 <p className="project-summary">{project.summary}</p>
-                <div className="project-meta">
-                  <span>{project.status}</span>
-                  <span>{project.stack.slice(0, 3).join(' · ')}</span>
-                </div>
+                <ProjectFacts project={project} className="project-facts" />
                 <div className="project-actions">
                   <button
                     onClick={(event) => open(project, event.currentTarget)}

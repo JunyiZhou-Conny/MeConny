@@ -7,6 +7,7 @@ export interface Project {
   summary: string
   status: string
   stack: string[]
+  facts: { label: string; value: string }[]
   repository: string
   visual: 'clinical' | 'transport' | 'queue' | 'research'
   caption: string
@@ -27,6 +28,12 @@ export const PROJECTS: Project[] = [
       'A pediatric airway simulator built with Emory Pediatrics and Children’s Healthcare of Atlanta. Residents practice cases. Educators shape the training.',
     status: 'Shipped · 2024',
     stack: ['React', 'Flask', 'MongoDB', 'Auth0', 'AWS'],
+    facts: [
+      { label: 'Role', value: 'Team lead · full-stack development' },
+      { label: 'Built for', value: 'Residents and pediatric educators' },
+      { label: 'Built with', value: 'React · Flask · MongoDB · Auth0 · AWS' },
+      { label: 'Status', value: 'Shipped · 2024' },
+    ],
     repository:
       'https://github.com/JunyiZhou-Conny/Airway-Management-Assistant',
     visual: 'clinical',
@@ -74,6 +81,12 @@ export const PROJECTS: Project[] = [
       'A research workflow for cross-species prediction. Optimal transport and scGen are compared in a shared latent space, with explicit checks on how results are measured.',
     status: 'Research in progress',
     stack: ['Python', 'PyTorch', 'scanpy', 'CellOT', 'SLURM'],
+    facts: [
+      { label: 'Question', value: 'Mouse-to-human cell transport' },
+      { label: 'Method', value: 'IMPACT_CellOT vs. scGen in a shared latent space' },
+      { label: 'Output', value: 'Research toolkit and evaluation workflow' },
+      { label: 'Status', value: 'Research in progress' },
+    ],
     repository: 'https://github.com/JunyiZhou-Conny/speciesOT',
     visual: 'transport',
     caption:
@@ -120,6 +133,12 @@ export const PROJECTS: Project[] = [
       'Discovery, a daily apply queue, and a record of what happens next. Automation prepares the work; a person reviews each opportunity and decides how to act.',
     status: 'Shared toolkit · 2026',
     stack: ['Python', 'Cursor', 'Simplify', 'CSV'],
+    facts: [
+      { label: 'Method', value: 'Overnight discovery, daily human review' },
+      { label: 'Record', value: 'Simplify is the application ledger' },
+      { label: 'Output', value: 'A starter toolkit others can copy' },
+      { label: 'Status', value: 'Shared toolkit · 2026' },
+    ],
     repository:
       'https://github.com/JunyiZhou-Conny/job-search-2026-2027-starter',
     visual: 'queue',
@@ -167,6 +186,12 @@ export const PROJECTS: Project[] = [
       'A fairshare-aware experiment loop for scGen and CellOT on FASRC Cannon. It submits runs, watches results, and turns the evidence into the next research agenda.',
     status: 'Research system · 2026',
     stack: ['Python', 'SLURM', 'FASRC Cannon'],
+    facts: [
+      { label: 'Method', value: 'One-field ablations from a frozen baseline' },
+      { label: 'Runs on', value: 'FASRC Cannon, within fairshare limits' },
+      { label: 'Results', value: 'Unpublished' },
+      { label: 'Status', value: 'Research system · 2026' },
+    ],
     repository: 'https://github.com/JunyiZhou-Conny/scgen-cellot-autoresearch',
     visual: 'research',
     caption:

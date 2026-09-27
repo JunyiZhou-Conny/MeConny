@@ -4,7 +4,7 @@
   background: #dde2d7;
   color: #26352e;
   padding: clamp(80px, 10vw, 152px) clamp(24px, 6vw, 96px) 32px;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(--sans);
   font-size: 18px;
   line-height: 1.6;
   scroll-margin-top: 48px;
@@ -33,7 +33,7 @@
 
 .about-conny-heading h2 {
   margin: 24px 0 44px;
-  font-family: Mansalva, 'Helvetica Neue', sans-serif;
+  font-family: Mansalva, var(--sans);
   font-size: clamp(48px, 5.8vw, 78px);
   font-weight: 400;
   letter-spacing: -0.045em;
