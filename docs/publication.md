@@ -88,3 +88,5 @@ The legacy `web/scripts/build-reference-scene.mjs` recreates the prior wink and 
 ## Cloud design handoff — 2026-09-27
 
 The [cloud handoff](handoff/README.md) contains the complete local editorial-demo patch, source manifest, project evidence, and [next-agent instructions](handoff/NEXT-AGENT.md). The patch is a recovery payload; this handoff commit does not change the running application. The `claude/website-handoff-docs-sx9xp0` branch disables automatic Vercel deployment so the handoff can be shared without hosting the demo. Production main remains `62749f9`.
+
+Later commits on that branch apply the patch to `web/` and continue the design. See [DEMO.md](../DEMO.md) and the [cloud iteration report](handoff/reports/cloud-iteration-2026-09-27.md). They are review work only: they were not deployed, and production main is unchanged.

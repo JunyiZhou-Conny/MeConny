@@ -4,6 +4,8 @@
 
 Everything required to recover the latest demo is in this branch. No Mac path, local ZIP, or original agent session is required.
 
+> **Update, later on 2026-09-27:** the patch is now applied on this branch. It was committed on its own first, as the exact restoration commit `e7d3aed`, and the cloud design iteration was committed after it. See [reports/cloud-iteration-2026-09-27.md](reports/cloud-iteration-2026-09-27.md). On the current branch head, `git apply --check` is expected to fail because the patch is already applied. Use `git apply --reverse --check docs/handoff/patches/editorial-demo.patch` against `e7d3aed` instead, or run `verify-restoration.py`, which rebuilds from the base on its own. The steps below describe the original handoff commit `ff9fce5`.
+
 ## What is on this branch
 
 - Branch: `claude/website-handoff-docs-sx9xp0` in `JunyiZhou-Conny/MeConny`.
