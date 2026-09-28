@@ -21,7 +21,7 @@ This iteration ran in a Claude Code cloud container on `claude/website-handoff-d
 - `npm run lint --prefix web`: 0 errors, plus the existing Fast Refresh warning in `SocialIcons.tsx`.
 - `npm run build --prefix web`: passes, with the existing large-chunk advisory.
 - `npm run verify` (root) still fails at its first contract check, `web/src/scene/Scene.tsx matches the recorded scene contract`, as the handoff README predicted. The demo patch changed Scene.tsx; this iteration did not touch it. The contract was not edited, because updating it belongs to a release decision.
-- Browser run: see "Browser results" below. Screenshots are in `evidence/cloud-iteration/`.
+- Browser run: 213 passed, 0 failed. See "Browser results" below. Screenshots are in `evidence/cloud-iteration/`.
 
 An in-page trace explained an early false alarm. Escape closes the native dialog and returns focus to the trigger at once. The browser queues the dialog's `close` event, and React releases the scroll lock and unmounts only when that event arrives. At about 1 fps, that took up to 2.3 seconds. The checks now wait for React's unmount rather than the `open` attribute. The application code is unchanged, and at normal frame rates the gap is a single task.
 
@@ -31,7 +31,31 @@ The container has no GPU. Chromium used SwiftShader WebGL at about 1 fps, so the
 
 ## Browser results
 
-Pending. The four-viewport run was still in progress when this report was first committed; its results are added in a follow-up commit.
+`web/scripts/verify-demo.mjs` ran against the dev server on 2026-09-27/28 UTC (`evidence/cloud-iteration/results.json`): **213 passed, 0 failed**, with no runtime or console errors. The run covered 49 checks each at desktop 1280×720 and wide 1680×1000, 54 each at phone 390×844 and compact phone 375×667, and 7 route and model checks.
+
+Per viewport, the checks cover:
+
+- Hero copy of at least 16px with a 1.5 line height, no horizontal overflow, one shared sans-serif stack, and grain beneath the content.
+- The five `focus-*` anchors and the `.wk-gallery` hook are retained.
+- All five story cards are fully on screen when their camera stop locks, and each timeline dot stays beside its card. On phones, stops 1–4 leave at least 70px of scene below the card, and the stop-5 card starts in the lower half so the face is visible.
+- Four projects in vertical order, each with four facts.
+- For each project, the cover, the title, and the case-study button each open the right modal by keyboard. The cover dialog keeps Tab focus inside. Escape or the close button returns focus and the reading position and releases the scroll lock.
+- The Pediatric dialog screenshots link to their full-size files.
+- "More about me" lands on the integrated About, media loads, in-page anchors exist, and external links use HTTPS.
+- Globally: the local and served `me.glb` both match the accepted SHA-256 `168a2c2b…1f01`; `/hub`, `/hub/`, and `/hub.html` land on `#about`; and a fresh `/#species-ot` load lands on that project.
+
+Curated screenshots, converted to WebP:
+
+| File | Shows |
+| --- | --- |
+| `before-compact-phone-story-5.webp` | Restored demo before this iteration: stop 5 on 375×667 with the face behind the card |
+| `compact-phone-story-5.webp`, `phone-story-5.webp` | The same stop after the change |
+| `desktop-story-5.webp`, `desktop-hero.webp` | The desktop opening, unchanged |
+| `desktop-project-1.webp`, `wide-project-1.webp`, `compact-phone-project-1.webp` | Pediatric Savior spread with the facts list |
+| `desktop-clinical-dialog.webp`, `desktop-clinical-dialog-media.webp`, `compact-phone-clinical-dialog.webp` | Case-study facts strip and side-by-side screenshots |
+| `compact-phone-about.webp` | Integrated About on the shared sans-serif stack |
+
+These are headless Chromium results with software WebGL. They are not a substitute for a look on a real phone, especially Safari with its collapsing toolbar.
 
 ## Design choices left for Conny
 

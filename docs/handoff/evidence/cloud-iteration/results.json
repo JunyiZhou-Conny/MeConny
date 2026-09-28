@@ -1,0 +1,3077 @@
+{
+  "url": "http://127.0.0.1:3023",
+  "started": "2026-09-27T23:56:56.055Z",
+  "checks": [
+    {
+      "name": "Local model matches the accepted open-eye GLB",
+      "passed": true,
+      "detail": {
+        "sha256": "168a2c2bef0b549a86a5e906647dfdd62fc572863e5474af532815b09fba1f01"
+      }
+    },
+    {
+      "name": "desktop: hero copy is at least 16px with 1.5 line height",
+      "passed": true,
+      "detail": {
+        "size": 17,
+        "line": 26.35
+      }
+    },
+    {
+      "name": "desktop: no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "width": 1280,
+        "scrollWidth": 1280,
+        "projects": [
+          {
+            "id": "pediatric-savior",
+            "top": 4232.671875,
+            "height": 741.140625,
+            "facts": 4
+          },
+          {
+            "id": "species-ot",
+            "top": 4973.8125,
+            "height": 792.265625,
+            "facts": 4
+          },
+          {
+            "id": "job-search-os",
+            "top": 5766.078125,
+            "height": 717.75,
+            "facts": 4
+          },
+          {
+            "id": "autoresearch",
+            "top": 6483.828125,
+            "height": 688.359375,
+            "facts": 4
+          }
+        ],
+        "anchors": [
+          "focus-1",
+          "focus-2",
+          "focus-3",
+          "focus-4",
+          "focus-5"
+        ],
+        "gallery": true,
+        "scene": "0",
+        "content": "10",
+        "fonts": [
+          "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+        ]
+      }
+    },
+    {
+      "name": "desktop: four vertically ordered projects with fact lists",
+      "passed": true,
+      "detail": [
+        {
+          "id": "pediatric-savior",
+          "top": 4232.671875,
+          "height": 741.140625,
+          "facts": 4
+        },
+        {
+          "id": "species-ot",
+          "top": 4973.8125,
+          "height": 792.265625,
+          "facts": 4
+        },
+        {
+          "id": "job-search-os",
+          "top": 5766.078125,
+          "height": 717.75,
+          "facts": 4
+        },
+        {
+          "id": "autoresearch",
+          "top": 6483.828125,
+          "height": 688.359375,
+          "facts": 4
+        }
+      ]
+    },
+    {
+      "name": "desktop: five camera anchors and the .wk-gallery hook retained",
+      "passed": true,
+      "detail": [
+        "focus-1",
+        "focus-2",
+        "focus-3",
+        "focus-4",
+        "focus-5"
+      ]
+    },
+    {
+      "name": "desktop: grain stays beneath content",
+      "passed": true,
+      "detail": {
+        "width": 1280,
+        "scrollWidth": 1280,
+        "projects": [
+          {
+            "id": "pediatric-savior",
+            "top": 4232.671875,
+            "height": 741.140625,
+            "facts": 4
+          },
+          {
+            "id": "species-ot",
+            "top": 4973.8125,
+            "height": 792.265625,
+            "facts": 4
+          },
+          {
+            "id": "job-search-os",
+            "top": 5766.078125,
+            "height": 717.75,
+            "facts": 4
+          },
+          {
+            "id": "autoresearch",
+            "top": 6483.828125,
+            "height": 688.359375,
+            "facts": 4
+          }
+        ],
+        "anchors": [
+          "focus-1",
+          "focus-2",
+          "focus-3",
+          "focus-4",
+          "focus-5"
+        ],
+        "gallery": true,
+        "scene": "0",
+        "content": "10",
+        "fonts": [
+          "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+        ]
+      }
+    },
+    {
+      "name": "desktop: body copy shares one sans-serif stack",
+      "passed": true,
+      "detail": [
+        "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+      ]
+    },
+    {
+      "name": "desktop: story 1 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 720,
+        "entry": {
+          "top": 215.59375,
+          "bottom": 733.75
+        },
+        "card": {
+          "top": 215.59375,
+          "bottom": 402.5625
+        },
+        "dot": {
+          "top": 221.59375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "desktop: story 1 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 720,
+        "entry": {
+          "top": 215.59375,
+          "bottom": 733.75
+        },
+        "card": {
+          "top": 215.59375,
+          "bottom": 402.5625
+        },
+        "dot": {
+          "top": 221.59375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "desktop: story 2 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 720,
+        "entry": {
+          "top": 215.75,
+          "bottom": 758.703125
+        },
+        "card": {
+          "top": 215.75,
+          "bottom": 427.515625
+        },
+        "dot": {
+          "top": 221.75
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "desktop: story 2 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 720,
+        "entry": {
+          "top": 215.75,
+          "bottom": 758.703125
+        },
+        "card": {
+          "top": 215.75,
+          "bottom": 427.515625
+        },
+        "dot": {
+          "top": 221.75
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "desktop: story 3 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 720,
+        "entry": {
+          "top": 215.703125,
+          "bottom": 758.65625
+        },
+        "card": {
+          "top": 215.703125,
+          "bottom": 427.46875
+        },
+        "dot": {
+          "top": 221.703125
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "desktop: story 3 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 720,
+        "entry": {
+          "top": 215.703125,
+          "bottom": 758.65625
+        },
+        "card": {
+          "top": 215.703125,
+          "bottom": 427.46875
+        },
+        "dot": {
+          "top": 221.703125
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "desktop: story 4 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 720,
+        "entry": {
+          "top": 215.65625,
+          "bottom": 758.609375
+        },
+        "card": {
+          "top": 215.65625,
+          "bottom": 427.421875
+        },
+        "dot": {
+          "top": 221.65625
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "desktop: story 4 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 720,
+        "entry": {
+          "top": 215.65625,
+          "bottom": 758.609375
+        },
+        "card": {
+          "top": 215.65625,
+          "bottom": 427.421875
+        },
+        "dot": {
+          "top": 221.65625
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "desktop: story 5 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 720,
+        "entry": {
+          "top": 215.609375,
+          "bottom": 708.171875
+        },
+        "card": {
+          "top": 215.609375,
+          "bottom": 506.578125
+        },
+        "dot": {
+          "top": 221.609375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "desktop: story 5 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 720,
+        "entry": {
+          "top": 215.609375,
+          "bottom": 708.171875
+        },
+        "card": {
+          "top": 215.609375,
+          "bottom": 506.578125
+        },
+        "dot": {
+          "top": 221.609375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "desktop: pediatric-savior cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4181,
+        "focused": true,
+        "scroll": 4181,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 3985,
+        "focused": true,
+        "scroll": 3985,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: pediatric-savior cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4449,
+        "focused": true,
+        "scroll": 4449,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: species-ot cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: species-ot keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "desktop: species-ot cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4948,
+        "focused": true,
+        "scroll": 4948,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: species-ot title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: species-ot title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4752,
+        "focused": true,
+        "scroll": 4752,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: species-ot cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: species-ot cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5216,
+        "focused": true,
+        "scroll": 5216,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: job-search-os cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: job-search-os keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "desktop: job-search-os cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5703,
+        "focused": true,
+        "scroll": 5703,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: job-search-os title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: job-search-os title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5507,
+        "focused": true,
+        "scroll": 5507,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: job-search-os cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: job-search-os cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5971,
+        "focused": true,
+        "scroll": 5971,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: autoresearch cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: autoresearch keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "desktop: autoresearch cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6406,
+        "focused": true,
+        "scroll": 6406,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: autoresearch title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: autoresearch title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6225,
+        "focused": true,
+        "scroll": 6225,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: autoresearch cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "desktop: autoresearch cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6659,
+        "focused": true,
+        "scroll": 6659,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "desktop: More about me reaches the integrated About",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": 90.1875,
+        "width": 1280,
+        "height": 1160.453125
+      }
+    },
+    {
+      "name": "desktop: displayed media loads",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "desktop: internal anchor targets exist",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "desktop: external links are HTTPS",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "desktop: clinical screenshots open at full size",
+      "passed": true,
+      "detail": [
+        {
+          "href": "/projects/pediatric-source-chat.png",
+          "img": true
+        },
+        {
+          "href": "/projects/pediatric-source-instruction-editor.png",
+          "img": true
+        }
+      ]
+    },
+    {
+      "name": "wide: hero copy is at least 16px with 1.5 line height",
+      "passed": true,
+      "detail": {
+        "size": 17,
+        "line": 26.35
+      }
+    },
+    {
+      "name": "wide: no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "width": 1680,
+        "scrollWidth": 1680,
+        "projects": [
+          {
+            "id": "pediatric-savior",
+            "top": 5196.8125,
+            "height": 813.625,
+            "facts": 4
+          },
+          {
+            "id": "species-ot",
+            "top": 6010.4375,
+            "height": 860.8125,
+            "facts": 4
+          },
+          {
+            "id": "job-search-os",
+            "top": 6871.25,
+            "height": 725.3125,
+            "facts": 4
+          },
+          {
+            "id": "autoresearch",
+            "top": 7596.5625,
+            "height": 695.921875,
+            "facts": 4
+          }
+        ],
+        "anchors": [
+          "focus-1",
+          "focus-2",
+          "focus-3",
+          "focus-4",
+          "focus-5"
+        ],
+        "gallery": true,
+        "scene": "0",
+        "content": "10",
+        "fonts": [
+          "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+        ]
+      }
+    },
+    {
+      "name": "wide: four vertically ordered projects with fact lists",
+      "passed": true,
+      "detail": [
+        {
+          "id": "pediatric-savior",
+          "top": 5196.8125,
+          "height": 813.625,
+          "facts": 4
+        },
+        {
+          "id": "species-ot",
+          "top": 6010.4375,
+          "height": 860.8125,
+          "facts": 4
+        },
+        {
+          "id": "job-search-os",
+          "top": 6871.25,
+          "height": 725.3125,
+          "facts": 4
+        },
+        {
+          "id": "autoresearch",
+          "top": 7596.5625,
+          "height": 695.921875,
+          "facts": 4
+        }
+      ]
+    },
+    {
+      "name": "wide: five camera anchors and the .wk-gallery hook retained",
+      "passed": true,
+      "detail": [
+        "focus-1",
+        "focus-2",
+        "focus-3",
+        "focus-4",
+        "focus-5"
+      ]
+    },
+    {
+      "name": "wide: grain stays beneath content",
+      "passed": true,
+      "detail": {
+        "width": 1680,
+        "scrollWidth": 1680,
+        "projects": [
+          {
+            "id": "pediatric-savior",
+            "top": 5196.8125,
+            "height": 813.625,
+            "facts": 4
+          },
+          {
+            "id": "species-ot",
+            "top": 6010.4375,
+            "height": 860.8125,
+            "facts": 4
+          },
+          {
+            "id": "job-search-os",
+            "top": 6871.25,
+            "height": 725.3125,
+            "facts": 4
+          },
+          {
+            "id": "autoresearch",
+            "top": 7596.5625,
+            "height": 695.921875,
+            "facts": 4
+          }
+        ],
+        "anchors": [
+          "focus-1",
+          "focus-2",
+          "focus-3",
+          "focus-4",
+          "focus-5"
+        ],
+        "gallery": true,
+        "scene": "0",
+        "content": "10",
+        "fonts": [
+          "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+        ]
+      }
+    },
+    {
+      "name": "wide: body copy shares one sans-serif stack",
+      "passed": true,
+      "detail": [
+        "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+      ]
+    },
+    {
+      "name": "wide: story 1 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 1000,
+        "entry": {
+          "top": 300,
+          "bottom": 946.96875
+        },
+        "card": {
+          "top": 300,
+          "bottom": 486.96875
+        },
+        "dot": {
+          "top": 306
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "wide: story 1 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 1000,
+        "entry": {
+          "top": 300,
+          "bottom": 946.96875
+        },
+        "card": {
+          "top": 300,
+          "bottom": 486.96875
+        },
+        "dot": {
+          "top": 306
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "wide: story 2 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 1000,
+        "entry": {
+          "top": 299.96875,
+          "bottom": 971.734375
+        },
+        "card": {
+          "top": 299.96875,
+          "bottom": 511.734375
+        },
+        "dot": {
+          "top": 305.96875
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "wide: story 2 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 1000,
+        "entry": {
+          "top": 299.96875,
+          "bottom": 971.734375
+        },
+        "card": {
+          "top": 299.96875,
+          "bottom": 511.734375
+        },
+        "dot": {
+          "top": 305.96875
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "wide: story 3 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 1000,
+        "entry": {
+          "top": 299.734375,
+          "bottom": 971.5
+        },
+        "card": {
+          "top": 299.734375,
+          "bottom": 511.5
+        },
+        "dot": {
+          "top": 305.734375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "wide: story 3 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 1000,
+        "entry": {
+          "top": 299.734375,
+          "bottom": 971.5
+        },
+        "card": {
+          "top": 299.734375,
+          "bottom": 511.5
+        },
+        "dot": {
+          "top": 305.734375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "wide: story 4 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 1000,
+        "entry": {
+          "top": 299.5,
+          "bottom": 971.265625
+        },
+        "card": {
+          "top": 299.5,
+          "bottom": 511.265625
+        },
+        "dot": {
+          "top": 305.5
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "wide: story 4 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 1000,
+        "entry": {
+          "top": 299.5,
+          "bottom": 971.265625
+        },
+        "card": {
+          "top": 299.5,
+          "bottom": 511.265625
+        },
+        "dot": {
+          "top": 305.5
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "wide: story 5 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 1000,
+        "entry": {
+          "top": 300.265625,
+          "bottom": 871.234375
+        },
+        "card": {
+          "top": 300.265625,
+          "bottom": 591.234375
+        },
+        "dot": {
+          "top": 306.265625
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "wide: story 5 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 1000,
+        "entry": {
+          "top": 300.265625,
+          "bottom": 871.234375
+        },
+        "card": {
+          "top": 300.265625,
+          "bottom": 591.234375
+        },
+        "dot": {
+          "top": 306.265625
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "wide: pediatric-savior cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: pediatric-savior keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "wide: pediatric-savior cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5042,
+        "focused": true,
+        "scroll": 5042,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: pediatric-savior title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: pediatric-savior title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4845,
+        "focused": true,
+        "scroll": 4845,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: pediatric-savior cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: pediatric-savior cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5313,
+        "focused": true,
+        "scroll": 5313,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: species-ot cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: species-ot keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "wide: species-ot cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5879,
+        "focused": true,
+        "scroll": 5879,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: species-ot title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: species-ot title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5683,
+        "focused": true,
+        "scroll": 5683,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: species-ot cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: species-ot cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6151,
+        "focused": true,
+        "scroll": 6151,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: job-search-os cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: job-search-os keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "wide: job-search-os cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6672,
+        "focused": true,
+        "scroll": 6672,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: job-search-os title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: job-search-os title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6476,
+        "focused": true,
+        "scroll": 6476,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: job-search-os cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: job-search-os cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6944,
+        "focused": true,
+        "scroll": 6944,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: autoresearch cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: autoresearch keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "wide: autoresearch cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 7382,
+        "focused": true,
+        "scroll": 7382,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: autoresearch title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: autoresearch title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 7201,
+        "focused": true,
+        "scroll": 7201,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: autoresearch cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "wide: autoresearch cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 7639,
+        "focused": true,
+        "scroll": 7639,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "wide: More about me reaches the integrated About",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": 90.484375,
+        "width": 1680,
+        "height": 1157.0625
+      }
+    },
+    {
+      "name": "wide: displayed media loads",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "wide: internal anchor targets exist",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "wide: external links are HTTPS",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "wide: clinical screenshots open at full size",
+      "passed": true,
+      "detail": [
+        {
+          "href": "/projects/pediatric-source-chat.png",
+          "img": true
+        },
+        {
+          "href": "/projects/pediatric-source-instruction-editor.png",
+          "img": true
+        }
+      ]
+    },
+    {
+      "name": "phone: hero copy is at least 16px with 1.5 line height",
+      "passed": true,
+      "detail": {
+        "size": 16,
+        "line": 24
+      }
+    },
+    {
+      "name": "phone: no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "projects": [
+          {
+            "id": "pediatric-savior",
+            "top": 4811.046875,
+            "height": 1019.421875,
+            "facts": 4
+          },
+          {
+            "id": "species-ot",
+            "top": 5830.46875,
+            "height": 1147.03125,
+            "facts": 4
+          },
+          {
+            "id": "job-search-os",
+            "top": 6977.5,
+            "height": 1109.984375,
+            "facts": 4
+          },
+          {
+            "id": "autoresearch",
+            "top": 8087.484375,
+            "height": 1074.59375,
+            "facts": 4
+          }
+        ],
+        "anchors": [
+          "focus-1",
+          "focus-2",
+          "focus-3",
+          "focus-4",
+          "focus-5"
+        ],
+        "gallery": true,
+        "scene": "0",
+        "content": "10",
+        "fonts": [
+          "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+        ]
+      }
+    },
+    {
+      "name": "phone: four vertically ordered projects with fact lists",
+      "passed": true,
+      "detail": [
+        {
+          "id": "pediatric-savior",
+          "top": 4811.046875,
+          "height": 1019.421875,
+          "facts": 4
+        },
+        {
+          "id": "species-ot",
+          "top": 5830.46875,
+          "height": 1147.03125,
+          "facts": 4
+        },
+        {
+          "id": "job-search-os",
+          "top": 6977.5,
+          "height": 1109.984375,
+          "facts": 4
+        },
+        {
+          "id": "autoresearch",
+          "top": 8087.484375,
+          "height": 1074.59375,
+          "facts": 4
+        }
+      ]
+    },
+    {
+      "name": "phone: five camera anchors and the .wk-gallery hook retained",
+      "passed": true,
+      "detail": [
+        "focus-1",
+        "focus-2",
+        "focus-3",
+        "focus-4",
+        "focus-5"
+      ]
+    },
+    {
+      "name": "phone: grain stays beneath content",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390,
+        "projects": [
+          {
+            "id": "pediatric-savior",
+            "top": 4811.046875,
+            "height": 1019.421875,
+            "facts": 4
+          },
+          {
+            "id": "species-ot",
+            "top": 5830.46875,
+            "height": 1147.03125,
+            "facts": 4
+          },
+          {
+            "id": "job-search-os",
+            "top": 6977.5,
+            "height": 1109.984375,
+            "facts": 4
+          },
+          {
+            "id": "autoresearch",
+            "top": 8087.484375,
+            "height": 1074.59375,
+            "facts": 4
+          }
+        ],
+        "anchors": [
+          "focus-1",
+          "focus-2",
+          "focus-3",
+          "focus-4",
+          "focus-5"
+        ],
+        "gallery": true,
+        "scene": "0",
+        "content": "10",
+        "fonts": [
+          "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+        ]
+      }
+    },
+    {
+      "name": "phone: body copy shares one sans-serif stack",
+      "passed": true,
+      "detail": [
+        "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+      ]
+    },
+    {
+      "name": "phone: story 1 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.3125,
+          "bottom": 835.46875
+        },
+        "card": {
+          "top": 253.3125,
+          "bottom": 447.234375
+        },
+        "dot": {
+          "top": 259.3125
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 1 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.3125,
+          "bottom": 835.46875
+        },
+        "card": {
+          "top": 253.3125,
+          "bottom": 447.234375
+        },
+        "dot": {
+          "top": 259.3125
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 1 leaves the portrait visible",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.3125,
+          "bottom": 835.46875
+        },
+        "card": {
+          "top": 253.3125,
+          "bottom": 447.234375
+        },
+        "dot": {
+          "top": 259.3125
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 2 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.46875,
+          "bottom": 860.421875
+        },
+        "card": {
+          "top": 253.46875,
+          "bottom": 472.1875
+        },
+        "dot": {
+          "top": 259.46875
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 2 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.46875,
+          "bottom": 860.421875
+        },
+        "card": {
+          "top": 253.46875,
+          "bottom": 472.1875
+        },
+        "dot": {
+          "top": 259.46875
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 2 leaves the portrait visible",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.46875,
+          "bottom": 860.421875
+        },
+        "card": {
+          "top": 253.46875,
+          "bottom": 472.1875
+        },
+        "dot": {
+          "top": 259.46875
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 3 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.421875,
+          "bottom": 885.171875
+        },
+        "card": {
+          "top": 253.421875,
+          "bottom": 496.9375
+        },
+        "dot": {
+          "top": 259.421875
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 3 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.421875,
+          "bottom": 885.171875
+        },
+        "card": {
+          "top": 253.421875,
+          "bottom": 496.9375
+        },
+        "dot": {
+          "top": 259.421875
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 3 leaves the portrait visible",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.421875,
+          "bottom": 885.171875
+        },
+        "card": {
+          "top": 253.421875,
+          "bottom": 496.9375
+        },
+        "dot": {
+          "top": 259.421875
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 4 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.171875,
+          "bottom": 891.375
+        },
+        "card": {
+          "top": 253.171875,
+          "bottom": 503.140625
+        },
+        "dot": {
+          "top": 259.171875
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 4 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.171875,
+          "bottom": 891.375
+        },
+        "card": {
+          "top": 253.171875,
+          "bottom": 503.140625
+        },
+        "dot": {
+          "top": 259.171875
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 4 leaves the portrait visible",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.171875,
+          "bottom": 891.375
+        },
+        "card": {
+          "top": 253.171875,
+          "bottom": 503.140625
+        },
+        "dot": {
+          "top": 259.171875
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 5 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.375,
+          "bottom": 878.8125
+        },
+        "card": {
+          "top": 563.828125,
+          "bottom": 828.1875
+        },
+        "dot": {
+          "top": 569.828125
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 5 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.375,
+          "bottom": 878.8125
+        },
+        "card": {
+          "top": 563.828125,
+          "bottom": 828.1875
+        },
+        "dot": {
+          "top": 569.828125
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: story 5 leaves the portrait visible",
+      "passed": true,
+      "detail": {
+        "vh": 844,
+        "entry": {
+          "top": 253.375,
+          "bottom": 878.8125
+        },
+        "card": {
+          "top": 563.828125,
+          "bottom": 828.1875
+        },
+        "dot": {
+          "top": 569.828125
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "phone: pediatric-savior cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: pediatric-savior keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "phone: pediatric-savior cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4712,
+        "focused": true,
+        "scroll": 4712,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: pediatric-savior title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: pediatric-savior title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4443,
+        "focused": true,
+        "scroll": 4443,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: pediatric-savior cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: pediatric-savior cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5294,
+        "focused": true,
+        "scroll": 5294,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: species-ot cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: species-ot keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "phone: species-ot cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5789,
+        "focused": true,
+        "scroll": 5789,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: species-ot title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: species-ot title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5463,
+        "focused": true,
+        "scroll": 5463,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: species-ot cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: species-ot cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6442,
+        "focused": true,
+        "scroll": 6442,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: job-search-os cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: job-search-os keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "phone: job-search-os cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6928,
+        "focused": true,
+        "scroll": 6928,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: job-search-os title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: job-search-os title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6610,
+        "focused": true,
+        "scroll": 6610,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: job-search-os cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: job-search-os cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 7551,
+        "focused": true,
+        "scroll": 7551,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: autoresearch cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: autoresearch keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "phone: autoresearch cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 8006,
+        "focused": true,
+        "scroll": 8006,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: autoresearch title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: autoresearch title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 7720,
+        "focused": true,
+        "scroll": 7720,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: autoresearch cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "phone: autoresearch cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 8626,
+        "focused": true,
+        "scroll": 8626,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "phone: More about me reaches the integrated About",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": 90.078125,
+        "width": 390,
+        "height": 1592.9375
+      }
+    },
+    {
+      "name": "phone: displayed media loads",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "phone: internal anchor targets exist",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "phone: external links are HTTPS",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "phone: clinical screenshots open at full size",
+      "passed": true,
+      "detail": [
+        {
+          "href": "/projects/pediatric-source-chat.png",
+          "img": true
+        },
+        {
+          "href": "/projects/pediatric-source-instruction-editor.png",
+          "img": true
+        }
+      ]
+    },
+    {
+      "name": "compact-phone: hero copy is at least 16px with 1.5 line height",
+      "passed": true,
+      "detail": {
+        "size": 16,
+        "line": 24
+      }
+    },
+    {
+      "name": "compact-phone: no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "width": 375,
+        "scrollWidth": 375,
+        "projects": [
+          {
+            "id": "pediatric-savior",
+            "top": 4117.1875,
+            "height": 1030.421875,
+            "facts": 4
+          },
+          {
+            "id": "species-ot",
+            "top": 5147.609375,
+            "height": 1164.875,
+            "facts": 4
+          },
+          {
+            "id": "job-search-os",
+            "top": 6312.484375,
+            "height": 1109.984375,
+            "facts": 4
+          },
+          {
+            "id": "autoresearch",
+            "top": 7422.46875,
+            "height": 1095.59375,
+            "facts": 4
+          }
+        ],
+        "anchors": [
+          "focus-1",
+          "focus-2",
+          "focus-3",
+          "focus-4",
+          "focus-5"
+        ],
+        "gallery": true,
+        "scene": "0",
+        "content": "10",
+        "fonts": [
+          "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+        ]
+      }
+    },
+    {
+      "name": "compact-phone: four vertically ordered projects with fact lists",
+      "passed": true,
+      "detail": [
+        {
+          "id": "pediatric-savior",
+          "top": 4117.1875,
+          "height": 1030.421875,
+          "facts": 4
+        },
+        {
+          "id": "species-ot",
+          "top": 5147.609375,
+          "height": 1164.875,
+          "facts": 4
+        },
+        {
+          "id": "job-search-os",
+          "top": 6312.484375,
+          "height": 1109.984375,
+          "facts": 4
+        },
+        {
+          "id": "autoresearch",
+          "top": 7422.46875,
+          "height": 1095.59375,
+          "facts": 4
+        }
+      ]
+    },
+    {
+      "name": "compact-phone: five camera anchors and the .wk-gallery hook retained",
+      "passed": true,
+      "detail": [
+        "focus-1",
+        "focus-2",
+        "focus-3",
+        "focus-4",
+        "focus-5"
+      ]
+    },
+    {
+      "name": "compact-phone: grain stays beneath content",
+      "passed": true,
+      "detail": {
+        "width": 375,
+        "scrollWidth": 375,
+        "projects": [
+          {
+            "id": "pediatric-savior",
+            "top": 4117.1875,
+            "height": 1030.421875,
+            "facts": 4
+          },
+          {
+            "id": "species-ot",
+            "top": 5147.609375,
+            "height": 1164.875,
+            "facts": 4
+          },
+          {
+            "id": "job-search-os",
+            "top": 6312.484375,
+            "height": 1109.984375,
+            "facts": 4
+          },
+          {
+            "id": "autoresearch",
+            "top": 7422.46875,
+            "height": 1095.59375,
+            "facts": 4
+          }
+        ],
+        "anchors": [
+          "focus-1",
+          "focus-2",
+          "focus-3",
+          "focus-4",
+          "focus-5"
+        ],
+        "gallery": true,
+        "scene": "0",
+        "content": "10",
+        "fonts": [
+          "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+        ]
+      }
+    },
+    {
+      "name": "compact-phone: body copy shares one sans-serif stack",
+      "passed": true,
+      "detail": [
+        "\"Helvetica Neue\", Helvetica, Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+      ]
+    },
+    {
+      "name": "compact-phone: story 1 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 199.75,
+          "bottom": 700.484375
+        },
+        "card": {
+          "top": 199.75,
+          "bottom": 393.671875
+        },
+        "dot": {
+          "top": 205.75
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 1 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 199.75,
+          "bottom": 700.484375
+        },
+        "card": {
+          "top": 199.75,
+          "bottom": 393.671875
+        },
+        "dot": {
+          "top": 205.75
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 1 leaves the portrait visible",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 199.75,
+          "bottom": 700.484375
+        },
+        "card": {
+          "top": 199.75,
+          "bottom": 393.671875
+        },
+        "dot": {
+          "top": 205.75
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 2 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.484375,
+          "bottom": 726.015625
+        },
+        "card": {
+          "top": 200.484375,
+          "bottom": 419.203125
+        },
+        "dot": {
+          "top": 206.484375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 2 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.484375,
+          "bottom": 726.015625
+        },
+        "card": {
+          "top": 200.484375,
+          "bottom": 419.203125
+        },
+        "dot": {
+          "top": 206.484375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 2 leaves the portrait visible",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.484375,
+          "bottom": 726.015625
+        },
+        "card": {
+          "top": 200.484375,
+          "bottom": 419.203125
+        },
+        "dot": {
+          "top": 206.484375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 3 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.015625,
+          "bottom": 750.34375
+        },
+        "card": {
+          "top": 200.015625,
+          "bottom": 443.53125
+        },
+        "dot": {
+          "top": 206.015625
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 3 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.015625,
+          "bottom": 750.34375
+        },
+        "card": {
+          "top": 200.015625,
+          "bottom": 443.53125
+        },
+        "dot": {
+          "top": 206.015625
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 3 leaves the portrait visible",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.015625,
+          "bottom": 750.34375
+        },
+        "card": {
+          "top": 200.015625,
+          "bottom": 443.53125
+        },
+        "dot": {
+          "top": 206.015625
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 4 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.34375,
+          "bottom": 757.125
+        },
+        "card": {
+          "top": 200.34375,
+          "bottom": 450.3125
+        },
+        "dot": {
+          "top": 206.34375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 4 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.34375,
+          "bottom": 757.125
+        },
+        "card": {
+          "top": 200.34375,
+          "bottom": 450.3125
+        },
+        "dot": {
+          "top": 206.34375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 4 leaves the portrait visible",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.34375,
+          "bottom": 757.125
+        },
+        "card": {
+          "top": 200.34375,
+          "bottom": 450.3125
+        },
+        "dot": {
+          "top": 206.34375
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 5 copy is fully on screen",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.125,
+          "bottom": 691.03125
+        },
+        "card": {
+          "top": 386.65625,
+          "bottom": 651.015625
+        },
+        "dot": {
+          "top": 392.65625
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 5 timeline dot stays beside its card",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.125,
+          "bottom": 691.03125
+        },
+        "card": {
+          "top": 386.65625,
+          "bottom": 651.015625
+        },
+        "dot": {
+          "top": 392.65625
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: story 5 leaves the portrait visible",
+      "passed": true,
+      "detail": {
+        "vh": 667,
+        "entry": {
+          "top": 200.125,
+          "bottom": 691.03125
+        },
+        "card": {
+          "top": 386.65625,
+          "bottom": 651.015625
+        },
+        "dot": {
+          "top": 392.65625
+        },
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "compact-phone: pediatric-savior cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4102,
+        "focused": true,
+        "scroll": 4102,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 3838,
+        "focused": true,
+        "scroll": 3838,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Pediatric Savior",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: pediatric-savior cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4700,
+        "focused": true,
+        "scroll": 4700,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: species-ot cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: species-ot keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "compact-phone: species-ot cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5190,
+        "focused": true,
+        "scroll": 5190,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: species-ot title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: species-ot title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 4868,
+        "focused": true,
+        "scroll": 4868,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: species-ot cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "speciesOT",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: species-ot cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 5865,
+        "focused": true,
+        "scroll": 5865,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "compact-phone: job-search-os cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6352,
+        "focused": true,
+        "scroll": 6352,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6033,
+        "focused": true,
+        "scroll": 6033,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Job Search OS",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: job-search-os cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 6975,
+        "focused": true,
+        "scroll": 6975,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch cover opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch keeps keyboard focus inside the dialog",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "compact-phone: autoresearch cover restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 7429,
+        "focused": true,
+        "scroll": 7429,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch title opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch title restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 7143,
+        "focused": true,
+        "scroll": 7143,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch cta opens its modal case study",
+      "passed": true,
+      "detail": {
+        "title": "Autoresearch",
+        "facts": 4,
+        "modal": true,
+        "focusInside": true
+      }
+    },
+    {
+      "name": "compact-phone: autoresearch cta restores focus and scroll",
+      "passed": true,
+      "detail": {
+        "before": 8071,
+        "focused": true,
+        "scroll": 8071,
+        "overflow": ""
+      }
+    },
+    {
+      "name": "compact-phone: More about me reaches the integrated About",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": 90.0625,
+        "width": 375,
+        "height": 1648.9375
+      }
+    },
+    {
+      "name": "compact-phone: displayed media loads",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "compact-phone: internal anchor targets exist",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "compact-phone: external links are HTTPS",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "compact-phone: clinical screenshots open at full size",
+      "passed": true,
+      "detail": [
+        {
+          "href": "/projects/pediatric-source-chat.png",
+          "img": true
+        },
+        {
+          "href": "/projects/pediatric-source-instruction-editor.png",
+          "img": true
+        }
+      ]
+    },
+    {
+      "name": "Served model is the accepted open-eye GLB",
+      "passed": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "/hub lands on #about",
+      "passed": true,
+      "detail": {
+        "top": 90.1875,
+        "path": "/",
+        "hash": "#about"
+      }
+    },
+    {
+      "name": "/hub/ lands on #about",
+      "passed": true,
+      "detail": {
+        "top": 90.1875,
+        "path": "/",
+        "hash": "#about"
+      }
+    },
+    {
+      "name": "/hub.html lands on #about",
+      "passed": true,
+      "detail": {
+        "top": 90.1875,
+        "path": "/",
+        "hash": "#about"
+      }
+    },
+    {
+      "name": "/#species-ot lands on #species-ot",
+      "passed": true,
+      "detail": {
+        "top": 89.8125,
+        "path": "/",
+        "hash": "#species-ot"
+      }
+    },
+    {
+      "name": "No runtime or browser console errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "runtimeErrors": [],
+  "screenshots": [
+    "desktop-hero.png",
+    "desktop-story-1.png",
+    "desktop-story-2.png",
+    "desktop-story-3.png",
+    "desktop-story-4.png",
+    "desktop-story-5.png",
+    "desktop-project-1.png",
+    "desktop-project-2.png",
+    "desktop-project-3.png",
+    "desktop-project-4.png",
+    "desktop-about.png",
+    "desktop-clinical-dialog.png",
+    "desktop-clinical-dialog-media.png",
+    "wide-hero.png",
+    "wide-story-1.png",
+    "wide-story-2.png",
+    "wide-story-3.png",
+    "wide-story-4.png",
+    "wide-story-5.png",
+    "wide-project-1.png",
+    "wide-project-2.png",
+    "wide-project-3.png",
+    "wide-project-4.png",
+    "wide-about.png",
+    "wide-clinical-dialog.png",
+    "wide-clinical-dialog-media.png",
+    "phone-hero.png",
+    "phone-story-1.png",
+    "phone-story-2.png",
+    "phone-story-3.png",
+    "phone-story-4.png",
+    "phone-story-5.png",
+    "phone-project-1.png",
+    "phone-project-2.png",
+    "phone-project-3.png",
+    "phone-project-4.png",
+    "phone-about.png",
+    "phone-clinical-dialog.png",
+    "phone-clinical-dialog-media.png",
+    "compact-phone-hero.png",
+    "compact-phone-story-1.png",
+    "compact-phone-story-2.png",
+    "compact-phone-story-3.png",
+    "compact-phone-story-4.png",
+    "compact-phone-story-5.png",
+    "compact-phone-project-1.png",
+    "compact-phone-project-2.png",
+    "compact-phone-project-3.png",
+    "compact-phone-project-4.png",
+    "compact-phone-about.png",
+    "compact-phone-clinical-dialog.png",
+    "compact-phone-clinical-dialog-media.png"
+  ],
+  "finished": "2026-09-28T00:08:07.766Z",
+  "summary": {
+    "passed": 213,
+    "failed": 0,
+    "screenshots": 52
+  },
+  "note": "Screenshots listed here were captured to a scratch directory; a curated WebP subset is committed alongside this file."
+}
